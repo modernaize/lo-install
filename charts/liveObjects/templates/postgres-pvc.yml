@@ -1,0 +1,27 @@
+{{- if .Values.persistence.enabled }}
+  {{- if .Values.persistence.postgres.data.enabled }}
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: {{ .Release.Namespace }}-postgres-data-volumeclaim
+  labels:
+    app.kubernetes.io/managed-by: helm
+    app.kubernetes.io/name: {{ .Chart.Name }}
+    app.kubernetes.io/version: {{ .Chart.Version }}
+    app.kubernetes.io/appVersion: {{ .Chart.AppVersion }}
+    app.kubernetes.io/component: secret
+    app.kubernetes.io/helm-application: {{ .Release.Name }}
+    app.kubernetes.io/namespace: {{ .Release.Namespace }}
+    track: "stable"
+spec:
+  {{- if .Values.persistence.postgres.data.pv.enabled }}
+  storageClassName: ""
+  volumeName: {{ .Release.Namespace }}-{{ .Values.persistence.postgres.data.pv.metadata.name }}
+  {{- end }}
+  accessModes:
+    - {{ .Values.persistence.postgres.data.accessMode }}
+  resources:
+    requests:
+      storage: {{ .Values.persistence.postgres.data.size }}
+  {{- end }}
+{{- end }}

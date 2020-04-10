@@ -1,0 +1,88 @@
+# Source: postgresql/templates/statefulset.yaml
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: {{ .Values.deployment.postgres.metadata.name }}
+  labels:
+    app.kubernetes.io/managed-by: helm
+    app.kubernetes.io/name: {{ .Chart.Name }}
+    app.kubernetes.io/version: {{ .Chart.Version }}
+    app.kubernetes.io/appVersion: {{ .Chart.AppVersion }}
+    app.kubernetes.io/component: secret
+    app.kubernetes.io/helm-application: {{ .Release.Name }}
+    app.kubernetes.io/track: {{ .Values.global.labels.track | quote }}
+spec:
+  serviceName: postgresql-headless
+  replicas: 1
+  updateStrategy:
+    type: RollingUpdate
+  selector:
+    matchLabels:
+      app: postgresql
+      release: "pg"
+  template:
+    metadata:
+      name: pg-postgresql
+      labels:
+        app: postgresql
+        chart: postgresql-8.3.0
+        release: "pg"
+        heritage: "Helm"
+    spec:
+      volumes:
+      {{- if .Values.persistence.enabled }}
+        {{- if .Values.persistence.postgres.data.enabled }}
+      - name: postgres-persistent-storage
+          {{- if eq .Values.persistence.postgres.data.volumeType "hostPath"}}
+        hostPath:
+          path: {{ .Values.persistence.postgres.data.hostPath }}
+          {{- end}}
+          {{- if eq .Values.persistence.postgres.data.volumeType "persistentVolumeClaim"}}
+        persistentVolumeClaim:
+          claimName: {{ .Release.Namespace }}-postgres-data-volumeclaim
+          {{- end }}
+        {{- end }}
+      {{- end }}
+      {{- if  or (.Files.Glob "files/docker-entrypoint-initdb.d/*.{sh,sql,sql.gz}") .Values.initdbScriptsConfigMap .Values.initdbScripts }}
+      - name: custom-init-scripts
+        configMap:
+          name: lo-init-scripts
+      {{- end }}
+      imagePullSecrets:
+      - name: {{ .Values.secrets.registry.imagePullSecrets }}
+      containers:
+        - name: postgres
+          image: {{ .Values.deployment.postgres.container.registry }}:{{ .Values.deployment.postgres.container.tag }}
+          imagePullPolicy: {{ .Values.deployment.postgres.container.imagePullPolicy }}
+          resources:
+            requests:
+              cpu: {{ .Values.deployment.postgres.container.resources.requests.cpu }}
+              memory: {{ .Values.deployment.postgres.container.resources.requests.memory }}
+          env:
+          - name: PGDATA
+            value: "/mnt/postgres/data"
+          - name: POSTGRES_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: {{ template "postgresql.secretName" . }}
+                key: password
+          ports:
+          - name: tcp-postgresql
+            containerPort: {{ .Values.deployment.postgres.container.ports.containerPort }}
+          volumeMounts:
+          {{- if .Values.persistence.enabled }}
+            {{- if .Values.persistence.postgres.data.enabled }}
+          - name: postgres-persistent-storage
+            mountPath: /mnt/postgres
+            {{- end }}
+          {{- end }}
+          {{- if or (.Files.Glob "files/docker-entrypoint-initdb.d/*.{sh,sql,sql.gz}") .Values.initdbScriptsConfigMap .Values.initdbScripts }}
+          - name: custom-init-scripts
+            mountPath: /docker-entrypoint-initdb.d/
+          {{- end }}
+          {{- if .Values.initdbScriptsSecret }}
+          - name: custom-init-scripts-secret
+            mountPath: /docker-entrypoint-initdb.d/secret
+          {{- end }}
+         
+

@@ -1,0 +1,48 @@
+{{- if .Values.persistence.enabled }}
+{{- if .Values.persistence.backend.data.enabled }}
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: {{ .Release.Namespace }}-backend-data-volumeclaim
+  labels:
+    app.kubernetes.io/managed-by: helm
+    app.kubernetes.io/name: {{ .Chart.Name }}
+    app.kubernetes.io/version: {{ .Chart.Version }}
+    app.kubernetes.io/appVersion: {{ .Chart.AppVersion }}
+    app.kubernetes.io/component: secret
+    app.kubernetes.io/helm-application: {{ .Release.Name }}
+    app.kubernetes.io/namespace: {{ .Release.Namespace }}
+    app.kubernetes.io/track: {{ .Values.global.labels.track | quote }}
+spec:
+  {{- if .Values.persistence.backend.data.pv.enabled }}
+  storageClassName: ""
+  volumeName: {{ .Release.Namespace }}-{{ .Values.persistence.backend.data.pv.metadata.name }}
+  {{- end }}
+  accessModes:
+    - {{ .Values.persistence.backend.data.accessMode }}
+  resources:
+    requests:
+      storage: {{ .Values.persistence.backend.data.size }}
+{{- end }}
+{{- end }}
+## Logs
+{{- if .Values.persistence.enabled }}
+{{- if .Values.persistence.backend.logs.enabled }}
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: {{ .Release.Namespace }}-backend-logs-volumeclaim
+spec:
+  {{- if .Values.persistence.backend.logs.pv.enabled }}
+  storageClassName: ""
+  volumeName: {{ .Release.Namespace }}-{{ .Values.persistence.backend.logs.pv.metadata.name }}
+  {{- end }}
+  accessModes:
+    - {{ toYaml .Values.persistence.backend.logs.accessMode }}
+  resources:
+    requests:
+      storage: {{ .Values.persistence.backend.logs.size }}
+{{- end }}
+{{- end }}

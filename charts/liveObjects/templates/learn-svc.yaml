@@ -1,0 +1,23 @@
+{{- if .Values.services.learn.enabled }}
+kind: Service
+apiVersion: v1
+metadata:
+  name: {{ .Values.services.learn.metadata.name }}
+  labels:
+    app.kubernetes.io/managed-by: helm
+    app.kubernetes.io/name: {{ .Chart.Name }}
+    app.kubernetes.io/version: {{ .Chart.Version }}
+    app.kubernetes.io/appVersion: {{ .Chart.AppVersion }}
+    app.kubernetes.io/component: secret
+    app.kubernetes.io/helm-application: {{ .Release.Name }}
+    app.kubernetes.io/namespace: {{ .Release.Namespace }}
+    app.kubernetes.io/track: {{ .Values.global.labels.track | quote }}
+spec:
+  selector:
+    app: {{ .Values.services.learn.spec.selector.app }}
+  ports:
+  - protocol: {{ .Values.services.learn.spec.ports.protocol }}
+    port: {{ .Values.services.learn.spec.ports.port }}
+    targetPort: {{ .Values.services.learn.spec.ports.targetPort }}
+  type: {{ .Values.services.learn.spec.type }}
+{{- end }}

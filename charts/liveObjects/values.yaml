@@ -1,0 +1,412 @@
+# Default values for liveObjects.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+# global
+global:
+  image:
+    registry: docker.io
+    repository: liveobjects
+  labels:
+    track: stable
+
+# Docker registry 
+secrets:
+  registry:    
+    imagePullSecrets: regcred
+
+# used in frontend Liveobjects signed keys
+# keys.pem
+# cert.pem
+tls_cert_provided: false
+
+certManager:
+  enabled: true
+  tls:
+    secretName: lo-tls
+  ca: 
+    name: letsencrypt
+  letsencrypt:
+    # Env - prod || staging
+    env: prod
+    spec:
+      acme:
+        email: info@liveobjects.education
+        serverProd: https://acme-v02.api.letsencrypt.org/directory
+        serverStaging: https://acme-staging.api.letsencrypt.org/directory
+
+networkPolicy:
+  enabled: false
+ 
+    ## Enable creation of NetworkPolicy resources. Only Ingress traffic is filtered for now.
+    ##
+    ##
+  allowExternal: true
+  
+    ## if explicitNamespacesSelector is missing or set to {}, only client Pods that are in the networkPolicy's namespace
+    ## and that match other criteria, the ones that have the good label, can reach the DB.
+    ## But sometimes, we want the DB to be accessible to clients from other namespaces, in this case, we can use this
+    ## LabelSelector to select these namespaces, note that the networkPolicy's namespace should also be explicitly added.
+    ##
+    # explicitNamespacesSelector:
+      # matchLabels:
+        # role: frontend
+      # matchExpressions:
+        # - {key: role, operator: In, values: [frontend]}
+  
+resourceQuotas:
+  enabled: false
+
+ingress:
+  enabled: true
+  tls: 
+  #  - secretName: chart-example-tls
+  #    hosts:
+    host: e1.liveobjects.education
+  annotations: {}
+  # kubernetes.io/ingress.class: nginx
+  # kubernetes.io/tls-acme: "true"
+  # nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+  
+  name: frontend-ingress
+# Deployment
+deployment:
+
+  postgres:
+    metadata:
+      name: postgre-deployment
+    container:
+      registry: liveobjects/install-postgres
+      tag: "R-v1.8.1"
+      # Always IfNotPresent
+      imagePullPolicy: "Always"
+      resources:
+        requests:
+          cpu: 200m
+          memory: 1G
+      ports:
+        containerPort: 5432
+    spec:
+      replicas: 1
+  frontend:
+    metadata:
+      name: frontend-deployment
+    container:
+      registry: liveobjects/ui
+      tag: "R-v1.8.1"
+      # Always IfNotPresent
+      imagePullPolicy: "Always"
+      resources:
+        requests:
+          cpu: 200m
+          memory: 1G
+      ports:
+        containerPort: 3000
+    spec:
+      replicas: 1
+
+  backend:
+    metadata:
+      name: backend-deployment
+    container:
+      registry: liveobjects/service
+      tag: "R-v1.8.1"
+      # Always IfNotPresent
+      imagePullPolicy: "Always"
+      resources:
+        requests:
+          cpu: 200m
+          memory: 1G
+      ports:
+        containerPort: 8000
+    spec:
+      replicas: 1
+
+  learn:
+    metadata:
+      name: learn-deployment
+    container:
+      registry: liveobjects/learn
+      tag: "R-v1.8.1"
+      # Always IfNotPresent
+      imagePullPolicy: "Always"
+      resources:
+        requests:
+          cpu: 200m
+          memory: 1G
+      ports:
+        containerPort: 5000
+    spec:
+      replicas: 1
+
+# Persistence Volumes
+
+persistence:
+  enabled: true
+  persistensDisk: gcePersistentDisk
+      
+  # Live objects persistence
+  postgres:
+    data:
+      enabled: true
+      size: 5Gi
+      accessMode: ReadWriteOnce
+      volumeType: persistentVolumeClaim # hostPath, persistentVolumeClaim 
+      hostPath: /mount-point/postgres/data
+      pv:
+        enabled: true
+        storageClassName: ""
+        metadata:
+          name: postgres-data
+        spec:
+          gcePersistentDisk:
+            pdName: postgres-data
+            fsType: ext4
+          awsElasticBlockStore:
+            volumeID: volumeID
+            fsType: ext4
+          elasticFileSystem:
+              server: server
+              path: path
+          azureDisk:
+              diskName: name
+              diskURI: uri
+          azureFileStorage:
+              secretName: azure-secret
+              shareName: azftest
+              readOnly: false
+              mountOptions:
+                - dir_mode=0777
+                - file_mode=0777
+
+  frontend:
+    logs:
+      enabled: true
+      size: 5Gi
+      accessMode: ReadWriteOnce
+      volumeType: persistentVolumeClaim # hostPath, persistentVolumeClaim 
+      hostPath: /mount-point/frontend/logs
+      pv:
+        enabled: true
+        storageClassName: ""
+        metadata:
+          name: frontend-logs
+        spec:
+          gcePersistentDisk:
+            pdName: frontend-logs
+            fsType: ext4
+          awsElasticBlockStore:
+            volumeID: volumeID
+            fsType: ext4
+          elasticFileSystem:
+              server: server
+              path: path
+          azureDisk:
+              diskName: name
+              diskURI: uri
+          azureFileStorage:
+              secretName: azure-secret
+              shareName: azftest
+              readOnly: false
+              mountOptions:
+                - dir_mode=0777
+                - file_mode=0777
+
+  backend:
+    data:
+      enabled: true
+      size: 5Gi
+      accessMode: ReadWriteOnce
+      volumeType: persistentVolumeClaim # hostPath, persistentVolumeClaim 
+      hostPath: /mount-point/backend/data
+      pv:
+        enabled: true
+        storageClassName: ""
+        metadata:
+          name: backend-data
+        spec:
+          gcePersistentDisk:
+            pdName: backend-data
+            fsType: ext4
+          awsElasticBlockStore:
+            volumeID: volumeID
+            fsType: ext4
+          elasticFileSystem:
+              server: server
+              path: path
+          azureDisk:
+              diskName: name
+              diskURI: uri
+          azureFileStorage:
+              secretName: azure-secret
+              shareName: azftest
+              readOnly: false
+              mountOptions:
+                - dir_mode=0777
+                - file_mode=0777
+    logs:
+      enabled: true
+      size: 5Gi
+      accessMode: ReadWriteOnce
+      volumeType: persistentVolumeClaim # hostPath, persistentVolumeClaim 
+      hostPath: /mount-point/backend/logs
+      pv:
+        enabled: true
+        storageClassName: ""
+        metadata:
+          name: backend-logs
+        spec:
+          gcePersistentDisk:
+            pdName: backend-logs
+            fsType: ext4
+          awsElasticBlockStore:
+            volumeID: volumeID
+            fsType: ext4
+          elasticFileSystem:
+              server: server
+              path: path
+          azureDisk:
+              diskName: name
+              diskURI: uri
+          azureFileStorage:
+              secretName: azure-secret
+              shareName: azftest
+              readOnly: false
+              mountOptions:
+                - dir_mode=0777
+                - file_mode=0777
+
+  learn:    
+    logs:
+      enabled: true 
+      size: 5Gi
+      accessMode: ReadWriteOnce
+      volumeType: persistentVolumeClaim # hostPath, persistentVolumeClaim 
+      hostPath: /mount-point/learn/logs
+      pv:
+        enabled: true
+        storageClassName: ""
+        metadata:
+          name: learn-logs
+        spec:
+          gcePersistentDisk:
+            pdName: learn-logs
+            fsType: ext4
+          awsElasticBlockStore:
+            volumeID: volumeID
+            fsType: ext4
+          elasticFileSystem:
+              server: server
+              path: path
+          azureDisk:
+              diskName: name
+              diskURI: uri
+          azureFileStorage:
+              secretName: azure-secret
+              shareName: azftest
+              readOnly: false
+              mountOptions:
+                - dir_mode=0777
+                - file_mode=0777  learn:
+    data:
+      enabled: true
+      size: 10Gi
+      accessMode: ReadWriteOnce
+      volumeType: persistentVolumeClaim # hostPath, persistentVolumeClaim 
+      hostPath: /mount-point/learn/data
+      pv:
+        enabled: false
+        storageClassName: ""
+        metadata:
+          name: pv-learn-data
+        spec:
+          gcePersistentDisk:
+            pdName: learn-data
+            fsType: ext4
+          awsElasticBlockStore:
+            volumeID: volumeID
+            fsType: ext4
+          elasticFileSystem:
+              server: server
+              path: path
+          azureDisk:
+              diskName: name
+              diskURI: uri
+          azureFileStorage:
+              secretName: azure-secret
+              shareName: azftest
+              readOnly: false
+              mountOptions:
+                - dir_mode=0777
+                - file_mode=0777  learn:
+# Services
+services:
+  backend:
+    enabled: true
+    metadata:
+      name: backend-service
+    spec:
+      selector: 
+        app: backend
+      type: ClusterIP
+      ports:
+        protocol: TCP
+        port: 8000
+        targetPort: 8000
+
+  postgres:
+    enabled: true
+    metadata:
+      name: postgres-service
+    spec:
+      selector: 
+        app: postgres
+      type: ClusterIP
+      clusterIP: None
+      ports:
+        protocol: TCP
+        port: 5432
+        targetPort: 5432
+
+  learn:
+    enabled: true
+    metadata:
+      name: learn-service
+    spec:
+      selector: 
+        app: learn
+      type: ClusterIP
+      ports:
+        protocol: TCP
+        port: 5000
+        targetPort: 5000
+
+  frontend:
+    enabled: true
+    metadata:
+      name: frontend-service
+
+      annotations: {}
+      # alb.ingress.kubernetes.io/scheme: internet-facing, 
+      # alb.ingress.kubernetes.io/tags: 'Environment=dev,Team=test'      
+
+    spec:
+      selector: 
+        app: frontend
+      type: ClusterIP
+      ports:
+        protocol: TCP
+# tls_cert_provided = false
+        port: 80
+# tls_cert_provided = true
+        tlsport: 443
+        targetPort: 3000
+
+postgresql:
+## Existing postgreSQL password
+## Leave blank to generate a new random password 
+## 
+  postgresqlPassword: mCJewvQk52
+## PostgreSQL password using existing secret
+  existingSecret: postgreslogin
+  

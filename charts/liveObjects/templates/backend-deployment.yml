@@ -1,0 +1,79 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.deployment.backend.metadata.name }}
+  labels:
+    app.kubernetes.io/managed-by: helm
+    app.kubernetes.io/name: {{ .Chart.Name }}
+    app.kubernetes.io/version: {{ .Chart.Version }}
+    app.kubernetes.io/appVersion: {{ .Chart.AppVersion }}
+    app.kubernetes.io/component: secret
+    app.kubernetes.io/helm-application: {{ .Release.Name }}
+    app.kubernetes.io/namespace: {{ .Release.Namespace }}
+    app.kubernetes.io/track: {{ .Values.global.labels.track | quote }}
+spec:
+  replicas: {{ .Values.deployment.backend.spec.replicas }}
+  selector:
+    matchLabels:
+      app: backend
+  template:
+    metadata:
+      labels:
+        app: backend
+    spec:
+      volumes:
+      - name: keys-volume
+        configMap:
+          name: tls-keys
+      {{- if .Values.persistence.enabled }}
+        {{- if .Values.persistence.backend.data.enabled }}
+      - name: backend-data-persistent-storage
+        persistentVolumeClaim:
+          claimName: {{ .Release.Namespace }}-backend-data-volumeclaim
+        {{- end }}
+        {{- if .Values.persistence.backend.logs.enabled }}
+      - name: backend-logs-persistent-storage
+          {{- if eq .Values.persistence.backend.logs.volumeType "hostPath"}}
+        hostPath:
+          path: {{ .Values.persistence.backend.logs.hostPath }}
+          {{- end}}
+          {{- if eq .Values.persistence.backend.logs.volumeType "persistentVolumeClaim"}}
+        persistentVolumeClaim:
+          claimName: {{ .Release.Namespace }}-backend-logs-volumeclaim
+          {{- end }}
+        {{- end }}
+      {{- end }}
+      containers:
+      - name: backend
+        image: {{ .Values.deployment.backend.container.registry }}:{{ .Values.deployment.backend.container.tag }}
+        resources:
+          requests:
+            cpu: {{ .Values.deployment.backend.container.resources.requests.cpu }}
+            memory: {{ .Values.deployment.backend.container.resources.requests.memory }}
+        ports:
+        - containerPort: {{ .Values.deployment.backend.container.ports.containerPort }}
+        env:
+        - name: DB_HOST
+          value: "{{ .Values.services.postgres.metadata.name }}"
+        - name: POSTGRES_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: {{ template "postgresql.secretName" . }}
+              key: password
+        volumeMounts:
+        - name: keys-volume # configMaps
+          mountPath: /opt/node/keys/tls
+        {{- if .Values.persistence.enabled }}
+          {{- if .Values.persistence.backend.data.enabled }}
+        - name: backend-data-persistent-storage
+          mountPath: /mnt/uploads
+        - name: backend-data-persistent-storage
+          mountPath: /mnt/data
+          {{- end }}
+          {{- if .Values.persistence.backend.logs.enabled }}
+        - name: backend-logs-persistent-storage
+          mountPath: /mnt/logs
+          {{- end }}
+        {{- end }}
+      imagePullSecrets:
+      - name: {{ .Values.secrets.registry.imagePullSecrets }}

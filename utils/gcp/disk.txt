@@ -1,0 +1,46 @@
+A (very) short introduction to Persistent Volumes and Persistent Volume Claims
+Kubernetes provides an API to separate storage from computation, i.e., a pod can perform computations while the files in use are stored on a separate resource. The API introduces 2 types of resources:
+PersistentVolumes are used to define a storage volume in the system, but their lifecycle is independant of the ones of the pods that use them. PersistentVolumes are Volume plugins and the API supports a large variety of implementation, including NFS, Glusterfs, CephFS, as well as cloud-providers such as GCEPersistentDisk, AWSElasticBlockStore, AzureFile and AzureDisk, amongst others.
+PersistentVolumeClaims are requests emitted by pods to obtain a volume. Once obtained, the volume is mounted on a specific path in the pod, while providing an abstraction to the underlying storage system. A claim may specify a storageClassName attribute to obtain a PersistentVolume that satisfies the specific needs of the pod.
+
+Note that if no PersistentVolume matches the storageClassName attribute of the requesting PersistentVolumeClaim, the cluster will attempt to create a new one dynamically.
+
+#
+# gcloud beta compute disks create pd-demo --project=live-objects-demo --type=pd-standard --size=500GB --zone=europe-west3-c --physical-block-size=4096
+#
+# Disk must be in the same --zone as the pods, cluster etc 
+#
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: pv-demo
+spec:
+  storageClassName: ""
+  capacity:
+    storage: 500G
+  accessModes:
+    - ReadWriteMany
+  gcePersistentDisk:
+    pdName: pd-name
+    fsType: ext4
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  # Must match in deployment
+  # volumes:
+  #  - name: task-pv-storage
+  #    persistentVolumeClaim:
+  #     claimName: pv-claim-demo
+  #name: pv-claim-demo
+spec:
+  # It's necessary to specify "" as the storageClassName
+  # so that the default storage class won't be used, see
+  # https://kubernetes.io/docs/concepts/storage/persistent-volumes/#class-1
+  storageClassName: ""
+  volumeName: pv-demo
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 500G

@@ -1,0 +1,39 @@
+{{- if .Values.ingress.enabled }}
+apiVersion: networking.k8s.io/v1beta1 # for versions before 1.14 use extensions/v1beta1
+kind: Ingress
+metadata:
+  name: frontend-ingress
+  annotations:
+  {{- if .Values.certManager.enabled }}
+    cert-manager.io/cluster-issuer: {{ .Release.Namespace }}-{{ .Values.certManager.ca.name }}-{{ .Values.certManager.letsencrypt.env }}
+  {{- end }}
+    kubernetes.io/ingress.class: nginx
+  labels:
+    app.kubernetes.io/managed-by: helm
+    app.kubernetes.io/name: {{ .Chart.Name }}
+    app.kubernetes.io/version: {{ .Chart.Version }}
+    app.kubernetes.io/appVersion: {{ .Chart.AppVersion }}
+    app.kubernetes.io/component: secret
+    app.kubernetes.io/helm-application: {{ .Release.Name }}
+    app.kubernetes.io/namespace: {{ .Release.Namespace }}
+    app.kubernetes.io/track: {{ .Values.global.labels.track | quote }}
+spec:
+  {{- if .Values.certManager.enabled }}
+  tls:
+    - hosts:
+      - {{ .Values.ingress.tls.host }}
+      secretName: {{ .Values.certManager.tls.secretName }}
+  {{- end }}
+  rules:
+    - host: {{ .Values.ingress.tls.host }}
+      http:
+        paths: 
+          - path: /
+            backend:
+              serviceName: {{ .Values.services.frontend.metadata.name }}
+              {{- if .Values.tls_cert_provided }}
+              servicePort: {{ .Values.services.frontend.spec.ports.tlsport }}
+              {{- else }}
+              servicePort: {{ .Values.services.frontend.spec.ports.port }}
+              {{- end }}
+{{- end }}

@@ -1,0 +1,28 @@
+{{- if .Values.persistence.enabled }}
+{{- if .Values.persistence.learn.logs.enabled }}
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: {{ .Release.Namespace }}-learn-logs-volumeclaim
+  labels:
+    app.kubernetes.io/managed-by: helm
+    app.kubernetes.io/name: {{ .Chart.Name }}
+    app.kubernetes.io/version: {{ .Chart.Version }}
+    app.kubernetes.io/appVersion: {{ .Chart.AppVersion }}
+    app.kubernetes.io/component: secret
+    app.kubernetes.io/helm-application: {{ .Release.Name }}
+    app.kubernetes.io/namespace: {{ .Release.Namespace }}
+    app.kubernetes.io/track: {{ .Values.global.labels.track | quote }}
+spec:
+  {{- if .Values.persistence.learn.logs.pv.enabled }}
+  storageClassName: ""
+  volumeName: {{ .Release.Namespace }}-{{ .Values.persistence.learn.logs.pv.metadata.name }}
+  {{- end }}
+
+  accessModes:
+    - {{ .Values.persistence.learn.logs.accessMode }}
+  resources:
+    requests:
+      storage: {{ .Values.persistence.learn.logs.size }}
+{{- end }}
+{{- end }}

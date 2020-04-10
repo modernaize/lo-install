@@ -1,0 +1,30 @@
+{{- if .Values.services.frontend.enabled }}
+kind: Service
+apiVersion: v1
+metadata:
+  name: {{ .Values.services.frontend.metadata.name }}
+  annotations:
+    external-dns.alpha.kubernetes.io/hostname: test.liveobjects.online
+  labels:
+    app.kubernetes.io/managed-by: helm
+    app.kubernetes.io/name: {{ .Chart.Name }}
+    app.kubernetes.io/version: {{ .Chart.Version }}
+    app.kubernetes.io/appVersion: {{ .Chart.AppVersion }}
+    app.kubernetes.io/component: secret
+    app.kubernetes.io/helm-application: {{ .Release.Name }}
+    app.kubernetes.io/namespace: {{ .Release.Namespace }}
+    app.kubernetes.io/track: {{ .Values.global.labels.track | quote }}
+spec:
+  selector:
+    app: {{ .Values.services.frontend.spec.selector.app }}
+  ports:
+  - protocol: {{ .Values.services.frontend.spec.ports.protocol }}
+  {{- if .Values.tls_cert_provided }}
+    port: {{ .Values.services.frontend.spec.ports.tlsport }}
+    {{- else }}
+    port: {{ .Values.services.frontend.spec.ports.port }}
+  {{- end }}
+    targetPort: {{ .Values.services.frontend.spec.ports.targetPort }}
+  type: {{ .Values.services.frontend.spec.type }}
+{{- end }}
+

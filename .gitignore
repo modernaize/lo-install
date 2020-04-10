@@ -1,0 +1,5 @@
+.DS_Store
+**/*/credentials.json
+docker-compose/logs/**/*
+docker-compose/pgdata/**/*
+docker-compose/data/**/*

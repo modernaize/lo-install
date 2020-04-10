@@ -1,0 +1,29 @@
+#
+# You can configure a NetworkPolicy to deny all the traffic from other namespaces while allowing all the traffic coming from the same namespace the pod deployed to.
+# 
+# Use Cases
+# 
+# You do not want deployments in test namespace to accidentally send traffic to other services or databases in prod namespace.
+# You host applications from different customers in separate Kubernetes namespaces and you would like to block traffic coming from outside a namespace.
+# 
+{{- if .Values.networkPolicy.enabled }}
+kind: NetworkPolicy
+apiVersion: networking.k8s.io/v1
+metadata:
+  name: deny-from-other-namespaces
+  labels:
+    app.kubernetes.io/managed-by: helm
+    app.kubernetes.io/name: {{ .Chart.Name }}
+    app.kubernetes.io/version: {{ .Chart.Version }}
+    app.kubernetes.io/appVersion: {{ .Chart.AppVersion }}
+    app.kubernetes.io/component: secret
+    app.kubernetes.io/helm-application: {{ .Release.Name }}
+    app.kubernetes.io/namespace: {{ .Release.Namespace }}
+    app.kubernetes.io/track: {{ .Values.global.labels.track | quote }}
+spec:
+  podSelector:
+    matchLabels:
+  ingress:
+  - from:
+    - podSelector: {}
+{{- end }}
