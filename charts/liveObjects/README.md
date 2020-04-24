@@ -113,6 +113,22 @@ helm install lo ./ \
 -n=r-v181
 ```
 
+## Update an existing instance
+
+Upgrade the Live Objects instance and apply changes
+
+```
+helm upgrade lo ./ \
+-n=demo2
+```
+
+```
+helm upgrade lo-demo1 ./ \
+--set ingress.tls.host=demo1.liveobjects.online \
+--set persistence.enabled=true \
+-n=demo1
+```
+
 ## Parameters
 
 The following tables lists the configurable parameters of the Live Objects Platform chart and their default values.

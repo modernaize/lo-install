@@ -63,7 +63,7 @@ helm install \
   --set source=ingress \
   --set registry=txt \
   --set txtOwnerId=k8s \
-  --set domainFilters={liveobjects.online} \
+  --set domainFilters={liveobjects.education} \
   --set rbac.create=true \
   external-dns bitnami/external-dns 
 ```
