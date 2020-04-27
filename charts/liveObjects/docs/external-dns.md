@@ -52,6 +52,7 @@ helm repo add bitnami https://charts.bitnami.com/bitnami
 helm install bitnami bitnami/external-dns
 ```
 
+Install the chart:
 
 ```
 helm install \
@@ -59,28 +60,29 @@ helm install \
   --set provider=google \
   --set google.project=$PROJECT_NAME \
   --set google.serviceAccountSecret=external-dns \
-  --set policy=upsert-only \
+  --set policy=sync \
+  --set source=ingress \
+  --set registry=txt \
+  --set txtOwnerId=k8s \
+  --set domainFilters={liveobjects.rocks} \
+  --set rbac.create=true \
+  external-dns bitnami/external-dns 
+```
+
+upgrade the chart :
+
+```
+helm upgrade external-dns bitnami/external-dns \
+  --namespace external-dns   \
+  --set provider=google \
+  --set google.project=$PROJECT_NAME \
+  --set google.serviceAccountSecret=external-dns \
+  --set policy=sync \
   --set source=ingress \
   --set registry=txt \
   --set txtOwnerId=k8s \
   --set domainFilters={liveobjects.education} \
-  --set rbac.create=true \
-  external-dns bitnami/external-dns 
-```
-
-update the domainFilter according to your zone entry
-
-```
-helm install \
-  --namespace external-dns   \
-  --set provider=google \
-  --set google.project=$PROJECT_NAME \
-  --set google.serviceAccountSecret=external-dns \
-  --set policy=upsert-only \
-  --set source=ingress \
-  --set domainFilters={liveobjects.online} \
-  --set rbac.create=true \
-  external-dns bitnami/external-dns 
+  --set rbac.create=true 
 ```
 
 [Back to the main README](../README.md)
