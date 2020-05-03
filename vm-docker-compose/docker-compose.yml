@@ -44,7 +44,7 @@ services:
     restart: always
   servicelearn:
     image: liveobjects/learn:${ML_VERSION}
-    command: gunicorn --workers=2  --worker-tmp-dir /dev/shm  --bind 0.0.0.0:5000 wsgi:APP
+    command: gunicorn --workers=2  --worker-tmp-dir /dev/shm -c gunicorn_config.py --bind 0.0.0.0:5000 wsgi:APP
     depends_on:
       - db
     ports:
