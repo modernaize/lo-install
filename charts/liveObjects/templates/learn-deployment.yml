@@ -38,6 +38,7 @@ spec:
       containers:
       - name: learn
         image: {{ .Values.deployment.learn.container.registry }}:{{ .Values.deployment.learn.container.tag }}
+        imagePullPolicy: {{ .Values.deployment.learn.container.imagePullPolicy }}
         resources:
           requests:
             cpu: {{ .Values.deployment.learn.container.resources.requests.cpu }}
