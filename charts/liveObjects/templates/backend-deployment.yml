@@ -46,6 +46,7 @@ spec:
       containers:
       - name: backend
         image: {{ .Values.deployment.backend.container.registry }}:{{ .Values.deployment.backend.container.tag }}
+        imagePullPolicy: {{ .Values.deployment.backend.container.imagePullPolicy }}
         resources:
           requests:
             cpu: {{ .Values.deployment.backend.container.resources.requests.cpu }}
