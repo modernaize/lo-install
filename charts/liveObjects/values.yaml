@@ -9,7 +9,27 @@ global:
     repository: liveobjects
   labels:
     track: stable
-
+  frontend:
+    enabled: true
+  backend:
+    enabled: true
+  postrgre:
+    enabled: true
+  learn:
+    enabled: true
+  license:
+    enabled: false
+  certManager:
+    enabled: true
+  configMap:
+    enabled: true
+  ingress:
+    enabled: true
+  networkPolicy:
+    enabled: false
+  resourceQuotas:
+      enabled: false
+  
 # Docker registry 
 secrets:
   registry:    
@@ -21,7 +41,6 @@ secrets:
 tls_cert_provided: false
 
 certManager:
-  enabled: true
   tls:
     secretName: lo-tls
   ca: 
@@ -34,9 +53,6 @@ certManager:
         email: info@liveobjects.education
         serverProd: https://acme-v02.api.letsencrypt.org/directory
         serverStaging: https://acme-staging.api.letsencrypt.org/directory
-
-networkPolicy:
-  enabled: false
  
     ## Enable creation of NetworkPolicy resources. Only Ingress traffic is filtered for now.
     ##
@@ -54,11 +70,7 @@ networkPolicy:
       # matchExpressions:
         # - {key: role, operator: In, values: [frontend]}
   
-resourceQuotas:
-  enabled: false
-
 ingress:
-  enabled: true
   tls: 
   #  - secretName: chart-example-tls
   #    hosts:
@@ -73,6 +85,7 @@ ingress:
 deployment:
 
   postgres:
+    enabled: true
     metadata:
       name: postgre-deployment
     container:
@@ -89,6 +102,7 @@ deployment:
     spec:
       replicas: 1
   frontend:
+    enabled: true
     metadata:
       name: frontend-deployment
     container:
@@ -105,7 +119,48 @@ deployment:
     spec:
       replicas: 1
 
+  license:
+    enabled: false
+    metadata:
+      name: license-deployment
+    container: 
+      registry: liveobjects/license-service
+      tag: "D-develop"
+          # Always IfNotPresent
+      imagePullPolicy: "Always"
+      resources:
+        requests:
+          cpu: 200m
+          memory: 1G
+      ports:
+        containerPort: 3001
+    spec:
+      replicas: 1
+
+## Allow health checks to be pointed at the https port
+    healthcheckHttps: false
+
+# Pod extra options for liveness and readiness probes
+    livenessProbe:
+      enabled: true
+      path: /live
+      initialDelaySeconds: 120
+      periodSeconds: 10
+      timeoutSeconds: 5
+      failureThreshold: 6
+      successThreshold: 1
+
+    readinessProbe:
+      enabled: true
+      path: /ready
+      initialDelaySeconds: 30
+      periodSeconds: 10
+      timeoutSeconds: 5
+      failureThreshold: 6
+      successThreshold: 1
+
   backend:
+    enabled: true
     metadata:
       name: backend-deployment
     container:
@@ -123,6 +178,7 @@ deployment:
       replicas: 1
 
   learn:
+    enabled: true
     metadata:
       name: learn-deployment
     container:
@@ -161,6 +217,38 @@ persistence:
         spec:
           gcePersistentDisk:
             pdName: postgres-data
+            fsType: ext4
+          awsElasticBlockStore:
+            volumeID: volumeID
+            fsType: ext4
+          elasticFileSystem:
+              server: server
+              path: path
+          azureDisk:
+              diskName: name
+              diskURI: uri
+          azureFileStorage:
+              secretName: azure-secret
+              shareName: azftest
+              readOnly: false
+              mountOptions:
+                - dir_mode=0777
+                - file_mode=0777
+  license:
+    logs:
+      enabled: true
+      size: 5Gi
+      accessMode: ReadWriteOnce
+      volumeType: persistentVolumeClaim # hostPath, persistentVolumeClaim 
+      hostPath: /mount-point/license/logs
+      pv:
+        enabled: true
+        storageClassName: ""
+        metadata:
+          name: license-logs
+        spec:
+          gcePersistentDisk:
+            pdName: license-logs
             fsType: ext4
           awsElasticBlockStore:
             volumeID: volumeID
@@ -401,6 +489,26 @@ services:
 # tls_cert_provided = true
         tlsport: 443
         targetPort: 3000
+  license:
+    enabled: false
+    metadata:
+      name: license-service
+
+      annotations: {}
+      # alb.ingress.kubernetes.io/scheme: internet-facing, 
+      # alb.ingress.kubernetes.io/tags: 'Environment=dev,Team=test'      
+
+    spec:
+      selector: 
+        app: license
+      type: ClusterIP
+      ports:
+        protocol: TCP
+# tls_cert_provided = false
+        port: 80
+# tls_cert_provided = true
+        tlsport: 443
+        targetPort: 3001
 
 postgresql:
 ## Existing postgreSQL password
