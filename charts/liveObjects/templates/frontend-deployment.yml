@@ -26,9 +26,6 @@ spec:
       - name: tls-keys-volume
         configMap:
            name: tls-keys
-      - name: lo-license-volume
-        configMap:
-           name: lo-license
       containers:
       - name: frontend
         image: {{ .Values.deployment.frontend.container.registry }}:{{ .Values.deployment.frontend.container.tag }}
@@ -48,6 +45,10 @@ spec:
           value: "{{ .Values.services.learn.metadata.name }}"
         - name: LEARN_PORT
           value: "{{ .Values.services.learn.spec.ports.targetPort }}"
+        - name: LICENSE_HOST
+          value: "{{ .Values.services.license.metadata.name }}"
+        - name: LICENSE_PORT
+          value: "{{ .Values.services.license.spec.ports.targetPort }}"
         - name: NODE_ENV
           value: "production"
         - name:  TLS_CERT_PROVIDED
@@ -55,10 +56,6 @@ spec:
         volumeMounts:
         - name: tls-keys-volume # configMaps
           mountPath: /opt/node/keys/tls
-        {{- if or (.Files.Glob "license/*.{lic}") }}
-        - name: lo-license-volume
-            mountPath: /opt/node/license/lo
-        {{- end }}
       imagePullSecrets:
       - name: {{ .Values.secrets.registry.imagePullSecrets }}
 

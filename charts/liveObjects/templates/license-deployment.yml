@@ -81,7 +81,7 @@ spec:
           mountPath: /opt/node/keys/tls
         {{- if or (.Files.Glob "license/*.{lic}") }}
         - name: lo-license-volume
-            mountPath: /opt/node/license/lo
+            mountPath: /home/node/app/license/lo
         {{- end }}
       imagePullSecrets:
       - name: {{ .Values.secrets.registry.imagePullSecrets }}
