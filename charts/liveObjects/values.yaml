@@ -490,7 +490,7 @@ services:
         tlsport: 443
         targetPort: 3000
   license:
-    enabled: false
+    enabled: true
     metadata:
       name: license-service
 
