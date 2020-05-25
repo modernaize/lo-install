@@ -1,3 +1,4 @@
+{{- if .Values.global.configMap.enabled }}
 ---
 apiVersion: v1
 kind: ConfigMap
@@ -61,3 +62,4 @@ metadata:
   name: env
 data:
 {{ (tpl (.Files.Glob ".env").AsConfig . ) | indent 4 }} 
+{{- end }}

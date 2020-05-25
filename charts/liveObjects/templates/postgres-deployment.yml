@@ -69,6 +69,16 @@ spec:
           ports:
           - name: tcp-postgresql
             containerPort: {{ .Values.deployment.postgres.container.ports.containerPort }}
+          readinessProbe:
+            exec:
+              command: ["psql", "-w", "-U", "liveobjects", "-d", "liveobjects", "-c", "SELECT 1"]
+            initialDelaySeconds: 15
+            timeoutSeconds: 2
+          livenessProbe:
+            exec:
+              command: ["psql", "-w", "-U", "liveobjects", "-d", "liveobjects", "-c", "SELECT 1"]
+            initialDelaySeconds: 45
+            timeoutSeconds: 2
           volumeMounts:
           {{- if .Values.persistence.enabled }}
             {{- if .Values.persistence.postgres.data.enabled }}

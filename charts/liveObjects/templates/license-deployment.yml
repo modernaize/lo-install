@@ -1,0 +1,88 @@
+{{- if .Values.deployment.license.enabled }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.deployment.license.metadata.name }}
+  labels:
+    app.kubernetes.io/managed-by: helm
+    app.kubernetes.io/name: {{ .Chart.Name }}
+    app.kubernetes.io/version: {{ .Chart.Version }}
+    app.kubernetes.io/appVersion: {{ .Chart.AppVersion }}
+    app.kubernetes.io/component: secret
+    app.kubernetes.io/helm-application: {{ .Release.Name }}
+    app.kubernetes.io/namespace: {{ .Release.Namespace }}
+    app.kubernetes.io/track: {{ .Values.global.labels.track | quote }}
+spec:
+  replicas: {{ .Values.deployment.license.spec.replicas }}
+  selector:
+    matchLabels:
+      app: license
+  template:
+    metadata:
+      labels:
+        app: license
+    spec:
+      volumes:
+      - name: tls-keys-volume
+        configMap:
+           name: tls-keys
+      - name: lo-license-volume
+        configMap:
+           name: lo-license
+      containers:
+      - name: license
+        image: {{ .Values.deployment.license.container.registry }}:{{ .Values.deployment.license.container.tag }}
+        imagePullPolicy: {{ .Values.deployment.license.container.imagePullPolicy }}
+        resources:
+          requests:
+            cpu: {{ .Values.deployment.license.container.resources.requests.cpu }}
+            memory: {{ .Values.deployment.license.container.resources.requests.memory }}
+        ports:
+        - containerPort: {{ .Values.deployment.license.container.ports.containerPort }}
+        {{- if .Values.deployment.license.livenessProbe.enabled }}
+        livenessProbe:
+          initialDelaySeconds: {{ .Values.deployment.license.livenessProbe.initialDelaySeconds }}
+          periodSeconds: {{ .Values.deployment.license.livenessProbe.periodSeconds }}
+          timeoutSeconds: {{ .Values.deployment.license.livenessProbe.timeoutSeconds }}
+          successThreshold: {{ .Values.deployment.license.livenessProbe.successThreshold }}
+          failureThreshold: {{ .Values.deployment.license.livenessProbe.failureThreshold }}
+          httpGet:
+            path: {{ .Values.deployment.license.livenessProbe.path }}
+            port: {{ .Values.deployment.license.container.ports.containerPort }}
+            {{- if .Values.healthcheckHttps }}
+            scheme: HTTPS
+            {{- end }}
+        {{- end }}
+        {{- if .Values.deployment.license.readinessProbe.enabled }}
+        readinessProbe:
+          initialDelaySeconds: {{ .Values.deployment.license.readinessProbe.initialDelaySeconds }}
+          periodSeconds: {{ .Values.deployment.license.readinessProbe.periodSeconds }}
+          timeoutSeconds: {{ .Values.deployment.license.readinessProbe.timeoutSeconds }}
+          successThreshold: {{ .Values.deployment.license.readinessProbe.successThreshold }}
+          failureThreshold: {{ .Values.deployment.license.readinessProbe.failureThreshold }}
+          httpGet:
+            path: {{ .Values.deployment.license.readinessProbe.path }}
+            port: {{ .Values.deployment.license.container.ports.containerPort }}
+            {{- if .Values.healthcheckHttps }}
+            scheme: HTTPS
+            {{- end }}
+        {{- end }}
+        env:
+        - name: LICENSE_HOST
+          value: "{{ .Values.services.license.metadata.name }}"
+        - name: LICENSE_PORT
+          value: "{{ .Values.services.license.spec.ports.targetPort }}"
+        - name: NODE_ENV
+          value: "production"
+        - name:  TLS_CERT_PROVIDED
+          value: "{{ .Values.tls_cert_provided }}"
+        volumeMounts:
+        - name: tls-keys-volume # configMaps
+          mountPath: /opt/node/keys/tls
+        {{- if or (.Files.Glob "license/*.{lic}") }}
+        - name: lo-license-volume
+            mountPath: /opt/node/license/lo
+        {{- end }}
+      imagePullSecrets:
+      - name: {{ .Values.secrets.registry.imagePullSecrets }}
+{{- end }}

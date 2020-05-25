@@ -1,0 +1,28 @@
+{{- if .Values.services.license.enabled }}
+kind: Service
+apiVersion: v1
+metadata:
+  name: {{ .Values.services.license.metadata.name }}
+  labels:
+    app.kubernetes.io/managed-by: helm
+    app.kubernetes.io/name: {{ .Chart.Name }}
+    app.kubernetes.io/version: {{ .Chart.Version }}
+    app.kubernetes.io/appVersion: {{ .Chart.AppVersion }}
+    app.kubernetes.io/component: secret
+    app.kubernetes.io/helm-application: {{ .Release.Name }}
+    app.kubernetes.io/namespace: {{ .Release.Namespace }}
+    app.kubernetes.io/track: {{ .Values.global.labels.track | quote }}
+spec:
+  selector:
+    app: {{ .Values.services.license.spec.selector.app }}
+  ports:
+  - protocol: {{ .Values.services.license.spec.ports.protocol }}
+  {{- if .Values.tls_cert_provided }}
+    port: {{ .Values.services.license.spec.ports.tlsport }}
+    {{- else }}
+    port: {{ .Values.services.license.spec.ports.port }}
+  {{- end }}
+    targetPort: {{ .Values.services.license.spec.ports.targetPort }}
+  type: {{ .Values.services.license.spec.type }}
+{{- end }}
+
