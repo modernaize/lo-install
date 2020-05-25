@@ -504,12 +504,8 @@ services:
       type: ClusterIP
       ports:
         protocol: TCP
-# tls_cert_provided = false
-        port: 80
-# tls_cert_provided = true
-        tlsport: 443
+        port: 3001
         targetPort: 3001
-
 postgresql:
 ## Existing postgreSQL password
 ## Leave blank to generate a new random password 
