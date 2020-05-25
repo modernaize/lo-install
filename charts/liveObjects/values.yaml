@@ -120,7 +120,7 @@ deployment:
       replicas: 1
 
   license:
-    enabled: false
+    enabled: true
     metadata:
       name: license-deployment
     container: 
