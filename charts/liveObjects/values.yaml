@@ -18,7 +18,7 @@ global:
   learn:
     enabled: true
   license:
-    enabled: false
+    enabled: true
   certManager:
     enabled: true
   configMap:
