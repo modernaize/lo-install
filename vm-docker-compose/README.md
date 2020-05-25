@@ -8,7 +8,7 @@ export INSTANCE=test-1
 ```
 
 ```
-gcloud beta compute --project=live-objects-demo instances create ${INSTANCE} --zone=us-west2-a --machine-type=n1-standard-2 --subnet=default --network-tier=PREMIUM --maintenance-policy=MIGRATE --service-account=1009649936809-compute@developer.gserviceaccount.com --scopes=https://www.googleapis.com/auth/devstorage.read_only,https://www.googleapis.com/auth/logging.write,https://www.googleapis.com/auth/monitoring.write,https://www.googleapis.com/auth/servicecontrol,https://www.googleapis.com/auth/service.management.readonly,https://www.googleapis.com/auth/trace.append --tags=http-server,https-server --image=ubuntu-1910-eoan-v20200331 --image-project=ubuntu-os-cloud --boot-disk-size=10GB --boot-disk-type=pd-standard --boot-disk-device-name=${INSTANCE} --reservation-affinity=any
+gcloud beta compute --project=live-objects-demo instances create ${INSTANCE} --zone=us-west2-a --machine-type=n1-standard-2 --subnet=default --network-tier=PREMIUM --maintenance-policy=MIGRATE --service-account=1009649936809-compute@developer.gserviceaccount.com --scopes=https://www.googleapis.com/auth/devstorage.read_only,https://www.googleapis.com/auth/logging.write,https://www.googleapis.com/auth/monitoring.write,https://www.googleapis.com/auth/servicecontrol,https://www.googleapis.com/auth/service.management.readonly,https://www.googleapis.com/auth/trace.append --tags=http-server,https-server --image=ubuntu-1910-eoan-v20200520 --image-project=ubuntu-os-cloud --boot-disk-size=200GB --boot-disk-type=pd-standard --boot-disk-device-name=${INSTANCE} --reservation-affinity=any
 ```
 
 ### SSH
@@ -112,7 +112,7 @@ modify the variables on nginx_create_site.sh
 check in GCP what your internal IP address is and update the ip address below accordingly same for the DNS name you are using
 
 ```
-./nginx_create_site.sh 10.168.0.18  mike.liveobjects.online
+./nginx_create_site.sh 10.168.0.18  r202020.liveobjects.online
 ```
 
 ## Update the GCP DNS Settings with the external IP address

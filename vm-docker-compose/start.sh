@@ -8,7 +8,7 @@
 
     usage() {
         echo ""
-        echo "Live Objects - The Process Mining Platform"
+        echo "Live Objects Inc. - The Process Intelligence Platform"
         echo ""
         echo "./start.sh 123-456-789"
         echo ""
@@ -16,7 +16,7 @@
         echo ""
         echo "export TOKEN=123-456-789 && ./start.sh"
         echo ""
-        echo "The TOKEN should been given to you by your Sales representative" 
+        echo "The TOKEN should have been given to you by your Sales representative" 
         echo ""
         exit 1
     }
@@ -42,6 +42,10 @@
         fi
         if [[ -z "$ML_VERSION" ]]; then
             error "Environment variable ML_VERSION is empty"
+            exit 2
+        fi
+        if [[ -z "$LIC_VERSION" ]]; then
+            error "Environment variable LIC_VERSION is empty"
             exit 2
         fi
     } 
