@@ -3,9 +3,9 @@ entries:
   liveObjects:
   - apiVersion: v2
     appVersion: 2020.2.0
-    created: "2020-05-25T12:47:51.577176+02:00"
+    created: "2020-05-25T20:13:00.563111+02:00"
     description: A Helm chart for Kubernetes to deploy the Live Objects Platform
-    digest: 9a992807c4e6d5ad035ad61d61eb3063fb86c6775e9476ffb115b30f01c59011
+    digest: 4edd82bdae8bc988dec2d4e5dc058e97af9e05dffa0b8e1ccd9332d452ff4ac3
     name: liveObjects
     type: application
     urls:
@@ -13,7 +13,7 @@ entries:
     version: 1.0.8
   - apiVersion: v2
     appVersion: 1.8.1
-    created: "2020-05-25T12:47:51.574659+02:00"
+    created: "2020-05-25T20:13:00.560693+02:00"
     description: A Helm chart for Kubernetes to deploy the Live Objects Platform
     digest: 55c8792449872977ae1ec0dadfab6f7f0e057cf571b67bb3ab682255ec95804f
     name: liveObjects
@@ -23,7 +23,7 @@ entries:
     version: 1.0.6
   - apiVersion: v2
     appVersion: 1.8.1
-    created: "2020-05-25T12:47:51.572629+02:00"
+    created: "2020-05-25T20:13:00.558463+02:00"
     description: A Helm chart for Kubernetes to deploy the Live Objects Platform
     digest: 72cc7e40d0a4e879a18370ddd39c5f3fb55d9143c319e9fe9baaa9a48eadfe4e
     name: liveObjects
@@ -33,7 +33,7 @@ entries:
     version: 1.0.5
   - apiVersion: v2
     appVersion: 1.8.1
-    created: "2020-05-25T12:47:51.570602+02:00"
+    created: "2020-05-25T20:13:00.555277+02:00"
     description: A Helm chart for Kubernetes to deploy the Live Objects Platform
     digest: 9ef6565409e641f44be0f9ae880b8c551c083bdafe4867b0c1ad87509ee92fdd
     name: liveObjects
@@ -43,7 +43,7 @@ entries:
     version: 1.0.4
   - apiVersion: v2
     appVersion: 1.8.1
-    created: "2020-05-25T12:47:51.568369+02:00"
+    created: "2020-05-25T20:13:00.551828+02:00"
     description: A Helm chart for Kubernetes to deploy the Live Objects Platform
     digest: 8ab68d9a27e04b03caf1a1f8557e0f09a2a121e3a5b6dcc7f3ff9c7158428da1
     name: liveObjects
@@ -51,4 +51,4 @@ entries:
     urls:
     - https://raw.githubusercontent.com/liveobjectsai/lo-install/master/charts/liveObjects-1.0.3.tgz
     version: 1.0.3
-generated: "2020-05-25T12:47:51.565527+02:00"
+generated: "2020-05-25T20:13:00.548902+02:00"
