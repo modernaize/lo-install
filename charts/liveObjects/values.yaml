@@ -89,7 +89,7 @@ deployment:
     metadata:
       name: postgre-deployment
     container:
-      registry: liveobjects/install-postgres
+      registry: liveobjects/postgres
       tag: "R-v1.8.1"
       # Always IfNotPresent
       imagePullPolicy: "Always"
