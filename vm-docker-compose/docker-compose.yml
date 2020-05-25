@@ -1,5 +1,16 @@
 version: "3"
 services:
+  license:
+    image: liveobjects/license-service:${LIC_VERSION}
+    container_name: license-service
+    ports:
+      - "3001:3001"
+      - "9992:9991"
+    env_file:
+      - ./.env
+    restart: always
+    volumes:
+      - ./license:/home/node/app/license/lo
   db:
     image: liveobjects/postgres:${POSTGRES_VERSION}
     ports:
@@ -21,8 +32,8 @@ services:
       - NODE_ENV=production
       - TLS_CERT_PROVIDED=true
     volumes:
-      - ./license:/opt/node/license/lo
-      - ./keys/tls:/opt/node/keys/tls
+      - ./keys/tls:/home/node/app/keys/tls
+      - ./logs:/home/node/app/logs
     restart: always
   servicebackend:
     image: liveobjects/service:${SERVICE_VERSION}

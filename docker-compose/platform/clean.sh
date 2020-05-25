@@ -10,3 +10,4 @@ docker image rm liveobjects/postgres:$version
 docker image rm liveobjects/service:$version
 docker image rm liveobjects/learn:$version
 docker image rm liveobjects/ui:$version
+docker image rm liveobjects/license-service:$version

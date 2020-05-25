@@ -44,6 +44,10 @@
             error "Environment variable ML_VERSION is empty"
             exit 2
         fi
+        if [[ -z "$LIC_VERSION" ]]; then
+            error "Environment variable LIC_VERSION is empty"
+            exit 2
+        fi
     } 
 
     docker-docker-login() {
