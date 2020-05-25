@@ -6,6 +6,11 @@ services:
     ports:
       - "3001:3001"
       - "9992:9991"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3001/live"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
     env_file:
       - ./.env
     restart: always
@@ -47,7 +52,7 @@ services:
       - ./logs:/home/node/app/logs
     restart: always
     healthcheck:
-      test: ["CMD", "curl", "-k", "-f", "https://localhost:3000/live"]
+      test: ["CMD", "curl", "-k", "-f", "http://localhost:3000/live"]
       interval: 10s
       timeout: 5s
       retries: 3
