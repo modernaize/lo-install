@@ -1,7 +1,7 @@
 version: "3"
 services:
   db:
-    image: liveobjects/install-postgres:${POSTGRES_VERSION}
+    image: liveobjects/postgres:${POSTGRES_VERSION}
     ports:
       - "5432:5432"
     env_file:
