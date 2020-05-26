@@ -4,7 +4,7 @@ kind: Ingress
 metadata:
   name: frontend-ingress
   annotations:
-  {{- if .Values.certManager.enabled }}
+  {{- if .Values.global.certManager.enabled }}
     cert-manager.io/cluster-issuer: {{ .Release.Namespace }}-{{ .Values.certManager.ca.name }}-{{ .Values.certManager.letsencrypt.env }}
   {{- end }}
     kubernetes.io/ingress.class: nginx
@@ -18,7 +18,7 @@ metadata:
     app.kubernetes.io/namespace: {{ .Release.Namespace }}
     app.kubernetes.io/track: {{ .Values.global.labels.track | quote }}
 spec:
-  {{- if .Values.certManager.enabled }}
+  {{- if .Values.global.certManager.enabled }}
   tls:
     - hosts:
       - {{ .Values.ingress.tls.host }}
