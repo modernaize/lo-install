@@ -24,7 +24,7 @@
 
     }
 
-    info 'Updating docker-compose from HTTPS => HTTPS'
+    info 'Updating docker-compose from HTTPS => HTTP'
 
     main @1
 }
