@@ -3,7 +3,7 @@
 { # make sure that the entire script is downloaded #
 
     DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
-    LATEST_VERSION=v1.8.1
+    LATEST_VERSION=v2020.2.0
     
     info() {
         # 32 Green

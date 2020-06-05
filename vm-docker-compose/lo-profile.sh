@@ -1,5 +1,5 @@
 
-version=R-2020.2.0
+version=P-v2020.2.0
 export POSTGRES_VERSION=$version
 export UI_VERSION=$version
 export SERVICE_VERSION=$version
