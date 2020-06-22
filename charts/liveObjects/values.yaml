@@ -28,8 +28,10 @@ global:
   networkPolicy:
     enabled: false
   resourceQuotas:
-      enabled: false
-  
+    enabled: false
+  dockerSecret:
+    enabled: true
+
 # Docker registry 
 secrets:
   registry:    
