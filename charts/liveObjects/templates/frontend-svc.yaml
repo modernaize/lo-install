@@ -2,7 +2,7 @@
 kind: Service
 apiVersion: v1
 metadata:
-  name: {{ .Values.services.frontend.metadata.name }}
+  name: {{ .Release.Name }}-{{ .Values.services.frontend.metadata.name }}
   annotations:
     external-dns.alpha.kubernetes.io/hostname: test.liveobjects.online
   labels:
@@ -16,15 +16,24 @@ metadata:
     app.kubernetes.io/track: {{ .Values.global.labels.track | quote }}
 spec:
   selector:
-    app: {{ .Values.services.frontend.spec.selector.app }}
+    app: {{ .Release.Name }}-{{ .Values.services.frontend.spec.selector.app }}
   ports:
   - protocol: {{ .Values.services.frontend.spec.ports.protocol }}
-  {{- if .Values.tls_cert_provided }}
-    port: {{ .Values.services.frontend.spec.ports.tlsport }}
-    {{- else }}
+  ## [none] SSL - disabled
+  ## [lets-encrypt] The Let's Encrypt certificate is generated
+  ## [self-signed] Custom self-signed certificates will be installed on Live Objects instance
+    {{- if or (eq (lower .Values.lo.sslConfiguration ) "none") (eq (lower .Values.lo.sslConfiguration ) "lets-encrypt")  }}
     port: {{ .Values.services.frontend.spec.ports.port }}
-  {{- end }}
+    {{- else }}
+    port: {{ .Values.services.frontend.spec.ports.tlsport }}
+    {{- end }}
     targetPort: {{ .Values.services.frontend.spec.ports.targetPort }}
+  # If domain name is not set Live Objects instance will be configured with automatically provided external IP.
+  {{- if .Values.ingress.tls.host }}
   type: {{ .Values.services.frontend.spec.type }}
+  {{- else }}
+  type: LoadBalancer
+  {{- end }}
+
 {{- end }}
 

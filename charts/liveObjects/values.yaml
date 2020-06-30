@@ -1,6 +1,5 @@
 # Default values for liveObjects.
-# This is a YAML-formatted file.
-# Declare variables to be passed into your templates.
+# This is a YAML-formatted file
 
 # global
 global:
@@ -19,28 +18,30 @@ global:
     enabled: true
   license:
     enabled: true
-  certManager:
-    enabled: true
-  configMap:
-    enabled: true
-  ingress:
-    enabled: true
-  networkPolicy:
-    enabled: false
-  resourceQuotas:
-    enabled: false
-  dockerSecret:
-    enabled: true
 
+  configMap: true
+  networkPolicy: false
+  ingress: false
+  resourceQuotas: false
+  dockerSecret: true
+  
 # Docker registry 
 secrets:
   registry:    
     imagePullSecrets: regcred
 
-# used in frontend Liveobjects signed keys
-# keys.pem
-# cert.pem
-tls_cert_provided: false
+  ##
+  ## SSL configuration options:
+  ## [none]         SSL is disabled
+  ## [lets-encrypt] Combined with Live Objects domain name - the Let's Encrypt certificate is generated
+  ## [Self-signed]  OpenSSL self-signed certificates will be installed on Live Objects instance
+  ##
+lo:
+  sslConfiguration: "none"
+
+tls:
+  base64EncodedPrivateKey: null
+  base64EncodedCertificate: null
 
 certManager:
   tls:
@@ -75,8 +76,8 @@ certManager:
 ingress:
   tls: 
   #  - secretName: chart-example-tls
-  #    hosts:
-    host: e1.liveobjects.education
+  #    hosts: full domain name ie. e1.exampe.com
+     host: null
   annotations: {}
   # kubernetes.io/ingress.class: nginx
   # kubernetes.io/tls-acme: "true"
@@ -92,7 +93,7 @@ deployment:
       name: postgre-deployment
     container:
       registry: liveobjects/postgres
-      tag: "R-v1.8.1"
+      tag: "P-v2020.2.0"
       # Always IfNotPresent
       imagePullPolicy: "Always"
       resources:
@@ -109,7 +110,7 @@ deployment:
       name: frontend-deployment
     container:
       registry: liveobjects/ui
-      tag: "R-v1.8.1"
+      tag: "P-v2020.2.2"
       # Always IfNotPresent
       imagePullPolicy: "Always"
       resources:
@@ -144,7 +145,7 @@ deployment:
 
 # Pod extra options for liveness and readiness probes
     livenessProbe:
-      enabled: true
+      enabled: false
       path: /live
       initialDelaySeconds: 120
       periodSeconds: 10
@@ -153,7 +154,7 @@ deployment:
       successThreshold: 1
 
     readinessProbe:
-      enabled: true
+      enabled: false
       path: /ready
       initialDelaySeconds: 30
       periodSeconds: 10
@@ -167,7 +168,7 @@ deployment:
       name: backend-deployment
     container:
       registry: liveobjects/service
-      tag: "R-v1.8.1"
+      tag: "P-v2020.2.0"
       # Always IfNotPresent
       imagePullPolicy: "Always"
       resources:
@@ -185,7 +186,7 @@ deployment:
       name: learn-deployment
     container:
       registry: liveobjects/learn
-      tag: "R-v1.8.1"
+      tag: "P-v2020.2.0"
       # Always IfNotPresent
       imagePullPolicy: "Always"
       resources:
@@ -200,7 +201,7 @@ deployment:
 # Persistence Volumes
 
 persistence:
-  enabled: true
+  enabled: false
   persistensDisk: gcePersistentDisk
       
   # Live objects persistence
@@ -434,7 +435,7 @@ services:
   backend:
     enabled: true
     metadata:
-      name: backend-service
+      name: backend-svc
     spec:
       selector: 
         app: backend
@@ -447,7 +448,7 @@ services:
   postgres:
     enabled: true
     metadata:
-      name: postgres-service
+      name: postgresql-svc
     spec:
       selector: 
         app: postgres
@@ -461,7 +462,7 @@ services:
   learn:
     enabled: true
     metadata:
-      name: learn-service
+      name: learn-svc
     spec:
       selector: 
         app: learn
@@ -474,7 +475,7 @@ services:
   frontend:
     enabled: true
     metadata:
-      name: frontend-service
+      name: frontend-svc
 
       annotations: {}
       # alb.ingress.kubernetes.io/scheme: internet-facing, 
@@ -486,15 +487,15 @@ services:
       type: ClusterIP
       ports:
         protocol: TCP
-# tls_cert_provided = false
+# lo.sslConfiguration = none
         port: 80
-# tls_cert_provided = true
+# lo.sslConfiguration = slef-signed
         tlsport: 443
         targetPort: 3000
   license:
     enabled: true
     metadata:
-      name: license-service
+      name: license-svc
 
       annotations: {}
       # alb.ingress.kubernetes.io/scheme: internet-facing, 
@@ -507,12 +508,57 @@ services:
       ports:
         protocol: TCP
         port: 3001
+        tlsport: 443
         targetPort: 3001
+
+loServer:
+  ## Live Objects server passwords using existing secret
+  existingSecret: lologin
+  ## Existing LO password
+  ## set to null to generate a new random password 
+  ## 
+  user:
+    adminPassword: null
+    license_adminPassword: null
+    rootPassword: null
+    system_adminPassword: null
+    
+  password:
+    length: 20
+    
+## Configuration values for the PostgreSQL server.
 postgresql:
-## Existing postgreSQL password
-## Leave blank to generate a new random password 
-## 
-  postgresqlPassword: mCJewvQk52
-## PostgreSQL password using existing secret
-  existingSecret: postgreslogin
+  image: gcr.io/cloud-marketplace/google/gitlab/postgresql:12.9
+
+  exporter:
+    image: gcr.io/cloud-marketplace/google/gitlab/postgresql-exporter:12.9
+
+  cpu: 1000m
+  memory: 1Gi
+
+  username: liveobjects
+
+  ## Existing postgreSQL password
+  ## set to null to generate a new random password 
+  ## 
+  postgresqlPassword: null
   
+  password:
+    length: 20
+
+  ## PostgreSQL password using existing secret
+  existingSecret: postgreslogin
+
+  postgresDatabase: liveobjects
+
+  persistence:
+    size: 8Gi
+
+metrics:
+  image: null
+  exporter:
+    enabled: false
+  
+persistence:
+  storageClass: standard
+  accessMode: ReadWriteOnce

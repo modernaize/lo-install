@@ -1,4 +1,4 @@
-{{- if .Values.global.certManager.enabled }}
+{{- if eq (lower .Values.lo.sslConfiguration) "lets-encrypt" }}
 apiVersion: cert-manager.io/v1alpha2
 kind: ClusterIssuer
 metadata:

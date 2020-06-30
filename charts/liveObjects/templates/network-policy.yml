@@ -6,7 +6,7 @@
 # You do not want deployments in test namespace to accidentally send traffic to other services or databases in prod namespace.
 # You host applications from different customers in separate Kubernetes namespaces and you would like to block traffic coming from outside a namespace.
 # 
-{{- if .Values.global.networkPolicy.enabled }}
+{{- if .Values.global.networkPolicy }}
 kind: NetworkPolicy
 apiVersion: networking.k8s.io/v1
 metadata:

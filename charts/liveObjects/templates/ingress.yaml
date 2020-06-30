@@ -1,10 +1,10 @@
-{{- if .Values.global.ingress.enabled }}
+{{- if .Values.ingress.tls.host }}
 apiVersion: networking.k8s.io/v1beta1 # for versions before 1.14 use extensions/v1beta1
 kind: Ingress
 metadata:
-  name: frontend-ingress
+  name: {{ .Release.Name }}-frontend-ingress
   annotations:
-  {{- if .Values.global.certManager.enabled }}
+  {{- if eq (lower .Values.lo.sslConfiguration) "lets-encrypt" }}
     cert-manager.io/cluster-issuer: {{ .Release.Namespace }}-{{ .Values.certManager.ca.name }}-{{ .Values.certManager.letsencrypt.env }}
   {{- end }}
     kubernetes.io/ingress.class: nginx
@@ -18,7 +18,7 @@ metadata:
     app.kubernetes.io/namespace: {{ .Release.Namespace }}
     app.kubernetes.io/track: {{ .Values.global.labels.track | quote }}
 spec:
-  {{- if .Values.global.certManager.enabled }}
+  {{- if eq (lower .Values.lo.sslConfiguration) "lets-encrypt" }}
   tls:
     - hosts:
       - {{ .Values.ingress.tls.host }}
@@ -30,10 +30,10 @@ spec:
         paths: 
           - path: /
             backend:
-              serviceName: {{ .Values.services.frontend.metadata.name }}
-              {{- if .Values.tls_cert_provided }}
-              servicePort: {{ .Values.services.frontend.spec.ports.tlsport }}
-              {{- else }}
+              serviceName: {{ .Release.Name }}-{{ .Values.services.frontend.metadata.name }}
+              {{- if or (eq (lower .Values.lo.sslConfiguration ) "none") (eq (lower .Values.lo.sslConfiguration ) "lets-encrypt")  }}
               servicePort: {{ .Values.services.frontend.spec.ports.port }}
+              {{- else }}
+              servicePort: {{ .Values.services.frontend.spec.ports.tlsport }}
               {{- end }}
 {{- end }}

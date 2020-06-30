@@ -2,7 +2,7 @@
 kind: Service
 apiVersion: v1
 metadata:
-  name: {{ .Values.services.license.metadata.name }}
+  name: {{ .Release.Name }}-{{ .Values.services.license.metadata.name }}
   labels:
     app.kubernetes.io/managed-by: helm
     app.kubernetes.io/name: {{ .Chart.Name }}
@@ -17,12 +17,7 @@ spec:
     app: {{ .Values.services.license.spec.selector.app }}
   ports:
   - protocol: {{ .Values.services.license.spec.ports.protocol }}
-  {{- if .Values.tls_cert_provided }}
-    port: {{ .Values.services.license.spec.ports.tlsport }}
-    {{- else }}
     port: {{ .Values.services.license.spec.ports.port }}
-  {{- end }}
-    targetPort: {{ .Values.services.license.spec.ports.targetPort }}
   type: {{ .Values.services.license.spec.type }}
 {{- end }}
 
