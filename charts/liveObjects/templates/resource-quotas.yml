@@ -3,7 +3,7 @@
 # Resource Quotas are the solution to use. As the name of this feature implies, it lets you set quotas on 
 # how much CPU, storage, memory, and other resources can be consumed by all pods within a namespace.
 #
-{{- if .Values.global.resourceQuotas.enabled }}
+{{- if .Values.global.resourceQuotas }}
 apiVersion: v1
 kind: ResourceQuota
 metadata:

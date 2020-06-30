@@ -1,9 +1,9 @@
-{{- if .Values.global.configMap.enabled }}
+{{- if .Values.global.configMap }}
 ---
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: tls-keys
+  name: {{ .Release.Name }}-tls-keys
   labels:
     app.kubernetes.io/managed-by: helm
     app.kubernetes.io/name: {{ .Chart.Name }}
@@ -18,7 +18,7 @@ data:
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: lo-license
+  name: {{ .Release.Name }}-lo-license
   labels:
     app.kubernetes.io/managed-by: helm
     app.kubernetes.io/name: {{ .Chart.Name }}
@@ -33,7 +33,7 @@ data:
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: postgresql-configuration
+  name: {{ .Release.Name }}-postgresql-configuration
   labels:
     app: {{ .Release.Name }}
     app.kubernetes.io/name: {{ .Release.Name }}
@@ -59,7 +59,7 @@ data:
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: env
+  name: {{ .Release.Name }}-env
 data:
 {{ (tpl (.Files.Glob ".env").AsConfig . ) | indent 4 }} 
 {{- end }}

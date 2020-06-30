@@ -1,0 +1,143 @@
+apiVersion: app.k8s.io/v1beta1
+kind: Application
+metadata:
+  name: "{{ .Release.Name }}"
+  namespace: "{{ .Release.Namespace }}"
+  labels:
+    app.kubernetes.io/name: "{{ .Release.Name }}"
+  annotations:
+    kubernetes-engine.cloud.google.com/icon: >-
+      data:image/png;base64, {{ .Files.Get "lo_logo.png" | b64enc }}
+    marketplace.cloud.google.com/deploy-info: '{"partner_id": "click-to-deploy-containers", "product_id": "PI-19286", "partner_name": "Live Objects Inc."}'
+spec:
+  descriptor:
+    type: Live Objects Process Intelligense Platform
+    version: '2020.2.0'
+    description: |-
+      Live Objects is the market's first closed-loop  business process optimization platform. 
+      The platform actively generates and manages AI-driven business process customizations that meet changing performance, customer experience and risk needs from business operations. 
+      It infers gaps in business processes across business applications in SAP, Salesforce, Oracle, Workday etc. by mining patterns in KPIs hidden across structured sources of data like systems of record, rules, business objects & process logs, and unstructured sources like emails, contracts, chat logs and call records. 
+    maintainers:
+    - name: Google Click to Deploy
+      url: https://cloud.google.com/solutions/#click-to-deploy
+    links:
+    - description: 'User Guide: Google Click to Deploy LiveObejcts'
+      url: https://github.com/GoogleCloudPlatform/click-to-deploy/blob/master/k8s/liveObjects/README.md
+    - description: 'Live Objects documentation'
+      url: https://docs.liveobjects.ai
+    notes: |-
+      ## Open your Live Objects site
+
+      Get the external IP of your Live Objects site using the following command:
+
+      ```
+      SERVICE_IP=$(kubectl get svc \
+        {{ .Release.Name }}-frontend-svc \
+        --namespace {{ .Release.Namespace }} \
+        --output jsonpath='{.status.loadBalancer.ingress[0].ip}')
+      echo "https://${SERVICE_IP}/\n"
+      ```
+
+      ## Postgresql password
+
+      Please ensure that you note down the passsword of the postgresql instance. Without it you will not be able to access your data 
+      if the secret {{ .Release.Name }}-{{ template "postgresql.secretName" . }} gets deleted or your application gets reinstalled / upgraded
+
+      ```
+      POSTGRES_ADMIN_PASSWORD=$(kubectl get secret \
+        --namespace {{ .Release.Namespace }} \
+        {{ .Release.Name }}-{{ template "postgresql.secretName" . }} \
+        -o jsonpath="{.data.password}" | base64 --decode)
+        echo "${POSTGRES_ADMIN_PASSWORD}\n"
+      ```
+
+      ## License Management
+
+      ## Support
+
+      ## Backup and Recovery
+
+
+
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: "{{ .Release.Name }}"
+  info:
+    {{- if .Values.ingress.tls.host }}
+  - name: Live Objects site URL
+    value: https://{{ .Values.ingress.tls.host }}
+    {{- else }}
+  - name: Live Objects site address
+    type: Reference
+    valueFrom:
+      serviceRef:
+        name: "{{ .Release.Name }}-frontend-svc"
+    {{- end }}
+  - name: Live Objects admin username
+    value: "admin"
+  - name: admin password
+    type: Reference
+    valueFrom:
+      secretKeyRef:
+        name: {{ .Release.Name }}-{{ template "loServer.secretName" . }}
+        key: adminPassword
+  #      
+  - name: Live Objects license admin username
+    value: "license_admin"
+  - name: license_admin password
+    type: Reference
+    valueFrom:
+      secretKeyRef:
+        name: {{ .Release.Name }}-{{ template "loServer.secretName" . }}
+        key: license_adminPassword
+  #
+  - name: Live Objects system admin username
+    value: "system_admin"
+  - name: system_admin password
+    type: Reference
+    valueFrom:
+      secretKeyRef:
+        name: {{ .Release.Name }}-{{ template "loServer.secretName" . }}
+        key: system_adminPassword
+  #
+  - name: Live Objects root username
+    value: "root"
+  - name: root password
+    type: Reference
+    valueFrom:
+      secretKeyRef:
+        name: {{ .Release.Name }}-{{ template "loServer.secretName" . }}
+        key: rootPassword
+  #
+  - name: PostgreSQL username
+    type: Reference
+    valueFrom:
+      secretKeyRef:
+        name: {{ .Release.Name }}-{{ template "postgresql.secretName" . }}
+        key: username
+  - name: PostgreSQL password
+    type: Reference
+    valueFrom:
+      secretKeyRef:
+        name: {{ .Release.Name }}-{{ template "postgresql.secretName" . }}
+        key: password
+
+  componentKinds:
+  - group: batch/v1
+    kind: Job
+  - group: v1
+    kind: Secret
+  - group: v1
+    kind: ConfigMap
+  - group: v1
+    kind: Service
+  - group: apps/v1beta2
+    kind: StatefulSet
+  - group: v1
+    kind: PersistentVolumeClaim
+  - group: apps/v1beta2
+    kind: Deployment
+  - group: apps/v1beta1
+    kind: StatefulSet 
+  - group: networking.k8s.io
+    kind: Ingress

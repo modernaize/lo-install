@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ .Values.deployment.backend.metadata.name }}
+  name: {{ .Release.Name }}-{{ .Values.deployment.backend.metadata.name }}
   labels:
     app.kubernetes.io/managed-by: helm
     app.kubernetes.io/name: {{ .Chart.Name }}
@@ -24,7 +24,7 @@ spec:
       volumes:
       - name: keys-volume
         configMap:
-          name: tls-keys
+          name: {{ .Release.Name }}-tls-keys
       {{- if .Values.persistence.enabled }}
         {{- if .Values.persistence.backend.data.enabled }}
       - name: backend-data-persistent-storage
@@ -55,14 +55,34 @@ spec:
         - containerPort: {{ .Values.deployment.backend.container.ports.containerPort }}
         env:
         - name: DB_HOST
-          value: "{{ .Values.services.postgres.metadata.name }}"
+          value: "{{ .Release.Name }}-{{ .Values.services.postgres.metadata.name }}"
         - name: LEARN_HOST
-          value: "{{ .Values.services.learn.metadata.name }}"
+          value: "{{ .Release.Name }}-{{ .Values.services.learn.metadata.name }}"
         - name: POSTGRES_PASSWORD
           valueFrom:
             secretKeyRef:
-              name: {{ template "postgresql.secretName" . }}
+              name: {{ .Release.Name }}-{{ template "postgresql.secretName" . }}
               key: password
+        - name: ADMIN_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: {{ .Release.Name }}-{{ template "loServer.secretName" . }}
+              key: adminPassword  
+        - name: ROOT_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: {{ .Release.Name }}-{{ template "loServer.secretName" . }}
+              key: rootPassword  
+        - name: SYSTEM_ADMIN_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: {{ .Release.Name }}-{{ template "loServer.secretName" . }}
+              key: system_adminPassword
+        - name: LICENSE_ADMIN_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: {{ .Release.Name }}-{{ template "loServer.secretName" . }}
+              key: license_adminPassword    
         volumeMounts:
         - name: keys-volume # configMaps
           mountPath: /opt/node/keys/tls
@@ -79,4 +99,4 @@ spec:
           {{- end }}
         {{- end }}
       imagePullSecrets:
-      - name: {{ .Values.secrets.registry.imagePullSecrets }}
+      - name: {{ .Release.Name }}-{{ .Values.secrets.registry.imagePullSecrets }}

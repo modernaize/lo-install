@@ -2,7 +2,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ .Values.deployment.license.metadata.name }}
+  name: {{ .Release.Name }}-{{ .Values.deployment.license.metadata.name }}
   labels:
     app.kubernetes.io/managed-by: helm
     app.kubernetes.io/name: {{ .Chart.Name }}
@@ -16,19 +16,19 @@ spec:
   replicas: {{ .Values.deployment.license.spec.replicas }}
   selector:
     matchLabels:
-      app: license
+      app: {{ .Release.Name }}-license
   template:
     metadata:
       labels:
-        app: license
+        app: {{ .Release.Name }}-license
     spec:
       volumes:
       - name: tls-keys-volume
         configMap:
-           name: tls-keys
+           name: {{ .Release.Name }}-tls-keys
       - name: lo-license-volume
         configMap:
-           name: lo-license
+           name: {{ .Release.Name }}-lo-license
       containers:
       - name: license
         image: {{ .Values.deployment.license.container.registry }}:{{ .Values.deployment.license.container.tag }}
@@ -69,20 +69,18 @@ spec:
         {{- end }}
         env:
         - name: LICENSE_HOST
-          value: "{{ .Values.services.license.metadata.name }}"
+          value: "{{ .Release.Name }}-{{ .Values.services.license.metadata.name }}"
         - name: LICENSE_PORT
           value: "{{ .Values.services.license.spec.ports.targetPort }}"
         - name: NODE_ENV
           value: "production"
-        - name:  TLS_CERT_PROVIDED
-          value: "{{ .Values.tls_cert_provided }}"
         volumeMounts:
         - name: tls-keys-volume # configMaps
-          mountPath: /opt/node/keys/tls
+          mountPath: /home/node/app/keys/tls
         {{- if or (.Files.Glob "license/*.{lic}") }}
         - name: lo-license-volume
-            mountPath: /home/node/app/license/lo
+          mountPath: /home/node/app/license/lo
         {{- end }}
       imagePullSecrets:
-      - name: {{ .Values.secrets.registry.imagePullSecrets }}
+      - name: {{ .Release.Name }}-{{ .Values.secrets.registry.imagePullSecrets }}
 {{- end }}

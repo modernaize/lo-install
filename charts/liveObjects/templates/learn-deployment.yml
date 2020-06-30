@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ .Values.deployment.learn.metadata.name }}
+  name: {{ .Release.Name }}-{{ .Values.deployment.learn.metadata.name }}
   labels:
     app.kubernetes.io/managed-by: helm
     app.kubernetes.io/name: {{ .Chart.Name }}
@@ -55,19 +55,19 @@ spec:
         - containerPort: {{ .Values.deployment.learn.container.ports.containerPort }}
         envFrom:
         - configMapRef:
-            name: env
+            name: {{ .Release.Name }}-env
         env:
         - name: POSTGRES_PASSWORD
           valueFrom:
             secretKeyRef:
-              name: {{ template "postgresql.secretName" . }}
+              name: {{ .Release.Name }}-{{ template "postgresql.secretName" . }}
               key: password
         - name: FLASK_APP
           value: "server.py"
         - name: FLASK_ENV
           value: "production"
         - name: DB_HOST
-          value: "{{ .Values.services.postgres.metadata.name }}"
+          value: "{{ .Release.Name }}-{{ .Values.services.postgres.metadata.name }}"
         volumeMounts:
         {{- if .Values.persistence.enabled }}
           {{- if .Values.persistence.learn.logs.enabled }}
@@ -76,4 +76,4 @@ spec:
           {{- end }}
         {{- end }}
       imagePullSecrets:
-      - name: {{ .Values.secrets.registry.imagePullSecrets }}
+      - name: {{ .Release.Name }}-{{ .Values.secrets.registry.imagePullSecrets }}

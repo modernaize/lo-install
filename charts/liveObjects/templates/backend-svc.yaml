@@ -2,7 +2,7 @@
 kind: Service
 apiVersion: v1
 metadata:
-  name: {{ .Values.services.backend.metadata.name }}
+  name: {{ .Release.Name }}-{{ .Values.services.backend.metadata.name }}
   labels:
     app.kubernetes.io/managed-by: helm
     app.kubernetes.io/name: {{ .Chart.Name }}
