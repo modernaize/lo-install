@@ -16,11 +16,11 @@ spec:
   replicas: {{ .Values.deployment.license.spec.replicas }}
   selector:
     matchLabels:
-      app: {{ .Release.Name }}-license
+      app: {{ .Release.Name }}-{{ .Values.services.license.spec.selector.app }}
   template:
     metadata:
       labels:
-        app: {{ .Release.Name }}-license
+        app: {{ .Release.Name }}-{{ .Values.services.license.spec.selector.app }}
     spec:
       volumes:
       - name: tls-keys-volume
