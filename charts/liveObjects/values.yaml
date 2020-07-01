@@ -19,11 +19,14 @@ global:
   license:
     enabled: true
 
+
   configMap: true
   networkPolicy: false
   ingress: false
   resourceQuotas: false
   dockerSecret: true
+
+  gcp: null
   
 # Docker registry 
 secrets:

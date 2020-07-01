@@ -14,7 +14,7 @@ metadata:
     app.kubernetes.io/track: {{ .Values.global.labels.track | quote }}
 spec:
   selector:
-    app: {{ .Values.services.license.spec.selector.app }}
+    app: {{ .Release.Name }}-{{ .Values.services.license.spec.selector.app }}
   ports:
   - protocol: {{ .Values.services.license.spec.ports.protocol }}
     port: {{ .Values.services.license.spec.ports.port }}
