@@ -19,13 +19,11 @@ global:
   license:
     enabled: true
 
-
   configMap: true
   networkPolicy: false
   ingress: false
   resourceQuotas: false
   dockerSecret: true
-
   gcp: null
   
 # Docker registry 
@@ -113,7 +111,7 @@ deployment:
       name: frontend-deployment
     container:
       registry: liveobjects/ui
-      tag: "P-v2020.2.2"
+      tag: "P-v2020.2.6"
       # Always IfNotPresent
       imagePullPolicy: "Always"
       resources:
