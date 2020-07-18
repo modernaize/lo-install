@@ -22,7 +22,7 @@ spec:
   tls:
     - hosts:
       - {{ .Values.ingress.tls.host }}
-      secretName: {{ .Values.certManager.tls.secretName }}
+      secretName: {{ .Release.Namespace }}-{{ .Values.certManager.tls.secretName }}
   {{- end }}
   rules:
     - host: {{ .Values.ingress.tls.host }}
