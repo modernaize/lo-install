@@ -189,6 +189,7 @@ insert into learn.config_parameters (config_key , config_value) values ('ngrams_
 insert into learn.config_parameters (config_key , config_value) values ('cluster_n_components', '[4, 5, 6, 7]');
 insert into learn.config_parameters (config_key , config_value) values ('drill_down_limited', 1);
 insert into learn.config_parameters (config_key , config_value) values ('pic_to_text_config', 'r''--oem 3 --psm 6''');
+insert into learn.config_parameters (config_key , config_value) values ('auto_regex_enable', 'True');
 --nRows, falsePositive, threshold
 insert into learn.config_parameters (config_key , config_value) values
 ('auto_join_sample_size', 10000),

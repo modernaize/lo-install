@@ -24,6 +24,8 @@ grant all on schema process_mining to liveobjects;
 create schema if not exists customer_data;
 grant all on schema customer_data to liveobjects;
 
+create extension if not exists tablefunc;
+
 START TRANSACTION;
 
 -- version
