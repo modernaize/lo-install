@@ -20,5 +20,5 @@ jobs:
       - name: Run chart-releaser
         uses: helm/chart-releaser-action@v1.0.0-rc.1
         env:
-          CHARTS_DIR: "./charts"
+          CHARTS_DIR: "./charts/liveObjects"
           CR_TOKEN: "${{ secrets.TOKEN }}"
