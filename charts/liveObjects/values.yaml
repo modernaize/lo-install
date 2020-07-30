@@ -529,7 +529,7 @@ loServer:
     
 ## Configuration values for the PostgreSQL server.
 postgresql:
-  image: gcr.io/cloud-marketplace/google/gitlab/postgresql:12.9
+  image: liveobjects/postgres:P-v2020.2.0
 
   exporter:
     image: gcr.io/cloud-marketplace/google/gitlab/postgresql-exporter:12.9
