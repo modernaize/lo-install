@@ -14,6 +14,16 @@ entries:
   liveobjects:
   - apiVersion: v2
     appVersion: 2020.2.7
+    created: "2020-07-31T18:47:07.00702455Z"
+    description: A Helm chart for Kubernetes to deploy the Live Objects Platform
+    digest: fc821bba99eec92965606ba029795917d512d701eaeb4307fe911877706a68fe
+    name: liveobjects
+    type: application
+    urls:
+    - https://github.com/liveobjectsai/lo-install/releases/download/liveobjects-2020.2.19/liveobjects-2020.2.19.tgz
+    version: 2020.2.19
+  - apiVersion: v2
+    appVersion: 2020.2.7
     created: "2020-07-31T18:25:09.291472547Z"
     description: A Helm chart for Kubernetes to deploy the Live Objects Platform
     digest: b938bed52b93e3161199ac270f0531c27c19a6ea924fc1ec7f1077b7036b5ce7
