@@ -3,7 +3,7 @@
 ## Create a package
 
 ```
-helm package liveObjects
+helm package liveobjects
 ```
 
 ## Create the index.yaml file 

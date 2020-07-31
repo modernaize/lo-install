@@ -2,7 +2,7 @@
 {{/*
 Expand the name of the chart.
 */}}
-{{- define "liveObjects.name" -}}
+{{- define "liveobjects.name" -}}
 {{- default .Chart.Name .Values.nameOverride | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
@@ -11,7 +11,7 @@ Create a default fully qualified app name.
 We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
 If release name contains chart name it will be used as a full name.
 */}}
-{{- define "liveObjects.fullname" -}}
+{{- define "liveobjects.fullname" -}}
 {{- if .Values.fullnameOverride -}}
 {{- .Values.fullnameOverride | trunc 63 | trimSuffix "-" -}}
 {{- else -}}
@@ -45,16 +45,16 @@ If release name contains chart name it will be used as a full name.
 {{/*
 Create chart name and version as used by the chart label.
 */}}
-{{- define "liveObjects.chart" -}}
+{{- define "liveobjects.chart" -}}
 {{- printf "%s-%s" .Chart.Name .Chart.Version | replace "+" "_" | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
 {{/*
 Common labels
 */}}
-{{- define "liveObjects.labels" -}}
-helm.sh/chart: {{ include "liveObjects.chart" . }}
-{{ include "liveObjects.selectorLabels" . }}
+{{- define "liveobjects.labels" -}}
+helm.sh/chart: {{ include "liveobjects.chart" . }}
+{{ include "liveobjects.selectorLabels" . }}
 {{- if .Chart.AppVersion }}
 app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
 {{- end }}
@@ -64,17 +64,17 @@ app.kubernetes.io/managed-by: {{ .Release.Service }}
 {{/*
 Selector labels
 */}}
-{{- define "liveObjects.selectorLabels" -}}
-app.kubernetes.io/name: {{ include "liveObjects.name" . }}
+{{- define "liveobjects.selectorLabels" -}}
+app.kubernetes.io/name: {{ include "liveobjects.name" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end -}}
 
 {{/*
 Create the name of the service account to use
 */}}
-{{- define "liveObjects.serviceAccountName" -}}
+{{- define "liveobjects.serviceAccountName" -}}
 {{- if .Values.serviceAccount.create -}}
-    {{ default (include "liveObjects.fullname" .) .Values.serviceAccount.name }}
+    {{ default (include "liveobjects.fullname" .) .Values.serviceAccount.name }}
 {{- else -}}
     {{ default "default" .Values.serviceAccount.name }}
 {{- end -}}
@@ -114,7 +114,7 @@ Get the password secret.
 {{- end -}}
 
 {{/*
-Return liveObjects admin password
+Return liveobjects admin password
 */}}
 {{- define "loServer.adminPassword" -}}
 {{- if .Values.loServer.user.adminPassword }}
@@ -125,7 +125,7 @@ Return liveObjects admin password
 {{- end -}}
 
 {{/*
-Return liveObjects root password
+Return liveobjects root password
 */}}
 {{- define "loServer.rootPassword" -}}
 {{- if .Values.loServer.user.rootPassword }}
@@ -136,7 +136,7 @@ Return liveObjects root password
 {{- end -}}
 
 {{/*
-Return liveObjects systesm_admin password
+Return liveobjects systesm_admin password
 */}}
 {{- define "loServer.system_adminPassword" -}}
 {{- if .Values.loServer.user.system_adminPassword }}
@@ -147,7 +147,7 @@ Return liveObjects systesm_admin password
 {{- end -}}
 
 {{/*
-Return liveObjects license_admin password
+Return liveobjects license_admin password
 */}}
 {{- define "loServer.license_adminPassword" -}}
 {{- if .Values.loServer.user.license_adminPassword }}
