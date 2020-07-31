@@ -11,4 +11,15 @@ entries:
     urls:
     - https://github.com/liveobjectsai/lo-install/releases/download/liveObjects-1.0.15/liveObjects-1.0.15.tgz
     version: 1.0.15
+  liveobjects:
+  - apiVersion: v2
+    appVersion: 2020.2.7
+    created: "2020-07-31T07:51:07.859872647Z"
+    description: A Helm chart for Kubernetes to deploy the Live Objects Platform
+    digest: 1eaaed7132c81ec3adb3027c0ee250242f2746c1aa5c62eec83d7e0aa83b8d7c
+    name: liveobjects
+    type: application
+    urls:
+    - https://github.com/liveobjectsai/lo-install/releases/download/liveobjects-2020.2.17/liveobjects-2020.2.17.tgz
+    version: 2020.2.17
 generated: "2020-07-30T18:21:17.598369762Z"
