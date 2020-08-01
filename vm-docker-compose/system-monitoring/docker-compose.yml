@@ -3,7 +3,7 @@ version: '3.5'
 networks:
   default:
     external:
-      name: liveobjectsinstall_default
+      name: liveObjectsInstall_default
 
 volumes:
   
@@ -87,8 +87,8 @@ services:
     env_file:
       - './grafana/env.grafana'
     restart: unless-stopped
-    expose:
-      - 3000
+    ports :
+      - "4444:3000"
     labels:
       org.label-schema.group: "monitoring"
 
@@ -105,7 +105,6 @@ services:
     image: stefanprodan/caddy:0.10.10
     container_name: caddy
     ports:
-      - "3000:3000"
       - "8080:8080"
       - "9090:9090"
       - "9093:9093"

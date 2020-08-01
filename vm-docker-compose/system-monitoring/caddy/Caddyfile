@@ -37,13 +37,3 @@
     errors stderr
     tls off
 }
-
-:3000 {
-    proxy / grafana:3000 {
-            transparent
-            websocket
-        }
-
-    errors stderr
-    tls off
-}
