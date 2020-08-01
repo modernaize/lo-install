@@ -22,7 +22,7 @@ gcloud beta compute --project "live-objects-demo" ssh --zone "us-west2-a" ${INST
 ## Install LiveObjects Installer 
 ### Latest version
 ```
-curl -s https://raw.githubusercontent.com/liveobjectsai/lo-install/v2020.2.0/vm-docker-compose/install.sh| bash
+curl -s https://raw.githubusercontent.com/liveobjectsai/lo-install/v2020.2.6/vm-docker-compose/install.sh| bash
 ```
 
 ### specific version
