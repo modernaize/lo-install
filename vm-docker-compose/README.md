@@ -91,7 +91,7 @@ gcloud beta compute --project "live-objects-demo" ssh --zone "europe-west4-c" ${
 installs Live Objects with the Access Token ( aka TOKEN ) you got from your sales representative
 
 ```
-export TOKEN=<< Your Token Here >> && cd liveObjectsInstall && ./start.sh
+export TOKEN=eb76b357-cb60-4dae-8d4f-be8f14a7b5ac && cd liveObjectsInstall && ./start.sh
 ```
 
 or 
