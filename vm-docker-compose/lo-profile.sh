@@ -1,8 +1,8 @@
 
 version=P-v2020.2.0
-export POSTGRES_VERSION=$version
-export UI_VERSION=$version
-export SERVICE_VERSION=$version
+export POSTGRES_VERSION=P-v2020.2.2
+export UI_VERSION=P-v2020.2.6
+export SERVICE_VERSION=-v2020.2.2
 export ML_VERSION=$version
 export LIC_VERSION=$version
 
