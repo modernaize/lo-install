@@ -45,6 +45,11 @@ scrape_configs:
     static_configs:
       - targets: ['ui:9991']
 
+  - job_name: 'grafana'
+    scrape_interval: 10s
+    static_configs:
+      - targets: ['grafana:3000']
+
 #  - job_name: 'nginx'
 #    scrape_interval: 10s
 #      static_configs:
