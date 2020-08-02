@@ -45,17 +45,17 @@ scrape_configs:
     static_configs:
       - targets: ['ui:9991']
 
+#  - job_name: 'nginx'
+#    scrape_interval: 10s
+#      static_configs:
+#        - targets: ['nginxexporter:9113']
+
 alerting:
   alertmanagers:
   - scheme: http
     static_configs:
     - targets: 
       - 'alertmanager:9093'
-
-#  - job_name: 'nginx'
-#    scrape_interval: 10s
-#    static_configs:
-#      - targets: ['nginxexporter:9113']
 
 #  - job_name: 'aspnetcore'
 #    scrape_interval: 10s

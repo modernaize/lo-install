@@ -13,7 +13,7 @@ volumes:
 services:
 
   prometheus:
-    image: prom/prometheus:v2.15.2 
+    image: prom/prometheus:v2.19.0 
     container_name: prometheus
     volumes:
       - ./prometheus:/etc/prometheus
@@ -79,7 +79,7 @@ services:
       org.label-schema.group: "monitoring"
 
   grafana:
-    image: grafana/grafana:6.5.3
+    image: grafana/grafana:7.0.3
     container_name: grafana
     volumes:
       - grafana_data:/var/lib/grafana
@@ -118,7 +118,7 @@ services:
       org.label-schema.group: "monitoring"
 
   postgresql-exporter:
-    image: wrouesnel/postgres_exporter
+    image: wrouesnel/postgres_exporter:v0.8.0
     container_name: postgresqlexporter
     ports:
       - 9187:9187
