@@ -77,6 +77,7 @@
 
         debug "INSTALL_DIR : $INSTALL_DIR"
 
+
         lo_download -s "$LO_INSTALL_TAR_URL" -o "$INSTALL_DIR/$LO_INSTALL_TAR" || {
             debug "Failed to download : $LO_INSTALL_TAR_URL"
             return 1
@@ -128,6 +129,7 @@
     lo_make_install_dir() {
         debug "Executing lo_make_install_dir"
         local INSTALL_DIR="$(lo_install_dir)"
+        rm -rf "$INSTALL_DIR"
         # Downloading to $INSTALL_DIR
         mkdir -p "$INSTALL_DIR"
 
