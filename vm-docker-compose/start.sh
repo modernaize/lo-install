@@ -23,29 +23,8 @@
 
     validate-env() {
         # The follwoing env variables are being use in docker-compose.yml
-        if [[ -z "$POSTGRES_VERSION" ]]; then
-            error "Environment variable POSTGRES_VERSION is empty"
-            exit 2
-        fi
-
         if [[ -z "$DATA" ]]; then
             error "Environment variable DATA is empty"
-            exit 2
-        fi
-        if [[ -z "$SERVICE_VERSION" ]]; then
-            error "Environment variable SERVICE_VERSION is empty"
-            exit 2
-        fi
-        if [[ -z "$UI_VERSION" ]]; then
-            error "Environment variable UI_VERSION is empty"
-            exit 2
-        fi
-        if [[ -z "$ML_VERSION" ]]; then
-            error "Environment variable ML_VERSION is empty"
-            exit 2
-        fi
-        if [[ -z "$LIC_VERSION" ]]; then
-            error "Environment variable LIC_VERSION is empty"
             exit 2
         fi
     } 

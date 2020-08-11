@@ -6,55 +6,52 @@ services:
     ports:
       - "3001:3001"
       - "9992:9991"
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:3001/live"]
-      interval: 10s
-      timeout: 5s
-      retries: 3
     env_file:
       - ./.env
     restart: always
     volumes:
-      - ./license:/home/node/app/license/lo
-
+      - ${LICENSE_DIR}/license:/home/node/app/license/lo
     depends_on:
       db:
         condition: service_healthy
+
   db:
     image: liveobjects/postgres:${POSTGRES_VERSION}
     container_name: postgre
     ports:
       - "5432:5432"
+    env_file:
+      - ./.env
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U liveobjects"]
       interval: 10s
       timeout: 5s
       retries: 5
-    env_file:
-      - ./.env
     volumes:
-      - ${DATA}/postgresql/data:/var/lib/postgresql/data
+      - ${PGDATA_DIR}/pgdata:/var/lib/postgresql/data
     restart: always
 
   ui:
     image: liveobjects/ui:${UI_VERSION}
+    container_name: ui
     ports:
       - "443:3000"
       - "9991:9991"
     env_file:
       - ./.env
     volumes:
-      - ./keys/tls:/home/node/app/keys/tls
-      - ./logs:/home/node/app/logs
+      - ${TLSKEYS_DIR}/keys/tls:/home/node/app/keys/tls
+      - ${LOGS_DIR}/logs/ui:/home/node/app/logs
     restart: always
     healthcheck:
-      test: ["CMD", "curl", "-k", "-f", "http://localhost:3000/live"]
+      test: ["CMD", "curl", "-k", "-f", "https://localhost:3000/live"]
       interval: 10s
       timeout: 5s
       retries: 3
 
   servicebackend:
     image: liveobjects/service:${SERVICE_VERSION}
+    container_name: service
     depends_on:
       - db
     ports:
@@ -62,10 +59,10 @@ services:
     env_file:
       - ./.env
     volumes:
-      - ./logs:/mnt/logs
-      - ./keys:/mnt/keys
-      - ./data/uploads:/mnt/uploads
-      - ./data/data:/mnt/data
+      - ${TLSKEYS_DIR}/keys/tls:/mnt/keys
+      - ${LOGS_DIR}/logs:/mnt/logs      
+      - ${LODATA_DIR}/data/uploads:/mnt/uploads
+      - ${LODATA_DIR}/data/data:/mnt/data
     restart: always
 
   servicelearn:
@@ -78,11 +75,13 @@ services:
       - "5000:5000"
     env_file:
       - ./.env
+    environment:
+      - 
     volumes:
-      - ./data/uns_model:/tmp
-      - ./data/uns_model/uploads:/tmp/uploads
-      - ./data/procmine:/mnt/procmine
-      - ./logs:/mnt/logs
+      - ${LODATA_DIR}/data/uns_model:/tmp
+      - ${LODATA_DIR}/data/uns_model/uploads:/tmp/uploads
+      - ${LODATA_DIR}/data/procmine:/mnt/procmine
+      - ${LOGS_DIR}/logs:/mnt/logs
     restart: always
 
   scenario:
@@ -90,101 +89,89 @@ services:
     container_name: scenario
     ports:
       - "3002:3002"
+    env_file:
+      - ./.env
     volumes:
-      - ./logs:/home/node/app/logs
+      - ${LOGS_DIR}/logs/scenario:/home/node/app/logs
     restart: always
     healthcheck:
       test: ["CMD", "curl", "-k", "-f", "https://localhost:3002/live"]
       interval: 10s
       timeout: 5s
       retries: 3
-    depends_on:
-      - db
-    env_file:
-      - ./.env
-
 
   uidashboards:
-    image: liveobjects/lo-ui-dashboards:${DASHBOARD_VERSION}
+    image: liveobjects/lo-ui-dashboards:${UI_DASHBOARDS_VERSION}
     container_name: uidashboards
+    depends_on:
+      - servicebackend
     ports:
       - "3005:3005"
+    env_file:
+      - ./.env
     volumes:
-      - ./logs:/home/node/app/logs
+      - ${LOGS_DIR}/logs/uidashboards:/home/node/app/logs
     restart: always
     healthcheck:
       test: ["CMD", "curl", "-k", "-f", "https://localhost:3005/live"]
       interval: 10s
       timeout: 5s
       retries: 3
-    depends_on:
-      - servicebackend
+
+  wdc:
+    image: liveobjects/lo-tableau-wdc:${UI_WDC_VERSION}
+    container_name: wdc
     env_file:
       - ./.env
-  wdc:
-    image: liveobjects/lo-tableau-wdc:${WDC_VERSION}
-    container_name: wdc
     ports:
       - "5001:5001"
     restart: always
-    depends_on:
-      - servicebackend
-    env_file:
-      - ./.env
 
   dyk:
     image: liveobjects/lo-ui-dyk:${UI_DYK}
     container_name: dyk
+    env_file:
+      - ./.env
     ports:
       - "3003:3003"
     volumes:
-      - ./logs:/home/node/app/logs
+      - ${LOGS_DIR}/logs/dyk:/home/node/app/logs
     restart: always
     healthcheck:
-      test: ["CMD", "curl", "-k", "-f", "http://localhost:3003/live"]
+      test: ["CMD", "curl", "-k", "-f", "https://localhost:3003/live"]
       interval: 10s
       timeout: 5s
       retries: 3
-    depends_on:
-      - servicebackend
-    env_file:
-      - ./.env
 
   businessgrammar:
     image: liveobjects/lo-ui-business-grammar:${UI_BUSINESS_GRAMMAR}
     container_name: businessgrammar
+    env_file:
+      - ./.env
     ports:
       - "3007:3007"
     volumes:
-      - ./logs:/home/node/app/logs
+      - ${LOGS_DIR}/logs/businessgrammar:/home/node/app/logs
     restart: always
     healthcheck:
       test: ["CMD", "curl", "-k", "-f", "https://localhost:3007/live"]
       interval: 10s
       timeout: 5s
       retries: 3
-    depends_on:
-      - servicebackend
-    env_file:
-      - ./.env
 
   extension:
     image: liveobjects/lo-ui-extensions:${UI_EXTENSION}
     container_name: extension
+    env_file:
+      - ./.env
     ports:
       - "3008:3008"
     volumes:
-      - ./logs:/home/node/app/logs
+      - ${LOGS_DIR}/logs/extension:/home/node/app/logs
     restart: always
     healthcheck:
-      test: ["CMD", "curl", "-k", "-f", "http://localhost:3008/live"]
+      test: ["CMD", "curl", "-k", "-f", "https://localhost:3008/live"]
       interval: 10s
       timeout: 5s
       retries: 3
-    depends_on:
-      - servicebackend
-    env_file:
-      - ./.env
-
-
 
