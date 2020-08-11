@@ -8,6 +8,8 @@ services:
       - "9992:9991"
     env_file:
       - ./.env
+    environment:
+      - TLS_CERT_PROVIDED=false
     restart: always
     volumes:
       - ${LICENSE_DIR}/license:/home/node/app/license/lo
@@ -89,6 +91,8 @@ services:
       - "3002:3002"
     env_file:
       - ./.env
+    environment:
+      - TLS_CERT_PROVIDED=false
     volumes:
       - ${LOGS_DIR}/logs/scenario:/home/node/app/logs
     restart: always
