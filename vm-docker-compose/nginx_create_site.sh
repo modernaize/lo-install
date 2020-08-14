@@ -12,7 +12,7 @@
         echo ""
         echo "Live Objects - The Process Intelligence Platform"
         echo ""
-        echo "./nginx_create_site.sh 10.34.182.111 demo.liveobjects.rocks"
+        echo "./nginx_create_site.sh 10.22.1.27 demo3.liveobjects.rocks"
         echo ""
         echo "or "
         echo ""
@@ -38,7 +38,7 @@
         sudo cp ${DIR}/${EXTERNAL_DNS} /etc/nginx/sites
 
         info 'Starting Nginx'
-        sudo nginx -t && sudo service nginx reloyad
+        sudo nginx -t && sudo service nginx reload
     }
 
     info 'create nginx sites'
