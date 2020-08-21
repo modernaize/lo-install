@@ -121,28 +121,12 @@ check in GCP what your internal IP address is and update the ip address below ac
 
 ### sudo letsencrypt --noninteractive -a webroot --webroot-path=/var/www/letsencrypt -m mail@liveobjects.rocks --agree-tos -d demo.liveobjects.rocks
 
-sudo certbot --nginx --noninteractive --redirect -m mail@liveobjects.online --agree-tos -d mike.liveobjects.online
+sudo certbot --nginx --noninteractive --redirect -m mail@liveobjects.online --agree-tos -d test1.liveobjects.online
 
 ### check your nginx site 
 
 ```
-sudo cat /etc/nginx/sites/e4.liveobjects.education 
-```
-
-### update docker-compose file
-
-```
-./update_docker_compose.sh 
-```
-
-### restart Live Objects platform
-
-```
-docker-compose down
-```
-
-```
-docker-compose up -d
+sudo cat /etc/nginx/sites/test1.liveobjects.online 
 ```
 
 ### NGINX useful commands
