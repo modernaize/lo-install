@@ -68,8 +68,8 @@ services:
       retries: 3
 
   license:
-    image: liveobjects/license-service:${LIC_VERSION}
-    container_name: license-service
+    image: liveobjects/lo-license-service:${LIC_VERSION}
+    container_name: license
     ports:
       - "3001:3000"
       - "9992:9991"
