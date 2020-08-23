@@ -3,9 +3,6 @@
 { # make sure that the entire script is downloaded #
     DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
     
-    # Shared code
-    source ${DIR}/shared.sh
-
     install_docker_ce() {
         # Ensure your system is updated.
         sudo apt-get -y update
@@ -54,14 +51,6 @@
         if  [[ ! -z "$1" ]] && [[ "$1" == "--nginx" ]]; then
             . ${DIR}/nginx_provision.sh 
         fi
-
-        # setup profile
-
-        sudo cp ${DIR}/lo-profile.sh /etc/profile.d/lo-profile.sh
-
-        info
-        info 'System installation complete'
-        info
 
     }
 

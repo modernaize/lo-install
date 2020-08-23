@@ -139,13 +139,12 @@ services:
     env_file:
       - ./.env
     environment:
-      - SERVICE_PROTOCOL=https
+      - SERVICE_PROTOCOL=${SERVICE_PROTOCOL}
       - SERVICE_HOST=${DEPLOY_URL}
-      - SERVICE_PORT=443
+      - SERVICE_PORT=${SERVICE_PORT}
     ports:
       - "3006:3000"
     restart: always
-
 
   businessgrammar:
     image: liveobjects/lo-ui-business-grammar:${UI_BUSINESS_GRAMMAR_VERSION}

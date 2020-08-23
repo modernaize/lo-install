@@ -19,6 +19,37 @@ so that the docker-compose and profile settings are effective
 gcloud beta compute --project "live-objects-demo" ssh --zone "us-west2-a" ${INSTANCE}
 ```
 
+
+## Provision OS software for  Ubuntu 19.10
+
+* Updates Ubuntu
+* docker-ce
+* docker-compose
+* nginx
+
+```
+curl -s https://raw.githubusercontent.com/liveobjectsai/lo-install/${LO_VERSION}/vm-docker-compose/provision.sh| bash
+```
+
+### Install Reverse proxy NGINX
+```
+curl -s https://raw.githubusercontent.com/liveobjectsai/lo-install/${LO_VERSION}/vm-docker-compose/provision_nginx.sh| bash
+
+```
+## logout 
+
+```
+exit
+```
+
+## SSH
+
+so that the docker-compose and profile settings are effective
+
+```
+gcloud beta compute --project "live-objects-demo" ssh --zone "europe-west4-c" ${INSTANCE}
+```
+
 ## Install LiveObjects Installer 
 ### Latest version
 ```
@@ -35,27 +66,6 @@ export LO_VERSION=develop
 curl -s https://raw.githubusercontent.com/liveobjectsai/lo-install/${LO_VERSION}/vm-docker-compose/install.sh| bash
 ```
 
-## Provision OS software for  Ubuntu 19.10
-
-
-### Install incl NGINX
-
-```
-cd liveObjectsInstall && ./provision.sh --nginx
-```
-
-### Install w/o NGINX
-
-```
-cd liveObjectsInstall && ./provision.sh
-```
-
-
-
-* Updates Ubuntu
-* docker-ce
-* docker-compose
-* nginx
 
 ### Environment variables 
 
@@ -70,22 +80,6 @@ If you want to use an installer tar file from a specific branch or release :
 ```
 export LO_VERSION=master
 ```
-
-## logout 
-
-```
-exit
-```
-
-## SSH
-
-so that the docker-compose and profile settings are effective
-
-```
-gcloud beta compute --project "live-objects-demo" ssh --zone "europe-west4-c" ${INSTANCE}
-```
-
-
 ## Provision Live Objects
 
 installs Live Objects with the Access Token ( aka TOKEN ) you got from your sales representative

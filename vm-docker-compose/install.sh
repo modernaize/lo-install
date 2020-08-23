@@ -1,4 +1,7 @@
 #!/usr/bin/env bash
+#
+# Copyright 2020 Live Object Inc. All Rights Reserved.
+#
 
 { # make sure that the entire script is downloaded #
 
