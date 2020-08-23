@@ -95,14 +95,6 @@
 
         # Ensure that some scripts are executable
         
-        chmod a+x "$INSTALL_DIR/provision.sh" || {
-            error >&2 "Failed to mark '$INSTALL_DIR/provision.sh' as executable"
-            return 3
-        }
-        chmod a+x "$INSTALL_DIR/nginx_provision.sh" || {
-            error >&2 "Failed to mark '$INSTALL_DIR/nginx_provision' as executable"
-            return 3
-        }
         chmod a+x "$INSTALL_DIR/nginx_create_site.sh" || {
             error >&2 "Failed to mark '$INSTALL_DIR/nginx_create_site.sh' as executable"
             return 3
@@ -113,10 +105,6 @@
         }
         chmod a+x "$INSTALL_DIR/stop.sh" || {
             error >&2 "Failed to mark '$INSTALL_DIR/stop.sh' as executable"
-            return 3
-        }
-         chmod a+x "$INSTALL_DIR/update_docker_compose.sh" || {
-            error >&2 "Failed to mark '$INSTALL_DIR/update_docker_compose.sh' as executable"
             return 3
         }
         

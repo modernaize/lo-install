@@ -26,16 +26,37 @@ gcloud beta compute --project "live-objects-demo" ssh --zone "us-west2-a" ${INST
 * docker-ce
 * docker-compose
 * nginx
+* certbot
+
+
+### Latest version
+
+```
+curl -s https://raw.githubusercontent.com/liveobjectsai/lo-install/v2020.3.0/vm-docker-compose/provision.sh| bash
+```
+
+### Install Reverse proxy NGINX
+
+```
+curl -s https://raw.githubusercontent.com/liveobjectsai/lo-install/v2020.3.0/vm-docker-compose/provision_nginx.sh| bash
+```
+
+### specific version
+
+```
+export LO_VERSION=develop
+```
 
 ```
 curl -s https://raw.githubusercontent.com/liveobjectsai/lo-install/${LO_VERSION}/vm-docker-compose/provision.sh| bash
 ```
 
 ### Install Reverse proxy NGINX
-```
-curl -s https://raw.githubusercontent.com/liveobjectsai/lo-install/${LO_VERSION}/vm-docker-compose/provision_nginx.sh| bash
 
 ```
+curl -s https://raw.githubusercontent.com/liveobjectsai/lo-install/${LO_VERSION}/vm-docker-compose/provision_nginx.sh| bash
+```
+
 ## logout 
 
 ```
