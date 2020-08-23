@@ -177,20 +177,29 @@
     }
 
     input_ADVANCED_OPTIONS() {
-        PS3='Do you want to enter more options ? '
+        PS3='Select the Type of Deployment for your deployment : '
         echo
 
-        local _options=("y" "n")
-        select YN in "${_options[@]}"
+        local _options=("ip" "dns" "ingress" "exit")
+        select SELECT in "${_options[@]}"
         do
-            case $YN in
-                "y")
+            case $SELECT in
+                "ip")
+                    export DEPLOYMENT=ip
                     break
                     ;;
-                "n")
+                "dns")
+                    export DEPLOYMENT=dns
+                    break
+                    ;;
+                "ingress")
+                    export DEPLOYMENT=ingress
+                    break
+                    ;;
+                "exit")
                     exit 1
                     ;;
-                *) echo "invalid option $REPLY";;
+                *) error "invalid option $REPLY";;
             esac
         done
 
@@ -200,10 +209,18 @@
 
         check_installed_programs
 
-        input_PROTOCOL
         input_DEPLOYMENT
-        
-        ## input_ADVANCED_OPTIONS
+
+        if [[ "$DEPLOYMENT" == "ip" || "$DEPLOYMENT" == "dns" ]]; then
+            input_PROTOCOL
+        else
+            if [[ "$DEPLOYMENT" == "ingress" ]]; then
+            # DEPLOYMENT 
+             DEPLOYMENT="http"
+            fi
+        fi
+    
+        input_ADVANCED_OPTIONS
 
         export DEPLOYMENT=$DEPLOYMENT
         export PROTOCOL=$PROTOCOL
