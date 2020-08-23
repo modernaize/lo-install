@@ -81,6 +81,9 @@
                 ## ip, dns, ingress
         if [[ $DEPLOYMENT == "ingress" ]] ; then
             input_INTERNAL_IP
+            input_DNS
+
+            echo "DNS : " $DNS
             echo "Internal IP : " $INTERNAL_IP
         fi
 
@@ -104,6 +107,7 @@
     }
 
     input_EXTERNAL_IP() {
+
         while true; do
             read -p "Enter the ip address where the deployment is reachable : or exit " var1
 
@@ -126,7 +130,9 @@
     }
 
     input_INTERNAL_IP() {
+
         while true; do
+            echo
             read -p "Enter internal ip address: or EXIT " var1
 
             if [[ $var1 == "exit" ]]
@@ -144,6 +150,8 @@
                 fi
             fi
         done
+        echo
+
     }
 
 
@@ -189,11 +197,12 @@
         
         ## input_ADVANCED_OPTIONS
 
-        export PROTOCOL=$PROTOCOL
         export DEPLOYMENT=$DEPLOYMENT
+        export PROTOCOL=$PROTOCOL
         export DEPLOY_URL=$DEPLOY_URL
 
-        envsubst < .env.template > env.new
+        cp .env .env.before_config
+        envsubst < .env.template > .env
 
     }
 

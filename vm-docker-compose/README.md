@@ -87,6 +87,14 @@ export LO_VERSION=develop
 curl -s https://raw.githubusercontent.com/liveobjectsai/lo-install/${LO_VERSION}/vm-docker-compose/install.sh| bash
 ```
 
+## Configure LiveObjects
+
+This will modify .env.template and copies it to .env 
+
+```
+cd liveObjectsInstall && ./config.sh
+```
+
 
 ### Environment variables 
 
@@ -101,12 +109,13 @@ If you want to use an installer tar file from a specific branch or release :
 ```
 export LO_VERSION=master
 ```
+
 ## Provision Live Objects
 
 installs Live Objects with the Access Token ( aka TOKEN ) you got from your sales representative
 
 ```
-export TOKEN=eb76b357-cb60-4dae-8d4f-be8f14a7b5ac  && cd liveObjectsInstall && ./start.sh
+export TOKEN=eb76b357-cb60-4dae-8d4f-be8f14a7b5ac  && ./start.sh
 ```
 
 or 

@@ -107,6 +107,10 @@
             error >&2 "Failed to mark '$INSTALL_DIR/stop.sh' as executable"
             return 3
         }
+        chmod a+x "$INSTALL_DIR/config.sh" || {
+            error >&2 "Failed to mark '$INSTALL_DIR/config.sh' as executable"
+            return 3
+        }
         
         debug "creating data directory $HOME/data"
         mkdir -p $HOME/data
@@ -114,6 +118,30 @@
         info
         info "Live Objects Installer has been successfully downloaded into directory $INSTALL_DIR "
         info
+
+        input_config
+
+    }
+
+    input_config() {
+        PS3='Do you want to configure the systems now ? '
+        echo
+
+        local _options=("y" "n")
+        select YN in "${_options[@]}"
+        do
+            case $YN in
+                "y")
+                    cd $INSTALL_DIR
+                    ./config.sh
+                    break
+                    ;;
+                "n")
+                    break
+                    ;;
+                *) echo "invalid option $REPLY";;
+            esac
+        done
 
     }
 
