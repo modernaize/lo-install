@@ -119,12 +119,13 @@
         info "Live Objects Installer has been successfully downloaded into directory $INSTALL_DIR "
         info
 
-        input_config
+        # input_config
 
     }
 
     input_config() {
-               PS3='Select the Type of Deployment for your deployment : '
+
+        PS3='Select the Type of Deployment for your deployment : '
         echo
 
         local _options=("ip" "dns" "ingress" "exit")

@@ -35,7 +35,7 @@
             esac
         done
 
-        echo "Protocol : " $PROTOCOL
+        echo "Protocol : " ${PROTOCOL}
 
     }
 
@@ -68,26 +68,26 @@
         done
 
         ## ip, dns, ingress
-        if [[ $DEPLOYMENT == "ip" ]] ; then
+        if [[ ${DEPLOYMENT} == "ip" ]] ; then
             input_EXTERNAL_IP
             echo "External IP : " $EXTERNAL_IP
         fi
 
         ## ip, dns, ingress
-        if [[ $DEPLOYMENT == "dns" ]] ; then
+        if [[ ${DEPLOYMENT} == "dns" ]] ; then
             input_DNS
             echo "DNS : " $DNS
         fi
                 ## ip, dns, ingress
-        if [[ $DEPLOYMENT == "ingress" ]] ; then
+        if [[ ${DEPLOYMENT} == "ingress" ]] ; then
             input_INTERNAL_IP
             input_DNS
 
-            echo "DNS : " $DEPLOY_URL
-            echo "Internal IP : " $INTERNAL_IP
+            echo "DNS : " ${DEPLOY_URL}
+            echo "Internal IP : " ${INTERNAL_IP}
         fi
 
-        echo "Deployment : " $DEPLOYMENT
+        echo "Deployment : " ${DEPLOYMENT}
 
     }
 
@@ -211,24 +211,30 @@
 
         input_DEPLOYMENT
 
-        if [[ "$DEPLOYMENT" == "ip" || "$DEPLOYMENT" == "dns" ]]; then
+        if [[ "${DEPLOYMENT}" == "ip" || "${DEPLOYMENT}" == "dns" ]]; then
             input_PROTOCOL
         else
-            if [[ "$DEPLOYMENT" == "ingress" ]]; then
+            if [[ "${DEPLOYMENT}" == "ingress" ]]; then
             # DEPLOYMENT 
-             DEPLOYMENT="http"
+             PROTOCOL="http"
             fi
         fi
     
-        input_ADVANCED_OPTIONS
+        # input_ADVANCED_OPTIONS
 
-        export DEPLOYMENT=$DEPLOYMENT
-        export PROTOCOL=$PROTOCOL
-        export DEPLOY_URL=$DEPLOY_URL
+        export DEPLOYMENT=${DEPLOYMENT}
+        export PROTOCOL=${PROTOCOL}
+        export DEPLOY_URL=${DEPLOY_URL}
 
+        echo "Backup existing .env file"
         cp .env .env.before_config
         envsubst < .env.template > .env
 
+        if [[ "${DEPLOYMENT}" == "ingress" ]]; then
+            echo "Configure NGINX"
+            # DEPLOYMENT 
+             . "./nginx_create_site.sh" ${INTERNAL_IP} ${DEPLOY_URL}
+        fi
     }
 
   main @1

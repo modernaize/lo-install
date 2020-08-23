@@ -135,17 +135,9 @@ cd liveObjectsInstall
 
 ```
 
-## Optional steps to setup NGINX 
+## Optional steps to setup NGINX DNS name 
 
-Create a nginx site
-
-modify the variables on nginx_create_site.sh
-
-check in GCP what your internal IP address is and update the ip address below accordingly same for the DNS name you are using
-
-```
-./nginx_create_site.sh 10.168.0.18  r202020.liveobjects.online
-```
+update your DNS settings and map the DNS and your external IP
 
 ## Update the GCP DNS Settings with the external IP address
 
