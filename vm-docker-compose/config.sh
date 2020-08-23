@@ -83,7 +83,7 @@
             input_INTERNAL_IP
             input_DNS
 
-            echo "DNS : " $DNS
+            echo "DNS : " $DEPLOY_URL
             echo "Internal IP : " $INTERNAL_IP
         fi
 
@@ -157,13 +157,21 @@
 
     input_DNS() {
         while true; do
-            read -p "Enter DNS : or EXIT " var1
+            read -p "Enter DNS : or exit " var1
 
-            if [[ $var1 == "yes" ]] || [[ $var1 == "exit" ]]
+            if [[ $var1 == "exit" ]]
             then
-                printf "I'm glag you said %s\n" "$var1"
-                DEPLOY_URL=$var1
-                break
+                exit
+            else
+                ## result=$(checkIP $var1)
+                ## if [[ $result == "valid" ]]; then
+                    DEPLOY_URL=$var1
+                    break
+                # else
+                #    echo
+                #    echo ' Invalid IP address ' $var1 
+                #    echo
+                # fi
             fi
         done
     }

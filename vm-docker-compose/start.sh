@@ -22,11 +22,12 @@
     }
 
     validate-env() {
+        echo
         # The follwoing env variables are being use in docker-compose.yml
-        if [[ -z "$DATA" ]]; then
-            error "Environment variable DATA is empty"
-            exit 2
-        fi
+        # if [[ -z "$DATA" ]]; then
+        #    error "Environment variable DATA is empty"
+        #    exit 2
+        # fi
     } 
 
     docker-docker-login() {

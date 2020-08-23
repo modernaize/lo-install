@@ -4,12 +4,19 @@
 ### Creates GCP VM via cmd line
 
 ```
-export INSTANCE=test-1
+export INSTANCE=test-1 && export IMAGE=ubuntu-1910-eoan-v20200716a && export IMAGE_PROJECT=ubuntu-os-cloud
+```
+
+or you can use the already provisioned Image with NGINX. After the VM got cretaed you can continue directly with " Install the Platform "
+```
+export INSTANCE=test-1 && export IMAGE=lo-ubuntu-1910-nginx && export IMAGE_PROJECT=live-objects-demo
 ```
 
 ```
-gcloud beta compute --project=live-objects-demo instances create ${INSTANCE} --zone=us-west2-a --machine-type=n1-standard-2 --subnet=default --network-tier=PREMIUM --maintenance-policy=MIGRATE --service-account=1009649936809-compute@developer.gserviceaccount.com --scopes=https://www.googleapis.com/auth/devstorage.read_only,https://www.googleapis.com/auth/logging.write,https://www.googleapis.com/auth/monitoring.write,https://www.googleapis.com/auth/servicecontrol,https://www.googleapis.com/auth/service.management.readonly,https://www.googleapis.com/auth/trace.append --tags=http-server,https-server --image=ubuntu-1910-eoan-v20200716a --image-project=ubuntu-os-cloud --boot-disk-size=200GB --boot-disk-type=pd-standard --boot-disk-device-name=${INSTANCE} --reservation-affinity=any
+gcloud beta compute --project=live-objects-demo instances create ${INSTANCE} --zone=us-west2-a --machine-type=n1-standard-2 --subnet=default --network-tier=PREMIUM --maintenance-policy=MIGRATE --service-account=1009649936809-compute@developer.gserviceaccount.com --scopes=https://www.googleapis.com/auth/devstorage.read_only,https://www.googleapis.com/auth/logging.write,https://www.googleapis.com/auth/monitoring.write,https://www.googleapis.com/auth/servicecontrol,https://www.googleapis.com/auth/service.management.readonly,https://www.googleapis.com/auth/trace.append --tags=http-server,https-server --image=${IMAGE} --image-project=${IMAGE_PROJECT} --boot-disk-size=200GB --boot-disk-type=pd-standard --boot-disk-device-name=${INSTANCE} --reservation-affinity=any
 ```
+
+
 
 ### SSH
 
@@ -59,25 +66,26 @@ curl -s https://raw.githubusercontent.com/liveobjectsai/lo-install/${LO_VERSION}
 
 ## logout 
 
+so that the docker-compose and profile settings are effective
+
 ```
 exit
 ```
 
-## SSH
-
-so that the docker-compose and profile settings are effective
+## Install the Platform
+### SSH
 
 ```
 gcloud beta compute --project "live-objects-demo" ssh --zone "europe-west4-c" ${INSTANCE}
 ```
 
-## Install LiveObjects Installer 
-### Latest version
+### Install LiveObjects Installer 
+#### Latest version
 ```
 curl -s https://raw.githubusercontent.com/liveobjectsai/lo-install/v2020.3.0/vm-docker-compose/install.sh| bash
 ```
 
-### specific version
+#### specific version
 
 ```
 export LO_VERSION=develop
@@ -87,7 +95,7 @@ export LO_VERSION=develop
 curl -s https://raw.githubusercontent.com/liveobjectsai/lo-install/${LO_VERSION}/vm-docker-compose/install.sh| bash
 ```
 
-## Configure LiveObjects
+### Configure the Platform
 
 This will modify .env.template and copies it to .env 
 
