@@ -119,7 +119,7 @@
         info "Live Objects Installer has been successfully downloaded into directory $INSTALL_DIR "
         info
 
-        input_config
+        # input_config
 
     }
 
