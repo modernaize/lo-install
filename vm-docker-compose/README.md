@@ -4,16 +4,16 @@
 ### Creates GCP VM via cmd line
 
 ```
-export INSTANCE=test-1 && export IMAGE=ubuntu-1910-eoan-v20200716a && export IMAGE_PROJECT=ubuntu-os-cloud
+export INSTANCE=test-1 && export IMAGE=ubuntu-1910-eoan-v20200716a && export IMAGE_PROJECT=ubuntu-os-cloud && export ZONE=us-west2-a && export PROJECT=live-objects-demo
 ```
 
 or you can use the already provisioned Image with NGINX. After the VM got cretaed you can continue directly with " Install the Platform "
 ```
-export INSTANCE=test-1 && export IMAGE=lo-ubuntu-1910-nginx && export IMAGE_PROJECT=live-objects-demo
+export INSTANCE=test-1 && export IMAGE=lo-ubuntu-1910-nginx && export IMAGE_PROJECT=live-objects-demo && export ZONE=us-west2-a && export PROJECT=live-objects-demo
 ```
 
 ```
-gcloud beta compute --project=live-objects-demo instances create ${INSTANCE} --zone=us-west2-a --machine-type=n1-standard-2 --subnet=default --network-tier=PREMIUM --maintenance-policy=MIGRATE --service-account=1009649936809-compute@developer.gserviceaccount.com --scopes=https://www.googleapis.com/auth/devstorage.read_only,https://www.googleapis.com/auth/logging.write,https://www.googleapis.com/auth/monitoring.write,https://www.googleapis.com/auth/servicecontrol,https://www.googleapis.com/auth/service.management.readonly,https://www.googleapis.com/auth/trace.append --tags=http-server,https-server --image=${IMAGE} --image-project=${IMAGE_PROJECT} --boot-disk-size=200GB --boot-disk-type=pd-standard --boot-disk-device-name=${INSTANCE} --reservation-affinity=any
+gcloud beta compute --project=${PROJECT} instances create ${INSTANCE} --zone=${ZONE} --machine-type=n1-standard-2 --subnet=default --network-tier=PREMIUM --maintenance-policy=MIGRATE --service-account=1009649936809-compute@developer.gserviceaccount.com --scopes=https://www.googleapis.com/auth/devstorage.read_only,https://www.googleapis.com/auth/logging.write,https://www.googleapis.com/auth/monitoring.write,https://www.googleapis.com/auth/servicecontrol,https://www.googleapis.com/auth/service.management.readonly,https://www.googleapis.com/auth/trace.append --tags=http-server,https-server --image=${IMAGE} --image-project=${IMAGE_PROJECT} --boot-disk-size=200GB --boot-disk-type=pd-standard --boot-disk-device-name=${INSTANCE} --reservation-affinity=any
 ```
 
 
@@ -23,7 +23,7 @@ gcloud beta compute --project=live-objects-demo instances create ${INSTANCE} --z
 so that the docker-compose and profile settings are effective
 
 ```
-gcloud beta compute --project "live-objects-demo" ssh --zone "us-west2-a" ${INSTANCE}
+gcloud beta compute --project ${PROJECT} ssh --zone ${ZONE} ${INSTANCE}
 ```
 
 
@@ -76,7 +76,7 @@ exit
 ### SSH
 
 ```
-gcloud beta compute --project "live-objects-demo" ssh --zone "europe-west4-c" ${INSTANCE}
+gcloud beta compute --project ${PROJECT} ssh --zone ${ZONE} ${INSTANCE}
 ```
 
 ### Install LiveObjects Installer 

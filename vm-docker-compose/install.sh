@@ -119,27 +119,34 @@
         info "Live Objects Installer has been successfully downloaded into directory $INSTALL_DIR "
         info
 
-        # input_config
+        input_config
 
     }
 
     input_config() {
-        PS3='Do you want to configure the systems now ? '
+               PS3='Select the Type of Deployment for your deployment : '
         echo
 
-        local _options=("y" "n")
-        select YN in "${_options[@]}"
+        local _options=("ip" "dns" "ingress" "exit")
+        select SELECT in "${_options[@]}"
         do
-            case $YN in
-                "y")
-                    cd $INSTALL_DIR
-                    ./config.sh
+            case $SELECT in
+                "ip")
+                    export DEPLOYMENT=ip
                     break
                     ;;
-                "n")
+                "dns")
+                    export DEPLOYMENT=dns
                     break
                     ;;
-                *) echo "invalid option $REPLY";;
+                "ingress")
+                    export DEPLOYMENT=ingress
+                    break
+                    ;;
+                "exit")
+                    exit 1
+                    ;;
+                *) error "invalid option $REPLY";;
             esac
         done
 
