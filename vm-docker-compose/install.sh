@@ -112,8 +112,14 @@
             return 3
         }
         
-        debug "creating data directory $HOME/data"
-        mkdir -p $HOME/data
+        debug "creating directories"
+        mkdir -p $HOME/$INSTALL_DIR/keys
+        mkdir -p $HOME/$INSTALL_DIR/logs
+        mkdir -p $HOME/$INSTALL_DIR/license
+
+        chmod -R 777 $HOME/$INSTALL_DIR/keys
+        chmod -R 777 $HOME/$INSTALL_DIR/logs
+        chmod -R 777 $HOME/$INSTALL_DIR/license
 
         info
         info "Live Objects Installer has been successfully downloaded into directory $INSTALL_DIR "
