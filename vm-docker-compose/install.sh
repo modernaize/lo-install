@@ -116,10 +116,12 @@
         mkdir -p $HOME/$INSTALL_DIR/keys
         mkdir -p $HOME/$INSTALL_DIR/logs
         mkdir -p $HOME/$INSTALL_DIR/license
+        mkdir -p $HOME/$INSTALL_DIR/pgdata
 
         chmod -R 777 $HOME/$INSTALL_DIR/keys
         chmod -R 777 $HOME/$INSTALL_DIR/logs
         chmod -R 777 $HOME/$INSTALL_DIR/license
+        chmod -R 777 $HOME/$INSTALL_DIR/pgdata
 
         info
         info "Live Objects Installer has been successfully downloaded into directory $INSTALL_DIR "
