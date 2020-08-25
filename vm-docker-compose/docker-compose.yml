@@ -27,7 +27,7 @@ services:
       - ./.env
     volumes:
       - ${TLSKEYS_DIR}/keys/tls:/mnt/keys
-      - ${LOGS_DIR}/logs:/mnt/logs      
+      - ${LOGS_DIR}/service/logs:/mnt/logs      
       - ${LODATA_DIR}/data/uploads:/mnt/uploads
       - ${LODATA_DIR}/data/data:/mnt/data
     restart: always
@@ -46,7 +46,7 @@ services:
       - ${LODATA_DIR}/data/uns_model:/tmp
       - ${LODATA_DIR}/data/uns_model/uploads:/tmp/uploads
       - ${LODATA_DIR}/data/procmine:/mnt/procmine
-      - ${LOGS_DIR}/logs:/mnt/logs
+      - ${LOGS_DIR}/learn/logs:/mnt/logs
     restart: always
 
   ui:
@@ -178,3 +178,18 @@ services:
       timeout: 5s
       retries: 3
 
+  autojoin:
+    image: liveobjects/lo-ui-discovery-autojoin:${UI_DISCOVERY_AUTOJOIN_VERSION}
+    container_name: autojoin
+    env_file:
+      - ./.env
+    ports:
+      - "3010:3000"
+    volumes:
+      - ${LOGS_DIR}/logs/discoveryautojoin:/home/node/app/logs
+    restart: always
+    healthcheck:
+      test: ["CMD", "curl", "-k", "-f", "https://localhost:3010/live"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
