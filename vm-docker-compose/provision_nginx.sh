@@ -6,7 +6,7 @@
     DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
     # Shared code
-    source ${DIR}/shared.sh
+    # source ${DIR}/shared.sh
 
     main() {
 
@@ -20,7 +20,7 @@
         sudo apt-get -y install software-properties-common
         sudo add-apt-repository -y ppa:certbot/certbot
         sudo apt-get update
-        sudo apt-get -y install python-certbot-nginx
+        sudo apt-get -y install python3-certbot-nginx
         sudo apt-get -y install letsencrypt
         sudo mkdir -p /var/www/letsencrypt
     }
