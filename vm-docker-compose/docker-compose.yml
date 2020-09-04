@@ -1,23 +1,37 @@
-version: '3.1'
+version: "3.7"
+
 services:
+
+  nginx: 
+    image: nginx:latest
+    container_name: nginx
+    hostname: nginx
+    volumes:
+     - "./nginx/sites/liveobjects.local.conf:/etc/nginx/conf.d/liveobjects.local.conf:ro"
+     - "./nginx/nginx.conf:/etc/nginx/nginx.conf:ro"
+     - ${LOGS_DIR}/logs/nginx:/var/log/nginx
+    ports:
+      - 80:80
+      - 443:443
+      
   db:
-    image: liveobjects/postgres:${POSTGRES_VERSION}
+    image: ${REPOSITORY}/postgres:${POSTGRES_VERSION}
     container_name: db
     ports:
       - "5432:5432"
-    env_file:
-      - ./.env
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U liveobjects"]
       interval: 10s
       timeout: 5s
       retries: 5
+    env_file:
+      - ./.env
     volumes:
       - ${PGDATA_DIR}/pgdata:/var/lib/postgresql/data
     restart: always
 
   servicebackend:
-    image: liveobjects/service:${SERVICE_VERSION}
+    image: ${REPOSITORY}/service:${SERVICE_VERSION}
     container_name: service
     depends_on:
       - db
@@ -27,15 +41,15 @@ services:
       - ./.env
     volumes:
       - ${TLSKEYS_DIR}/keys/tls:/mnt/keys
-      - ${LOGS_DIR}/service/logs:/mnt/logs      
+      - ${LOGS_DIR}/logs/service:/mnt/logs
       - ${LODATA_DIR}/data/uploads:/mnt/uploads
       - ${LODATA_DIR}/data/data:/mnt/data
     restart: always
 
   servicelearn:
-    image: liveobjects/learn:${ML_VERSION}
+    image: ${REPOSITORY}/learn:${ML_VERSION}
     container_name: learn
-    command: gunicorn --workers=2  --worker-tmp-dir /dev/shm -c gunicorn_config.py --bind 0.0.0.0:5000 wsgi:APP
+    command: gunicorn --workers=2 --worker-tmp-dir /dev/shm -c gunicorn_config.py --bind 0.0.0.0:5000 wsgi:APP
     depends_on:
       - db
     ports:
@@ -46,29 +60,29 @@ services:
       - ${LODATA_DIR}/data/uns_model:/tmp
       - ${LODATA_DIR}/data/uns_model/uploads:/tmp/uploads
       - ${LODATA_DIR}/data/procmine:/mnt/procmine
-      - ${LOGS_DIR}/learn/logs:/mnt/logs
+      - ${LOGS_DIR}/logs/learn:/mnt/logs
     restart: always
 
   ui:
-    image: liveobjects/ui:${UI_VERSION}
+    image: ${REPOSITORY}/ui:${UI_VERSION}
     container_name: ui
     ports:
       - "3000:3000"
       - "9991:9991"
     env_file:
-      - ./.env
+      - .env
     volumes:
       - ${TLSKEYS_DIR}/keys/tls:/home/node/app/keys/tls
       - ${LOGS_DIR}/logs/ui:/home/node/app/logs
     restart: always
     healthcheck:
-      test: ["CMD", "curl", "-k", "-f", "https://localhost:3000/live"]
+      test: ["CMD", "curl", "-k", "-f", "${PROTOCOL}://ui:3000/live"]
       interval: 10s
       timeout: 5s
       retries: 3
 
   license:
-    image: liveobjects/lo-license-service:${LIC_VERSION}
+    image: ${REPOSITORY}/lo-license-service:${LIC_VERSION}
     container_name: license
     ports:
       - "3001:3000"
@@ -76,31 +90,35 @@ services:
     env_file:
       - ./.env
     restart: always
-    # volumes:
-    #  - ${LICENSE_DIR}/license:/home/node/app/license/lo
+    healthcheck:
+      test: ["CMD", "curl", "-f", "${PROTOCOL}://license:3000/live"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+    volumes:
+      - ${LICENSE_DIR}/license:/home/node/app/license/lo
+      - ${LICENSE_DIR}/logger:/home/node/app/logger
     depends_on:
       - db
 
   scenario:
-    image: liveobjects/lo-ui-scenario:${UI_SCENARIO_VERSION}
+    image: ${REPOSITORY}/lo-ui-scenario:${UI_SCENARIO_VERSION}
     container_name: scenario
     ports:
       - "3002:3000"
     env_file:
       - ./.env
-    environment:
-      - TLS_CERT_PROVIDED=false
     volumes:
       - ${LOGS_DIR}/logs/scenario:/home/node/app/logs
     restart: always
     healthcheck:
-      test: ["CMD", "curl", "-k", "-f", "https://localhost:3002/live"]
+      test: ["CMD", "curl", "-k", "-f", "${PROTOCOL}://scenario:3000/live"]
       interval: 10s
       timeout: 5s
       retries: 3
 
   dyk:
-    image: liveobjects/lo-ui-dyk:${UI_DYK_VERSION}
+    image: ${REPOSITORY}/lo-ui-dyk:${UI_DYK_VERSION}
     container_name: dyk
     env_file:
       - ./.env
@@ -110,14 +128,15 @@ services:
       - ${LOGS_DIR}/logs/dyk:/home/node/app/logs
     restart: always
     healthcheck:
-      test: ["CMD", "curl", "-k", "-f", "https://localhost:3003/live"]
+      test: ["CMD", "curl", "-k", "-f", "${PROTOCOL}://dyk:3000/live"]
       interval: 10s
       timeout: 5s
       retries: 3
 
-  uidashboards:
-    image: liveobjects/lo-ui-dashboards:${UI_DASHBOARDS_VERSION}
+  dashboard:
+    image: ${REPOSITORY}/lo-ui-dashboards:${UI_DASHBOARDS_VERSION}
     container_name: dashboard
+    hostname: dashboard
     depends_on:
       - servicebackend
     ports:
@@ -125,29 +144,32 @@ services:
     env_file:
       - ./.env
     volumes:
-      - ${LOGS_DIR}/logs/uidashboards:/home/node/app/logs
+      - ${LOGS_DIR}/logs/dashboards:/home/node/app/logs
     restart: always
     healthcheck:
-      test: ["CMD", "curl", "-k", "-f", "https://localhost:3005/live"]
+      test: ["CMD", "curl", "-k", "-f", "${PROTOCOL}://dashboard:3000/live"]
       interval: 10s
       timeout: 5s
       retries: 3
 
   wdc:
-    image: liveobjects/lo-tableau-wdc:${UI_WDC_VERSION}
+    image: ${REPOSITORY}/lo-tableau-wdc:${UI_WDC_VERSION}
     container_name: wdc
-    env_file:
-      - ./.env
-    environment:
-      - SERVICE_PROTOCOL=${SERVICE_PROTOCOL}
-      - SERVICE_HOST=${DEPLOY_URL}
-      - SERVICE_PORT=${SERVICE_PORT}
     ports:
       - "3006:3000"
+    environment:
+      - SERVICE_PROTOCOL=https
+      - SERVICE_HOST=${DEPLOY_URL}
+      - SERVICE_PORT=443
+    healthcheck:
+      test: ["CMD", "curl", "-k", "-f", "${PROTOCOL}://wdc:3000/live"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
     restart: always
 
   businessgrammar:
-    image: liveobjects/lo-ui-business-grammar:${UI_BUSINESS_GRAMMAR_VERSION}
+    image: ${REPOSITORY}/lo-ui-business-grammar:${UI_BUSINESS_GRAMMAR_VERSION}
     container_name: businessgrammar
     env_file:
       - ./.env
@@ -157,13 +179,13 @@ services:
       - ${LOGS_DIR}/logs/businessgrammar:/home/node/app/logs
     restart: always
     healthcheck:
-      test: ["CMD", "curl", "-k", "-f", "https://localhost:3007/live"]
+      test: ["CMD", "curl", "-k", "-f", "${PROTOCOL}://businessgrammar:3000/live"]
       interval: 10s
       timeout: 5s
       retries: 3
 
   extensions:
-    image: liveobjects/lo-ui-extensions:${UI_EXTENSIONS_VERSION}
+    image: ${REPOSITORY}/lo-ui-extensions:${UI_EXTENSIONS_VERSION}
     container_name: extension 
     env_file:
       - ./.env
@@ -173,13 +195,29 @@ services:
       - ${LOGS_DIR}/logs/extensions:/home/node/app/logs
     restart: always
     healthcheck:
-      test: ["CMD", "curl", "-k", "-f", "https://localhost:3008/live"]
+      test: ["CMD", "curl", "-k", "-f", "${PROTOCOL}://extensions:3000/live"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      
+  documentation:
+    image: ${REPOSITORY}/lo-ui-documentation:${UI_DOCUMENTATION_VERSION}
+    container_name: documentation
+    env_file:
+      - ./.env
+    ports:
+      - "3009:3000"
+    volumes:
+      - ${LOGS_DIR}/logs/documentation:/home/node/app/logs
+    restart: always
+    healthcheck:
+      test: ["CMD", "curl", "-k", "-f", "${PROTOCOL}://documentation:3000/live"]
       interval: 10s
       timeout: 5s
       retries: 3
 
   autojoin:
-    image: liveobjects/lo-ui-discovery-autojoin:${UI_DISCOVERY_AUTOJOIN_VERSION}
+    image: ${REPOSITORY}/lo-ui-discovery-autojoin:${UI_DISCOVERY_AUTOJOIN_VERSION}
     container_name: autojoin
     env_file:
       - ./.env
@@ -189,7 +227,24 @@ services:
       - ${LOGS_DIR}/logs/discoveryautojoin:/home/node/app/logs
     restart: always
     healthcheck:
-      test: ["CMD", "curl", "-k", "-f", "https://localhost:3010/live"]
+      test: ["CMD", "curl", "-k", "-f", "${PROTOCOL}://autojoin:3000/live"]
       interval: 10s
       timeout: 5s
       retries: 3
+
+  serviceautojoin:
+    image: liveobjects/autojoin:${AUTOJOIN_VERSION}
+    container_name: serviceautojoin
+    command: gunicorn --workers=2 --worker-tmp-dir /dev/shm -c gunicorn_config.py --bind 0.0.0.0:5002 wsgi:APP
+    depends_on:
+      - db
+    ports:
+      - "5002:5002"
+    env_file:
+      - ./.env
+    volumes:
+      - ${LODATA_DIR}/data/uns_model:/tmp
+      - ${LODATA_DIR}/data/uns_model/uploads:/tmp/uploads
+      - ${LODATA_DIR}/data/procmine:/mnt/procmine
+      - ${LOGS_DIR}/logs/service:/mnt/logs
+    restart: always
