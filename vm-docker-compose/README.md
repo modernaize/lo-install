@@ -57,6 +57,12 @@ curl -s https://raw.githubusercontent.com/liveobjectsai/lo-install/v2020.3.0/vm-
 export LO_VERSION=develop
 ```
 
+or
+
+```
+export LO_VERSION=feature/2020.3
+```
+
 ```
 curl -s https://raw.githubusercontent.com/liveobjectsai/lo-install/${LO_VERSION}/vm-docker-compose/provision.sh| bash
 ```
@@ -92,6 +98,12 @@ curl -s https://raw.githubusercontent.com/liveobjectsai/lo-install/v2020.3.0/vm-
 
 ```
 export LO_VERSION=develop
+```
+
+or
+
+```
+export LO_VERSION=feature/2020.3
 ```
 
 ```
