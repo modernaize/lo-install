@@ -53,7 +53,7 @@ gcloud beta compute --project ${PROJECT} ssh --zone ${ZONE} ${INSTANCE}
 curl -s https://raw.githubusercontent.com/liveobjectsai/lo-install/v2020.3.0/vm-docker-compose/provision.sh| bash
 ```
 
-### Install Reverse proxy NGINX
+### Optional : Install Reverse proxy NGINX
 
 ```
 curl -s https://raw.githubusercontent.com/liveobjectsai/lo-install/v2020.3.0/vm-docker-compose/provision_nginx.sh| bash
@@ -68,14 +68,14 @@ export LO_VERSION=develop
 or
 
 ```
-export LO_VERSION=feature/2020.3
+export LO_VERSION=release/2020.3.0
 ```
 
 ```
 curl -s https://raw.githubusercontent.com/liveobjectsai/lo-install/${LO_VERSION}/vm-docker-compose/provision.sh| bash
 ```
 
-### Install Reverse proxy NGINX
+### Optional : Install Reverse proxy NGINX
 
 ```
 curl -s https://raw.githubusercontent.com/liveobjectsai/lo-install/${LO_VERSION}/vm-docker-compose/provision_nginx.sh| bash

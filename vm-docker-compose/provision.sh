@@ -14,19 +14,20 @@
         sudo apt-get -y install gnupg2 pass
 
         # Install Docker CE on Ubuntu 18.04/19.04/16.04
-        sudo apt-get -y remove docker docker-engine docker.io runc nginx
+        # sudo apt-get -y remove docker docker-engine docker.io runc nginx
         # Import Docker repository GPG key:
-        sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+        # sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
 
         # Add Docker CE repository to Ubuntu:
-        sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu disco stable"
+        # sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu disco stable"
         #sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
 
         # Finally install Docker CE on Ubuntu 18.04/19.04/16.04:
         sudo apt-get -y update
-        sudo apt-get -y policy docker-ce
-        sudo apt-get install docker-ce docker-ce-cli containerd.io 
-        sudo apt docker.io
+        # sudo apt-get -y policy docker-ce
+        #sudo apt-get install docker-ce docker-ce-cli containerd.io 
+        # sudo apt install docker.io
+        sudo apt install docker.io
 
         info "Adding User ${USER} to the docker group"
         sudo usermod -aG docker ${USER}
