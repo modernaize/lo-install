@@ -7,7 +7,7 @@ Please adjust the environment variables below according to your project and your
 ### Creates GCP VM via cmd line from scratch
 
 ```
-export INSTANCE=test-1 && export IMAGE=ubuntu-1910-eoan-v20200716a && export IMAGE_PROJECT=ubuntu-os-cloud && export ZONE=us-west2-a && export PROJECT=live-objects-demo
+export INSTANCE=test-2 && export IMAGE=ubuntu-2004-focal-v20200902 && export IMAGE_PROJECT=ubuntu-os-cloud && export ZONE=us-west2-a && export PROJECT=live-objects-demo
 ```
 
 ### Creates GCP VM via cmd line based on an existing image
