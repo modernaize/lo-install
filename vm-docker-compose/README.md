@@ -6,6 +6,8 @@ Please adjust the environment variables below according to your project and your
 
 ### Creates GCP VM via cmd line from scratch
 
+Ubuntu 20.04
+
 ```
 export INSTANCE=test-2 && export IMAGE=ubuntu-2004-focal-v20200902 && export IMAGE_PROJECT=ubuntu-os-cloud && export ZONE=us-west2-a && export PROJECT=live-objects-demo
 ```
@@ -14,12 +16,12 @@ export INSTANCE=test-2 && export IMAGE=ubuntu-2004-focal-v20200902 && export IMA
 
 This uses the already provisioned Image with NGINX. 
 
-Ubuntu 1910
+Ubuntu 19.10
 ```
 export INSTANCE=test-1 && export IMAGE=lo-ubuntu-1910-nginx && export IMAGE_PROJECT=live-objects-demo && export ZONE=us-west2-a && export PROJECT=live-objects-demo
 ```
 
-Ubuntu 2004
+Ubuntu 20.04
 ```
 export INSTANCE=test-1 && export IMAGE=ubuntu-2004-nginx && export IMAGE_PROJECT=live-objects-demo && export ZONE=us-west2-a && export PROJECT=live-objects-demo
 ```
