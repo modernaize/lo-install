@@ -25,7 +25,8 @@
         # Finally install Docker CE on Ubuntu 18.04/19.04/16.04:
         sudo apt-get -y update
         sudo apt-get -y policy docker-ce
-        sudo apt-get install docker-ce docker-ce-cli containerd.io
+        sudo apt-get install docker-ce docker-ce-cli containerd.io 
+        sudo apt docker.io
 
         info "Adding User ${USER} to the docker group"
         sudo usermod -aG docker ${USER}

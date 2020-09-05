@@ -14,9 +14,17 @@ export INSTANCE=test-2 && export IMAGE=ubuntu-2004-focal-v20200902 && export IMA
 
 This uses the already provisioned Image with NGINX. 
 
+Ubuntu 1910
 ```
 export INSTANCE=test-1 && export IMAGE=lo-ubuntu-1910-nginx && export IMAGE_PROJECT=live-objects-demo && export ZONE=us-west2-a && export PROJECT=live-objects-demo
 ```
+
+Ubuntu 2004
+```
+export INSTANCE=test-1 && export IMAGE=ubuntu-2004-nginx && export IMAGE_PROJECT=live-objects-demo && export ZONE=us-west2-a && export PROJECT=live-objects-demo
+```
+
+### Create VM
 
 ```
 gcloud beta compute --project=${PROJECT} instances create ${INSTANCE} --zone=${ZONE} --machine-type=n1-standard-2 --subnet=default --network-tier=PREMIUM --maintenance-policy=MIGRATE --service-account=1009649936809-compute@developer.gserviceaccount.com --scopes=https://www.googleapis.com/auth/devstorage.read_only,https://www.googleapis.com/auth/logging.write,https://www.googleapis.com/auth/monitoring.write,https://www.googleapis.com/auth/servicecontrol,https://www.googleapis.com/auth/service.management.readonly,https://www.googleapis.com/auth/trace.append --tags=http-server,https-server --image=${IMAGE} --image-project=${IMAGE_PROJECT} --boot-disk-size=200GB --boot-disk-type=pd-standard --boot-disk-device-name=${INSTANCE} --reservation-affinity=any
@@ -103,7 +111,7 @@ export LO_VERSION=develop
 or
 
 ```
-export LO_VERSION=feature/2020.3
+export LO_VERSION=release/2020.3
 ```
 
 ```
