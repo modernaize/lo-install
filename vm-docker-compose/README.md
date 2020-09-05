@@ -23,7 +23,7 @@ export INSTANCE=test-1 && export IMAGE=lo-ubuntu-1910-nginx && export IMAGE_PROJ
 
 Ubuntu 20.04
 ```
-export INSTANCE=test-1 && export IMAGE=ubuntu-2004-nginx && export IMAGE_PROJECT=live-objects-demo && export ZONE=us-west2-a && export PROJECT=live-objects-demo
+export INSTANCE=test-2 && export IMAGE=ubuntu-2004-nginx-20200905 && export IMAGE_PROJECT=live-objects-demo && export ZONE=us-west2-a && export PROJECT=live-objects-demo
 ```
 
 ### Create VM
@@ -113,7 +113,7 @@ export LO_VERSION=develop
 or
 
 ```
-export LO_VERSION=release/2020.3
+export LO_VERSION=release/2020.3.0
 ```
 
 ```
@@ -168,12 +168,12 @@ update your DNS settings and map the DNS and your external IP
 
 ### Letsencrypt and Certbot
 
-sudo certbot --nginx --noninteractive --redirect -m mail@liveobjects.online --agree-tos -d test1.liveobjects.online
+sudo certbot --nginx --noninteractive --redirect -m mail@liveobjects.rocks --agree-tos -d test4.liveobjects.rocks
 
 ### check your nginx site 
 
 ```
-sudo cat /etc/nginx/sites/test1.liveobjects.online 
+sudo cat /etc/nginx/sites/test4.liveobjects.rocks 
 ```
 
 ### NGINX useful commands
