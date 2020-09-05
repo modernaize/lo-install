@@ -15,7 +15,6 @@
 
         # Install Docker CE on Ubuntu 18.04/19.04/16.04
         sudo apt-get -y remove docker docker-engine docker.io runc nginx
-
         # Import Docker repository GPG key:
         sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
 
@@ -26,7 +25,7 @@
         # Finally install Docker CE on Ubuntu 18.04/19.04/16.04:
         sudo apt-get -y update
         sudo apt-get -y policy docker-ce
-        sudo apt-get -y install docker-ce
+        sudo apt-get install docker-ce docker-ce-cli containerd.io
 
         info "Adding User ${USER} to the docker group"
         sudo usermod -aG docker ${USER}
@@ -34,7 +33,8 @@
 
     install_docker_compose() {
         # Install docker-compose
-        sudo apt-get -y install docker-compose
+        sudo curl -L "https://github.com/docker/compose/releases/download/1.26.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+        sudo chmod +x /usr/local/bin/docker-compose
     }
 
     main() {
