@@ -9,7 +9,8 @@
         # sudo apt-get -y policy docker-ce
         #sudo apt-get install docker-ce docker-ce-cli containerd.io 
         # sudo apt install docker.io
-        sudo apt install -y docker.io
+        info "Installing Docker.io"
+        sudo apt-get install -y docker.io
 
         info "Adding User ${USER} to the docker group"
         sudo usermod -aG docker ${USER}
