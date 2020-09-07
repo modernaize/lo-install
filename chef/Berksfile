@@ -1,0 +1,6 @@
+source 'https://supermarket.chef.io'
+
+metadata
+cookbook 'docker-ce', '~> 0.11.0'
+cookbook 'docker_compose', '~> 0.1.1'
+cookbook 'zipfile', '~> 0.2.0'
