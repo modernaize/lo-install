@@ -6,7 +6,7 @@ on:
       - 'charts/**'
   workflow_dispatch:
 jobs:
-  check-pr:
+  lint-chart:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout

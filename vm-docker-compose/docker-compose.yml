@@ -219,7 +219,7 @@ services:
       retries: 3
 
   serviceautojoin:
-    image: liveobjects/autojoin:${AUTOJOIN_VERSION}
+    image: ${REPOSITORY}/autojoin:${AUTOJOIN_VERSION}
     container_name: serviceautojoin
     command: gunicorn --workers=2 --worker-tmp-dir /dev/shm -c gunicorn_config.py --bind 0.0.0.0:5002 wsgi:APP
     depends_on:
