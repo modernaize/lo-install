@@ -6,17 +6,27 @@ Please adjust the environment variables below according to your project and your
 
 ### Creates GCP VM via cmd line from scratch
 
+Ubuntu 20.04
+
 ```
-export INSTANCE=test-1 && export IMAGE=ubuntu-1910-eoan-v20200716a && export IMAGE_PROJECT=ubuntu-os-cloud && export ZONE=us-west2-a && export PROJECT=live-objects-demo
+export INSTANCE=test-2 && export IMAGE=ubuntu-2004-focal-v20200902 && export IMAGE_PROJECT=ubuntu-os-cloud && export ZONE=us-west2-a && export PROJECT=live-objects-demo
 ```
 
 ### Creates GCP VM via cmd line based on an existing image
 
 This uses the already provisioned Image with NGINX. 
 
+Ubuntu 19.10
 ```
 export INSTANCE=test-1 && export IMAGE=lo-ubuntu-1910-nginx && export IMAGE_PROJECT=live-objects-demo && export ZONE=us-west2-a && export PROJECT=live-objects-demo
 ```
+
+Ubuntu 20.04
+```
+export INSTANCE=test-2 && export IMAGE=ubuntu-2004-nginx-20200905 && export IMAGE_PROJECT=live-objects-demo && export ZONE=us-west2-a && export PROJECT=live-objects-demo
+```
+
+### Create VM
 
 ```
 gcloud beta compute --project=${PROJECT} instances create ${INSTANCE} --zone=${ZONE} --machine-type=n1-standard-2 --subnet=default --network-tier=PREMIUM --maintenance-policy=MIGRATE --service-account=1009649936809-compute@developer.gserviceaccount.com --scopes=https://www.googleapis.com/auth/devstorage.read_only,https://www.googleapis.com/auth/logging.write,https://www.googleapis.com/auth/monitoring.write,https://www.googleapis.com/auth/servicecontrol,https://www.googleapis.com/auth/service.management.readonly,https://www.googleapis.com/auth/trace.append --tags=http-server,https-server --image=${IMAGE} --image-project=${IMAGE_PROJECT} --boot-disk-size=200GB --boot-disk-type=pd-standard --boot-disk-device-name=${INSTANCE} --reservation-affinity=any
@@ -45,7 +55,7 @@ gcloud beta compute --project ${PROJECT} ssh --zone ${ZONE} ${INSTANCE}
 curl -s https://raw.githubusercontent.com/liveobjectsai/lo-install/v2020.3.0/vm-docker-compose/provision.sh| bash
 ```
 
-### Install Reverse proxy NGINX
+### Optional : Install Reverse proxy NGINX
 
 ```
 curl -s https://raw.githubusercontent.com/liveobjectsai/lo-install/v2020.3.0/vm-docker-compose/provision_nginx.sh| bash
@@ -60,14 +70,14 @@ export LO_VERSION=develop
 or
 
 ```
-export LO_VERSION=feature/2020.3
+export LO_VERSION=release/2020.3.0
 ```
 
 ```
 curl -s https://raw.githubusercontent.com/liveobjectsai/lo-install/${LO_VERSION}/vm-docker-compose/provision.sh| bash
 ```
 
-### Install Reverse proxy NGINX
+### Optional : Install Reverse proxy NGINX
 
 ```
 curl -s https://raw.githubusercontent.com/liveobjectsai/lo-install/${LO_VERSION}/vm-docker-compose/provision_nginx.sh| bash
@@ -103,7 +113,7 @@ export LO_VERSION=develop
 or
 
 ```
-export LO_VERSION=feature/2020.3
+export LO_VERSION=release/2020.3.0
 ```
 
 ```
@@ -158,12 +168,12 @@ update your DNS settings and map the DNS and your external IP
 
 ### Letsencrypt and Certbot
 
-sudo certbot --nginx --noninteractive --redirect -m mail@liveobjects.online --agree-tos -d test1.liveobjects.online
+sudo certbot --nginx --noninteractive --redirect -m mail@liveobjects.rocks --agree-tos -d test4.liveobjects.rocks
 
 ### check your nginx site 
 
 ```
-sudo cat /etc/nginx/sites/test1.liveobjects.online 
+sudo cat /etc/nginx/sites/test4.liveobjects.rocks 
 ```
 
 ### NGINX useful commands
