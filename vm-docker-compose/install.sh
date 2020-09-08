@@ -131,35 +131,6 @@
 
     }
 
-    input_config() {
-
-        PS3='Select the Type of Deployment for your deployment : '
-        echo
-
-        local _options=("ip" "dns" "ingress" "exit")
-        select SELECT in "${_options[@]}"
-        do
-            case $SELECT in
-                "ip")
-                    export DEPLOYMENT=ip
-                    break
-                    ;;
-                "dns")
-                    export DEPLOYMENT=dns
-                    break
-                    ;;
-                "ingress")
-                    export DEPLOYMENT=ingress
-                    break
-                    ;;
-                "exit")
-                    exit 1
-                    ;;
-                *) error "invalid option $REPLY";;
-            esac
-        done
-
-    }
 
     lo_make_install_dir() {
         debug "Executing lo_make_install_dir"

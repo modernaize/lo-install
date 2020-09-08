@@ -1,0 +1,16 @@
+  
+  nginx:
+    container_name: nginx
+    image: nginx:alpine
+    volumes:
+      - "./nginx/sites/liveobjects.local.conf:/etc/nginx/conf.d/liveobjects.local.conf:ro"
+      - "./nginx/nginx.conf:/etc/nginx/nginx.conf:ro"
+      - ./webserver/certbot/conf:/etc/letsencrypt
+      - ./webserver/certbot/www:/var/www/certbot
+      - ${LOGS_DIR}/logs/nginx:/var/log/nginx
+    ports:
+      - 80:80
+      - 443:443
+    restart: unless-stopped
+    command: /bin/sh -c "while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g 'daemon off;'" # 💡
+    

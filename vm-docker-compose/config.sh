@@ -1,9 +1,16 @@
 #!/usr/bin/env bash
 
 { # make sure that the entire script is downloaded #
+    VERSION="1.0.0"
+
+    DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+
+    # Shared code
+    source ${DIR}/shared.sh
+
     check_installed_programs() {
 
-        for i in envsubst grep tr cut ; do
+        for i in docker-compose envsubst grep tr cut ; do
             if ! [ -x "$(command -v ${i})" ]; then
                 error "Error: ${i} is not installed." >&2
                 exit 1
@@ -35,7 +42,58 @@
             esac
         done
 
-        echo "Protocol : " ${PROTOCOL}
+        info "Protocol : ${PROTOCOL}" 
+
+    }
+
+    input_SYSMON() {
+
+        PS3='Do you want to install the system monitoring tools : '
+        echo
+
+        local _options=("y" "n" "exit")
+        select SELECT in "${_options[@]}"
+        do
+            case $SELECT in
+                "y")
+                    export SYSMON=y
+                    break
+                    ;;
+                "n")
+                    export SYSMON=n
+                    break
+                    ;;
+                "exit")
+                    exit 1
+                    ;;
+                *) error "invalid option $REPLY";;
+            esac
+        done
+
+    }
+    input_NGINX() {
+
+        PS3='Do you want to run NGINX as a docker container : '
+        echo
+
+        local _options=("y" "n" "exit")
+        select SELECT in "${_options[@]}"
+        do
+            case $SELECT in
+                "y")
+                    export NGINX_DOCKER=y
+                    break
+                    ;;
+                "n")
+                    export NGINX_DOCKER=n
+                    break
+                    ;;
+                "exit")
+                    exit 1
+                    ;;
+                *) error "invalid option $REPLY";;
+            esac
+        done
 
     }
 
@@ -70,24 +128,24 @@
         ## ip, dns, ingress
         if [[ ${DEPLOYMENT} == "ip" ]] ; then
             input_EXTERNAL_IP
-            echo "External IP : " $EXTERNAL_IP
+            info "External IP : $EXTERNAL_IP" 
         fi
 
         ## ip, dns, ingress
         if [[ ${DEPLOYMENT} == "dns" ]] ; then
             input_DNS
-            echo "DNS : " $DNS
+            
         fi
                 ## ip, dns, ingress
         if [[ ${DEPLOYMENT} == "ingress" ]] ; then
             input_INTERNAL_IP
             input_DNS
 
-            echo "DNS : " ${DEPLOY_URL}
-            echo "Internal IP : " ${INTERNAL_IP}
+            info "DNS : ${DEPLOY_URL}" 
+            info "Internal IP : ${INTERNAL_IP}" 
         fi
 
-        echo "Deployment : " ${DEPLOYMENT}
+        info "Deployment :${DEPLOYMENT} "
 
     }
 
@@ -121,9 +179,9 @@
                     EXTERNAL_IP=$var1
                     break
                 else
-                    echo
-                    echo ' Invalid IP address ' $var1 
-                    echo
+                    error
+                    error ' Invalid IP address ' $var1 
+                    error
                 fi
             fi
         done
@@ -132,7 +190,7 @@
     input_INTERNAL_IP() {
 
         while true; do
-            echo
+            info
             read -p "Enter internal ip address: or EXIT " var1
 
             if [[ $var1 == "exit" ]]
@@ -154,7 +212,6 @@
 
     }
 
-
     input_DNS() {
         while true; do
             read -p "Enter DNS : or exit " var1
@@ -174,35 +231,8 @@
                 # fi
             fi
         done
-    }
-
-    input_ADVANCED_OPTIONS() {
-        PS3='Select the Type of Deployment for your deployment : '
-        echo
-
-        local _options=("ip" "dns" "ingress" "exit")
-        select SELECT in "${_options[@]}"
-        do
-            case $SELECT in
-                "ip")
-                    export DEPLOYMENT=ip
-                    break
-                    ;;
-                "dns")
-                    export DEPLOYMENT=dns
-                    break
-                    ;;
-                "ingress")
-                    export DEPLOYMENT=ingress
-                    break
-                    ;;
-                "exit")
-                    exit 1
-                    ;;
-                *) error "invalid option $REPLY";;
-            esac
-        done
-
+        info
+        info "DEPLOY_URL : $DEPLOY_URL" 
     }
 
     main() {
@@ -211,30 +241,56 @@
 
         input_DEPLOYMENT
 
-        if [[ "${DEPLOYMENT}" == "ip" || "${DEPLOYMENT}" == "dns" ]]; then
-            input_PROTOCOL
+        if [[ "${DEPLOYMENT}" == "ip" || "${DEPLOYMENT}" == "ingress" ]]; then
+            PROTOCOL="http"
         else
-            if [[ "${DEPLOYMENT}" == "ingress" ]]; then
-            # DEPLOYMENT 
-             PROTOCOL="http"
+            if [[ "${DEPLOYMENT}" == "dns" ]]; then
+            # Can run with or w/o SSL
+                input_PROTOCOL
             fi
         fi
     
-        # input_ADVANCED_OPTIONS
+        input_SYSMON
 
         export DEPLOYMENT=${DEPLOYMENT}
         export PROTOCOL=${PROTOCOL}
         export DEPLOY_URL=${DEPLOY_URL}
 
-        echo "Backup existing .env file"
-        cp .env .env.before_config
-        envsubst < .env.template > .env
+
+        FILE=.env
+        if [[ -f "$FILE" ]]; then
+            info "Backup existing .env file"
+            cp .env .env.before_config
+        fi
+
+        FILE=docker-compose.yml
+        if [[ -f "$FILE" ]]; then
+            info "Backup existing docker-compose file"
+            cp docker-compose.yml docker-compose.yml.before_config
+        fi
+
+        info "Creating docker-compose environment"
+        envsubst < ./templates/.env.template > .env
+        cp ./templates/.docker-compose.template ./docker-compose.yml
 
         if [[ "${DEPLOYMENT}" == "ingress" ]]; then
-            echo "Configure NGINX"
-            # DEPLOYMENT 
-             . "./nginx_create_site.sh" ${INTERNAL_IP} ${DEPLOY_URL}
+            input_NGINX
+
+            if [[ "${NGINX_DOCKER}" == "y" ]]; then
+                info "Configure NGINX "
+                cat ./templates/.docker-compose-nginx.template >> ./docker-compose.yml
+            else
+                info "Configure NGINX"
+                # DEPLOYMENT 
+                . "./nginx_create_site.sh" ${INTERNAL_IP} ${DEPLOY_URL}
+            fi
         fi
+
+        if [[ "${SYSMON}" == "y" ]]; then
+            info "Configure System monitoring"
+            cat ./templates/.docker-compose-sysmon.template >> ./docker-compose.yml
+        fi
+
     }
 
   main @1

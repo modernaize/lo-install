@@ -1,0 +1,377 @@
+version: "3.7"
+
+services:
+
+  db:
+    image: ${REPOSITORY}/postgres:${POSTGRES_VERSION}
+    container_name: db
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U liveobjects"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    env_file:
+      - ./.env
+    volumes:
+      - ${PGDATA_DIR}/pgdata:/var/lib/postgresql/data
+    restart: always
+
+  servicebackend:
+    image: ${REPOSITORY}/service:${SERVICE_VERSION}
+    container_name: service
+    depends_on:
+      - db
+    ports:
+      - "8000:8000"
+    env_file:
+      - ./.env
+    volumes:
+      - ${TLSKEYS_DIR}/keys/tls:/mnt/keys
+      - ${LOGS_DIR}/logs/service:/mnt/logs
+      - ${LODATA_DIR}/data/uploads:/mnt/uploads
+      - ${LODATA_DIR}/data/data:/mnt/data
+    restart: always
+
+  servicelearn:
+    image: ${REPOSITORY}/learn:${ML_VERSION}
+    container_name: learn
+    command: gunicorn --workers=2 --worker-tmp-dir /dev/shm -c gunicorn_config.py --bind 0.0.0.0:5000 wsgi:APP
+    depends_on:
+      - db
+    ports:
+      - "5000:5000"
+    env_file:
+      - ./.env
+    volumes:
+      - ${LODATA_DIR}/data/uns_model:/tmp
+      - ${LODATA_DIR}/data/uns_model/uploads:/tmp/uploads
+      - ${LODATA_DIR}/data/procmine:/mnt/procmine
+      - ${LOGS_DIR}/logs/learn:/mnt/logs
+    restart: always
+
+  ui:
+    image: ${REPOSITORY}/ui:${UI_VERSION}
+    container_name: ui
+    ports:
+      - "3000:3000"
+      - "9991:9991"
+    env_file:
+      - .env
+    volumes:
+      - ${TLSKEYS_DIR}/keys/tls:/home/node/app/keys/tls
+      - ${LOGS_DIR}/logs/ui:/home/node/app/logs
+    restart: always
+    healthcheck:
+      test: ["CMD", "curl", "-k", "-f", "${PROTOCOL}://ui:3000/live"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+  license:
+    image: ${REPOSITORY}/lo-license-service:${LIC_VERSION}
+    container_name: license
+    ports:
+      - "3001:3000"
+      - "9992:9991"
+    env_file:
+      - ./.env
+    restart: always
+    healthcheck:
+      test: ["CMD", "curl", "-f", "${PROTOCOL}://license:3000/live"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+    volumes:
+      - ${LICENSE_DIR}/logger:/home/node/app/logger
+    depends_on:
+      - db
+
+  scenario:
+    image: ${REPOSITORY}/lo-ui-scenario:${UI_SCENARIO_VERSION}
+    container_name: scenario
+    ports:
+      - "3002:3000"
+    env_file:
+      - ./.env
+    volumes:
+      - ${LOGS_DIR}/logs/scenario:/home/node/app/logs
+    restart: always
+    healthcheck:
+      test: ["CMD", "curl", "-k", "-f", "${PROTOCOL}://scenario:3000/live"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+  dyk:
+    image: ${REPOSITORY}/lo-ui-dyk:${UI_DYK_VERSION}
+    container_name: dyk
+    env_file:
+      - ./.env
+    ports:
+      - "3003:3000"
+    volumes:
+      - ${LOGS_DIR}/logs/dyk:/home/node/app/logs
+    restart: always
+    healthcheck:
+      test: ["CMD", "curl", "-k", "-f", "${PROTOCOL}://dyk:3000/live"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+  dashboards:
+    image: ${REPOSITORY}/lo-ui-dashboards:${UI_DASHBOARDS_VERSION}
+    container_name: dashboards
+    hostname: dashboards
+    depends_on:
+      - servicebackend
+    ports:
+      - "3005:3000"
+    env_file:
+      - ./.env
+    volumes:
+      - ${LOGS_DIR}/logs/dashboards:/home/node/app/logs
+    restart: always
+    healthcheck:
+      test: ["CMD", "curl", "-k", "-f", "${PROTOCOL}://dashboard:3000/live"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+  wdc:
+    image: ${REPOSITORY}/lo-tableau-wdc:${UI_WDC_VERSION}
+    container_name: wdc
+    ports:
+      - "3006:3000"
+    environment:
+      - SERVICE_PROTOCOL=https
+      - SERVICE_HOST=${DEPLOY_URL}
+      - SERVICE_PORT=443
+    healthcheck:
+      test: ["CMD", "curl", "-k", "-f", "${PROTOCOL}://wdc:3000/live"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+    restart: always
+
+  businessgrammar:
+    image: ${REPOSITORY}/lo-ui-business-grammar:${UI_BUSINESS_GRAMMAR_VERSION}
+    container_name: businessgrammar
+    env_file:
+      - ./.env
+    ports:
+      - "3007:3000"
+    volumes:
+      - ${LOGS_DIR}/logs/businessgrammar:/home/node/app/logs
+    restart: always
+    healthcheck:
+      test: ["CMD", "curl", "-k", "-f", "${PROTOCOL}://businessgrammar:3000/live"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+  extensions:
+    image: ${REPOSITORY}/lo-ui-extensions:${UI_EXTENSIONS_VERSION}
+    container_name: extension 
+    env_file:
+      - ./.env
+    ports:
+      - "3008:3000"
+    volumes:
+      - ${LOGS_DIR}/logs/extensions:/home/node/app/logs
+    restart: always
+    healthcheck:
+      test: ["CMD", "curl", "-k", "-f", "${PROTOCOL}://extensions:3000/live"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      
+  documentation:
+    image: ${REPOSITORY}/lo-ui-documentation:${UI_DOCUMENTATION_VERSION}
+    container_name: documentation
+    env_file:
+      - ./.env
+    ports:
+      - "3009:3000"
+    volumes:
+      - ${LOGS_DIR}/logs/documentation:/home/node/app/logs
+    restart: always
+    healthcheck:
+      test: ["CMD", "curl", "-k", "-f", "${PROTOCOL}://documentation:3000/live"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+  autojoin:
+    image: ${REPOSITORY}/lo-ui-discovery-autojoin:${UI_DISCOVERY_AUTOJOIN_VERSION}
+    container_name: autojoin
+    env_file:
+      - ./.env
+    ports:
+      - "3010:3000"
+    volumes:
+      - ${LOGS_DIR}/logs/discoveryautojoin:/home/node/app/logs
+    restart: always
+    healthcheck:
+      test: ["CMD", "curl", "-k", "-f", "${PROTOCOL}://autojoin:3000/live"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+  serviceautojoin:
+    image: ${REPOSITORY}/autojoin:${AUTOJOIN_VERSION}
+    container_name: serviceautojoin
+    command: gunicorn --workers=2 --worker-tmp-dir /dev/shm -c gunicorn_config.py --bind 0.0.0.0:5002 wsgi:APP
+    depends_on:
+      - db
+    ports:
+      - "5002:5002"
+    env_file:
+      - ./.env
+    volumes:
+      - ${LODATA_DIR}/data/uns_model:/tmp
+      - ${LODATA_DIR}/data/uns_model/uploads:/tmp/uploads
+      - ${LODATA_DIR}/data/procmine:/mnt/procmine
+      - ${LOGS_DIR}/logs/service:/mnt/logs
+    restart: always
+  
+  nginx:
+    container_name: nginx
+    image: nginx:alpine
+    volumes:
+      - "./nginx/sites/liveobjects.local.conf:/etc/nginx/conf.d/liveobjects.local.conf:ro"
+      - "./nginx/nginx.conf:/etc/nginx/nginx.conf:ro"
+      - ./webserver/certbot/conf:/etc/letsencrypt
+      - ./webserver/certbot/www:/var/www/certbot
+      - ${LOGS_DIR}/logs/nginx:/var/log/nginx
+    ports:
+      - 80:80
+      - 443:443
+    restart: unless-stopped
+    command: /bin/sh -c "while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g 'daemon off;'" # 💡
+      
+  prometheus:
+    image: prom/prometheus:v2.19.0 
+    container_name: prometheus
+    volumes:
+      - ./sysmon/prometheus:/etc/prometheus
+      - prometheus_data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.console.libraries=/etc/prometheus/console_libraries'
+      - '--web.console.templates=/etc/prometheus/consoles'
+      - '--storage.tsdb.retention.time=200h'
+      - '--web.enable-lifecycle'
+    restart: unless-stopped
+    expose:
+      - 9090
+    labels:
+      org.label-schema.group: "monitoring"
+      
+  alertmanager:
+    image: prom/alertmanager:v0.20.0
+    container_name: alertmanager
+    volumes:
+      - ./sysmon/alertmanager:/etc/alertmanager
+    command:
+      - '--config.file=/etc/alertmanager/config.yml'
+      - '--storage.path=/alertmanager'
+    restart: unless-stopped
+    expose:
+      - 9093
+    labels:
+      org.label-schema.group: "monitoring"
+  
+  nodeexporter:
+    image: prom/node-exporter:v0.18.1 
+    container_name: nodeexporter
+    volumes:
+      - /proc:/host/proc:ro
+      - /sys:/host/sys:ro
+      - /:/rootfs:ro
+    command:
+      - '--path.procfs=/host/proc'
+      - '--path.rootfs=/rootfs'
+      - '--path.sysfs=/host/sys'
+      - '--collector.filesystem.ignored-mount-points=^/(sys|proc|dev|host|etc)($$|/)'
+    restart: unless-stopped
+    expose:
+      - 9100
+    labels:
+      org.label-schema.group: "monitoring"
+
+  cadvisor:
+    image: gcr.io/google-containers/cadvisor:v0.36.0
+    container_name: cadvisor
+    volumes:
+      - /:/rootfs:ro 
+      - /var/run:/var/run:ro 
+      - /sys:/sys:ro 
+      - /var/lib/docker/:/var/lib/docker:ro 
+      - /dev/disk/:/dev/disk:ro 
+    restart: unless-stopped
+    expose:
+      - 8080
+    labels:
+      org.label-schema.group: "monitoring"
+
+  grafana:
+    image: grafana/grafana:7.1.1
+    container_name: grafana
+    volumes:
+      - grafana_data:/var/lib/grafana
+      - ./sysmon/grafana/provisioning:/etc/grafana/provisioning
+    env_file:
+      - './sysmon/grafana/env.grafana'
+    restart: unless-stopped
+    ports :
+      - "4444:3000"
+    labels:
+      org.label-schema.group: "monitoring"
+
+  pushgateway:
+    image: prom/pushgateway:v1.0.1 
+    container_name: pushgateway
+    restart: unless-stopped
+    expose:
+      - 9091
+    labels:
+      org.label-schema.group: "monitoring"
+
+  caddy:
+    image: stefanprodan/caddy:0.10.10
+    container_name: caddy
+    ports:
+      - "8080:8080"
+      - "9090:9090"
+      - "9093:9093"
+      - "9091:9091"
+    volumes:
+      - ./sysmon/caddy:/etc/caddy
+    env_file:
+      - './sysmon/caddy/env.caddy'
+    restart: unless-stopped
+    labels:
+      org.label-schema.group: "monitoring"
+
+  postgresql-exporter:
+    image: wrouesnel/postgres_exporter:v0.8.0
+    container_name: postgresqlexporter
+    ports:
+      - 9187:9187
+    env_file:
+      - './sysmon//postgresql-exporter/env.postgresql-exporter'
+    volumes:
+      - ./sysmon/postgresql-exporter/custom-queries.yml:/custom-queries.yaml
+    restart: unless-stopped
+    labels:
+      org.label-schema.group: "monitoring"
+
+volumes:
+  
+    prometheus_data: {}
+    grafana_data: {}
+
+    

@@ -1,0 +1,443 @@
+2020-09-08 06:44:18 [32minfo[39m: Attempting UI extension registration...
+2020-09-08 06:44:18 [32minfo[39m: Server is running version 2020.3.0, 0, 2020.3.0, 37, d048229, Fri Sep  4 22:06:07 UTC 2020
+2020-09-08 06:44:18 [32minfo[39m: Node server started without a TLS certificate on port : 3000
+2020-09-08 06:44:18 [31merror[39m: connect ECONNREFUSED 172.18.0.20:8000
+2020-09-08 06:44:18 [32minfo[39m: Failed registration (Attempt #1). Attempting again in 30 seconds.
+2020-09-08 06:44:26 [32minfo[39m: Execute liveness check
+2020-09-08 06:44:36 [32minfo[39m: Execute liveness check
+2020-09-08 06:44:46 [32minfo[39m: Execute liveness check
+2020-09-08 06:44:48 [32minfo[39m: Attempting UI extension registration...
+2020-09-08 06:44:48 [31merror[39m: connect ECONNREFUSED 172.18.0.7:8000
+2020-09-08 06:44:48 [32minfo[39m: Failed registration (Attempt #2). Attempting again in 30 seconds.
+2020-09-08 06:44:56 [32minfo[39m: Execute liveness check
+2020-09-08 06:45:06 [32minfo[39m: Execute liveness check
+2020-09-08 06:45:16 [32minfo[39m: Execute liveness check
+2020-09-08 06:45:18 [32minfo[39m: Attempting UI extension registration...
+2020-09-08 06:45:18 [31merror[39m: connect ECONNREFUSED 172.18.0.7:8000
+2020-09-08 06:45:18 [32minfo[39m: Failed registration (Attempt #3). Attempting again in 30 seconds.
+2020-09-08 06:45:27 [32minfo[39m: Execute liveness check
+2020-09-08 06:45:37 [32minfo[39m: Execute liveness check
+2020-09-08 06:45:47 [32minfo[39m: Execute liveness check
+2020-09-08 06:45:48 [32minfo[39m: Attempting UI extension registration...
+2020-09-08 06:45:48 [31merror[39m: connect ECONNREFUSED 172.18.0.7:8000
+2020-09-08 06:45:48 [32minfo[39m: Failed registration (Attempt #4). Attempting again in 30 seconds.
+2020-09-08 06:45:57 [32minfo[39m: Execute liveness check
+2020-09-08 06:46:07 [32minfo[39m: Execute liveness check
+2020-09-08 06:46:17 [32minfo[39m: Execute liveness check
+2020-09-08 06:46:18 [32minfo[39m: Attempting UI extension registration...
+2020-09-08 06:46:18 [31merror[39m: connect ECONNREFUSED 172.18.0.7:8000
+2020-09-08 06:46:18 [32minfo[39m: Failed registration (Attempt #5). Attempting again in 30 seconds.
+2020-09-08 06:46:27 [32minfo[39m: Execute liveness check
+2020-09-08 06:46:37 [32minfo[39m: Execute liveness check
+2020-09-08 06:46:47 [32minfo[39m: Execute liveness check
+2020-09-08 06:46:48 [32minfo[39m: Attempting UI extension registration...
+2020-09-08 06:46:48 [31merror[39m: connect ECONNREFUSED 172.18.0.7:8000
+2020-09-08 06:46:48 [32minfo[39m: Failed registration (Attempt #6). Attempting again in 30 seconds.
+2020-09-08 06:46:58 [32minfo[39m: Execute liveness check
+2020-09-08 06:47:08 [32minfo[39m: Execute liveness check
+2020-09-08 06:47:18 [32minfo[39m: Execute liveness check
+2020-09-08 06:47:18 [32minfo[39m: Attempting UI extension registration...
+2020-09-08 06:47:18 [31merror[39m: connect ECONNREFUSED 172.18.0.7:8000
+2020-09-08 06:47:18 [32minfo[39m: Failed registration (Attempt #7). Attempting again in 30 seconds.
+2020-09-08 06:47:28 [32minfo[39m: Execute liveness check
+2020-09-08 06:47:38 [32minfo[39m: Execute liveness check
+2020-09-08 06:47:48 [32minfo[39m: Attempting UI extension registration...
+2020-09-08 06:47:48 [31merror[39m: connect ECONNREFUSED 172.18.0.7:8000
+2020-09-08 06:47:48 [32minfo[39m: Failed registration (Attempt #8). Attempting again in 30 seconds.
+2020-09-08 06:47:48 [32minfo[39m: Execute liveness check
+2020-09-08 06:47:58 [32minfo[39m: Execute liveness check
+2020-09-08 06:48:08 [32minfo[39m: Execute liveness check
+2020-09-08 06:48:18 [32minfo[39m: Attempting UI extension registration...
+2020-09-08 06:48:18 [31merror[39m: connect ECONNREFUSED 172.18.0.7:8000
+2020-09-08 06:48:18 [32minfo[39m: Failed registration (Attempt #9). Attempting again in 30 seconds.
+2020-09-08 06:48:19 [32minfo[39m: Execute liveness check
+2020-09-08 06:48:29 [32minfo[39m: Execute liveness check
+2020-09-08 06:48:39 [32minfo[39m: Execute liveness check
+2020-09-08 06:48:48 [32minfo[39m: Attempting UI extension registration...
+2020-09-08 06:48:48 [31merror[39m: connect ECONNREFUSED 172.18.0.7:8000
+2020-09-08 06:48:48 [32minfo[39m: Failed registration (Attempt #10). Attempting again in 30 seconds.
+2020-09-08 06:48:49 [32minfo[39m: Execute liveness check
+2020-09-08 06:48:59 [32minfo[39m: Execute liveness check
+2020-09-08 06:49:09 [32minfo[39m: Execute liveness check
+2020-09-08 06:49:18 [32minfo[39m: Attempting UI extension registration...
+2020-09-08 06:49:18 [31merror[39m: connect ECONNREFUSED 172.18.0.7:8000
+2020-09-08 06:49:18 [32minfo[39m: Failed registration (Attempt #11). Attempting again in 30 seconds.
+2020-09-08 06:49:19 [32minfo[39m: Execute liveness check
+2020-09-08 06:49:29 [32minfo[39m: Execute liveness check
+2020-09-08 06:49:40 [32minfo[39m: Execute liveness check
+2020-09-08 06:49:48 [32minfo[39m: Attempting UI extension registration...
+2020-09-08 06:49:48 [31merror[39m: connect ECONNREFUSED 172.18.0.7:8000
+2020-09-08 06:49:48 [32minfo[39m: Failed registration (Attempt #12). Attempting again in 30 seconds.
+2020-09-08 06:49:50 [32minfo[39m: Execute liveness check
+2020-09-08 06:50:00 [32minfo[39m: Execute liveness check
+2020-09-08 06:50:10 [32minfo[39m: Execute liveness check
+2020-09-08 06:50:18 [32minfo[39m: Attempting UI extension registration...
+2020-09-08 06:50:18 [31merror[39m: connect ECONNREFUSED 172.18.0.7:8000
+2020-09-08 06:50:18 [32minfo[39m: Failed registration (Attempt #13). Attempting again in 30 seconds.
+2020-09-08 06:50:20 [32minfo[39m: Execute liveness check
+2020-09-08 06:50:30 [32minfo[39m: Execute liveness check
+2020-09-08 06:50:40 [32minfo[39m: Execute liveness check
+2020-09-08 06:50:48 [32minfo[39m: Attempting UI extension registration...
+2020-09-08 06:50:48 [31merror[39m: connect ECONNREFUSED 172.18.0.7:8000
+2020-09-08 06:50:48 [32minfo[39m: Failed registration (Attempt #14). Attempting again in 30 seconds.
+2020-09-08 06:50:50 [32minfo[39m: Execute liveness check
+2020-09-08 06:51:00 [32minfo[39m: Execute liveness check
+2020-09-08 06:51:11 [32minfo[39m: Execute liveness check
+2020-09-08 06:51:18 [32minfo[39m: Attempting UI extension registration...
+2020-09-08 06:51:18 [31merror[39m: connect ECONNREFUSED 172.18.0.7:8000
+2020-09-08 06:51:18 [32minfo[39m: Failed registration (Attempt #15). Attempting again in 30 seconds.
+2020-09-08 06:51:21 [32minfo[39m: Execute liveness check
+2020-09-08 06:51:31 [32minfo[39m: Execute liveness check
+2020-09-08 06:51:41 [32minfo[39m: Execute liveness check
+2020-09-08 06:51:48 [32minfo[39m: Attempting UI extension registration...
+2020-09-08 06:51:48 [31merror[39m: connect ECONNREFUSED 172.18.0.7:8000
+2020-09-08 06:51:48 [32minfo[39m: Failed registration (Attempt #16). Attempting again in 30 seconds.
+2020-09-08 06:51:51 [32minfo[39m: Execute liveness check
+2020-09-08 06:52:01 [32minfo[39m: Execute liveness check
+2020-09-08 06:52:11 [32minfo[39m: Execute liveness check
+2020-09-08 06:52:18 [32minfo[39m: Attempting UI extension registration...
+2020-09-08 06:52:18 [31merror[39m: connect ECONNREFUSED 172.18.0.7:8000
+2020-09-08 06:52:18 [32minfo[39m: Failed registration (Attempt #17). Attempting again in 30 seconds.
+2020-09-08 06:52:21 [32minfo[39m: Execute liveness check
+2020-09-08 06:52:32 [32minfo[39m: Execute liveness check
+2020-09-08 06:52:42 [32minfo[39m: Execute liveness check
+2020-09-08 06:52:48 [32minfo[39m: Attempting UI extension registration...
+2020-09-08 06:52:48 [31merror[39m: connect ECONNREFUSED 172.18.0.7:8000
+2020-09-08 06:52:48 [32minfo[39m: Failed registration (Attempt #18). Attempting again in 30 seconds.
+2020-09-08 06:52:52 [32minfo[39m: Execute liveness check
+2020-09-08 06:53:02 [32minfo[39m: Execute liveness check
+2020-09-08 06:53:12 [32minfo[39m: Execute liveness check
+2020-09-08 06:53:18 [32minfo[39m: Attempting UI extension registration...
+2020-09-08 06:53:18 [31merror[39m: connect ECONNREFUSED 172.18.0.7:8000
+2020-09-08 06:53:18 [32minfo[39m: Failed registration (Attempt #19). Attempting again in 30 seconds.
+2020-09-08 06:53:22 [32minfo[39m: Execute liveness check
+2020-09-08 06:53:32 [32minfo[39m: Execute liveness check
+2020-09-08 06:53:42 [32minfo[39m: Execute liveness check
+2020-09-08 06:53:48 [32minfo[39m: Attempting UI extension registration...
+2020-09-08 06:53:48 [31merror[39m: connect ECONNREFUSED 172.18.0.7:8000
+2020-09-08 06:53:48 [32minfo[39m: Failed registration (Attempt #20). Attempting again in 30 seconds.
+2020-09-08 06:53:52 [32minfo[39m: Execute liveness check
+2020-09-08 06:54:02 [32minfo[39m: Execute liveness check
+2020-09-08 06:54:13 [32minfo[39m: Execute liveness check
+2020-09-08 06:54:18 [32minfo[39m: Attempting UI extension registration...
+2020-09-08 06:54:18 [31merror[39m: connect ECONNREFUSED 172.18.0.7:8000
+2020-09-08 06:54:18 [31merror[39m: Maximum number of attempts exceeded. Could not register UI extension.
+2020-09-08 06:54:23 [32minfo[39m: Execute liveness check
+2020-09-08 06:54:33 [32minfo[39m: Execute liveness check
+2020-09-08 06:54:43 [32minfo[39m: Execute liveness check
+2020-09-08 06:54:53 [32minfo[39m: Execute liveness check
+2020-09-08 06:55:03 [32minfo[39m: Execute liveness check
+2020-09-08 06:55:13 [32minfo[39m: Execute liveness check
+2020-09-08 06:55:24 [32minfo[39m: Execute liveness check
+2020-09-08 06:55:34 [32minfo[39m: Execute liveness check
+2020-09-08 06:55:44 [32minfo[39m: Execute liveness check
+2020-09-08 06:55:54 [32minfo[39m: Execute liveness check
+2020-09-08 06:56:04 [32minfo[39m: Execute liveness check
+2020-09-08 06:56:14 [32minfo[39m: Execute liveness check
+2020-09-08 06:56:24 [32minfo[39m: Execute liveness check
+2020-09-08 06:56:34 [32minfo[39m: Execute liveness check
+2020-09-08 06:56:45 [32minfo[39m: Execute liveness check
+2020-09-08 06:56:55 [32minfo[39m: Execute liveness check
+2020-09-08 06:57:05 [32minfo[39m: Execute liveness check
+2020-09-08 06:57:15 [32minfo[39m: Execute liveness check
+2020-09-08 06:57:25 [32minfo[39m: Execute liveness check
+2020-09-08 06:57:35 [32minfo[39m: Execute liveness check
+2020-09-08 06:57:45 [32minfo[39m: Execute liveness check
+2020-09-08 06:57:55 [32minfo[39m: Execute liveness check
+2020-09-08 06:58:05 [32minfo[39m: Execute liveness check
+2020-09-08 06:58:16 [32minfo[39m: Execute liveness check
+2020-09-08 06:58:26 [32minfo[39m: Execute liveness check
+2020-09-08 06:58:36 [32minfo[39m: Execute liveness check
+2020-09-08 06:58:46 [32minfo[39m: Execute liveness check
+2020-09-08 06:58:56 [32minfo[39m: Execute liveness check
+2020-09-08 06:59:06 [32minfo[39m: Execute liveness check
+2020-09-08 06:59:16 [32minfo[39m: Execute liveness check
+2020-09-08 06:59:26 [32minfo[39m: Execute liveness check
+2020-09-08 06:59:36 [32minfo[39m: Execute liveness check
+2020-09-08 06:59:46 [32minfo[39m: Execute liveness check
+2020-09-08 06:59:57 [32minfo[39m: Execute liveness check
+2020-09-08 07:00:24 [32minfo[39m: Attempting UI extension registration...
+2020-09-08 07:00:24 [32minfo[39m: Server is running version 2020.3.0, 0, 2020.3.0, 37, d048229, Fri Sep  4 22:06:07 UTC 2020
+2020-09-08 07:00:24 [32minfo[39m: Node server started without a TLS certificate on port : 3000
+2020-09-08 07:00:25 [31merror[39m: connect ECONNREFUSED 172.19.0.20:8000
+2020-09-08 07:00:25 [32minfo[39m: Failed registration (Attempt #1). Attempting again in 30 seconds.
+2020-09-08 07:00:32 [32minfo[39m: Execute liveness check
+2020-09-08 07:00:42 [32minfo[39m: Execute liveness check
+2020-09-08 07:00:52 [32minfo[39m: Execute liveness check
+2020-09-08 07:00:55 [32minfo[39m: Attempting UI extension registration...
+2020-09-08 07:00:55 [31merror[39m: connect ECONNREFUSED 172.19.0.12:8000
+2020-09-08 07:00:55 [32minfo[39m: Failed registration (Attempt #2). Attempting again in 30 seconds.
+2020-09-08 07:01:02 [32minfo[39m: Execute liveness check
+2020-09-08 07:01:13 [32minfo[39m: Execute liveness check
+2020-09-08 07:01:23 [32minfo[39m: Execute liveness check
+2020-09-08 07:01:25 [32minfo[39m: Attempting UI extension registration...
+2020-09-08 07:01:25 [31merror[39m: connect ECONNREFUSED 172.19.0.12:8000
+2020-09-08 07:01:25 [32minfo[39m: Failed registration (Attempt #3). Attempting again in 30 seconds.
+2020-09-08 07:01:33 [32minfo[39m: Execute liveness check
+2020-09-08 07:01:43 [32minfo[39m: Execute liveness check
+2020-09-08 07:01:53 [32minfo[39m: Execute liveness check
+2020-09-08 07:01:54 [32minfo[39m: Attempting UI extension registration...
+2020-09-08 07:01:54 [31merror[39m: connect ECONNREFUSED 172.19.0.12:8000
+2020-09-08 07:01:54 [32minfo[39m: Failed registration (Attempt #4). Attempting again in 30 seconds.
+2020-09-08 07:02:04 [32minfo[39m: Execute liveness check
+2020-09-08 07:02:14 [32minfo[39m: Execute liveness check
+2020-09-08 07:02:24 [32minfo[39m: Execute liveness check
+2020-09-08 07:02:24 [32minfo[39m: Attempting UI extension registration...
+2020-09-08 07:02:24 [31merror[39m: connect ECONNREFUSED 172.19.0.12:8000
+2020-09-08 07:02:24 [32minfo[39m: Failed registration (Attempt #5). Attempting again in 30 seconds.
+2020-09-08 07:02:34 [32minfo[39m: Execute liveness check
+2020-09-08 07:16:36 [32minfo[39m: Attempting UI extension registration...
+2020-09-08 07:16:36 [32minfo[39m: Server is running version 2020.3.0, 0, 2020.3.0, 37, d048229, Fri Sep  4 22:06:07 UTC 2020
+2020-09-08 07:16:36 [32minfo[39m: Node server started without a TLS certificate on port : 3000
+2020-09-08 07:16:36 [31merror[39m: connect ECONNREFUSED 172.21.0.21:8000
+2020-09-08 07:16:36 [32minfo[39m: Failed registration (Attempt #1). Attempting again in 30 seconds.
+2020-09-08 07:16:43 [32minfo[39m: Execute liveness check
+2020-09-08 07:16:53 [32minfo[39m: Execute liveness check
+2020-09-08 07:17:04 [32minfo[39m: Execute liveness check
+2020-09-08 07:17:06 [32minfo[39m: Attempting UI extension registration...
+2020-09-08 07:17:06 [31merror[39m: connect ECONNREFUSED 172.21.0.7:8000
+2020-09-08 07:17:06 [32minfo[39m: Failed registration (Attempt #2). Attempting again in 30 seconds.
+2020-09-08 07:17:14 [32minfo[39m: Execute liveness check
+2020-09-08 07:17:24 [32minfo[39m: Execute liveness check
+2020-09-08 07:17:34 [32minfo[39m: Execute liveness check
+2020-09-08 07:17:36 [32minfo[39m: Attempting UI extension registration...
+2020-09-08 07:17:36 [31merror[39m: connect ECONNREFUSED 172.21.0.7:8000
+2020-09-08 07:17:36 [32minfo[39m: Failed registration (Attempt #3). Attempting again in 30 seconds.
+2020-09-08 07:17:44 [32minfo[39m: Execute liveness check
+2020-09-08 07:17:54 [32minfo[39m: Execute liveness check
+2020-09-08 07:18:04 [32minfo[39m: Execute liveness check
+2020-09-08 07:18:06 [32minfo[39m: Attempting UI extension registration...
+2020-09-08 07:18:06 [31merror[39m: connect ECONNREFUSED 172.21.0.7:8000
+2020-09-08 07:18:06 [32minfo[39m: Failed registration (Attempt #4). Attempting again in 30 seconds.
+2020-09-08 07:18:14 [32minfo[39m: Execute liveness check
+2020-09-08 07:18:25 [32minfo[39m: Execute liveness check
+2020-09-08 07:18:35 [32minfo[39m: Execute liveness check
+2020-09-08 07:18:36 [32minfo[39m: Attempting UI extension registration...
+2020-09-08 07:18:36 [31merror[39m: connect ECONNREFUSED 172.21.0.7:8000
+2020-09-08 07:18:36 [32minfo[39m: Failed registration (Attempt #5). Attempting again in 30 seconds.
+2020-09-08 07:18:45 [32minfo[39m: Execute liveness check
+2020-09-08 07:18:55 [32minfo[39m: Execute liveness check
+2020-09-08 07:19:05 [32minfo[39m: Execute liveness check
+2020-09-08 07:19:06 [32minfo[39m: Attempting UI extension registration...
+2020-09-08 07:19:06 [31merror[39m: connect ECONNREFUSED 172.21.0.7:8000
+2020-09-08 07:19:06 [32minfo[39m: Failed registration (Attempt #6). Attempting again in 30 seconds.
+2020-09-08 07:19:15 [32minfo[39m: Execute liveness check
+2020-09-08 07:19:25 [32minfo[39m: Execute liveness check
+2020-09-08 07:19:36 [32minfo[39m: Execute liveness check
+2020-09-08 07:19:36 [32minfo[39m: Attempting UI extension registration...
+2020-09-08 07:19:36 [31merror[39m: connect ECONNREFUSED 172.21.0.7:8000
+2020-09-08 07:19:36 [32minfo[39m: Failed registration (Attempt #7). Attempting again in 30 seconds.
+2020-09-08 07:19:46 [32minfo[39m: Execute liveness check
+2020-09-08 07:19:56 [32minfo[39m: Execute liveness check
+2020-09-08 07:20:04 [32minfo[39m: Attempting UI extension registration...
+2020-09-08 07:20:04 [32minfo[39m: Server is running version 2020.3.0, 0, 2020.3.0, 37, d048229, Fri Sep  4 22:06:07 UTC 2020
+2020-09-08 07:20:04 [32minfo[39m: Node server started without a TLS certificate on port : 3000
+2020-09-08 07:20:04 [31merror[39m: connect ECONNREFUSED 172.21.0.9:8000
+2020-09-08 07:20:04 [32minfo[39m: Failed registration (Attempt #1). Attempting again in 30 seconds.
+2020-09-08 07:20:12 [32minfo[39m: Execute liveness check
+2020-09-08 07:20:22 [32minfo[39m: Execute liveness check
+2020-09-08 07:20:32 [32minfo[39m: Execute liveness check
+2020-09-08 07:20:34 [32minfo[39m: Attempting UI extension registration...
+2020-09-08 07:20:34 [31merror[39m: connect ECONNREFUSED 172.21.0.9:8000
+2020-09-08 07:20:34 [32minfo[39m: Failed registration (Attempt #2). Attempting again in 30 seconds.
+2020-09-08 07:20:42 [32minfo[39m: Execute liveness check
+2020-09-08 07:20:53 [32minfo[39m: Execute liveness check
+2020-09-08 07:21:03 [32minfo[39m: Execute liveness check
+2020-09-08 07:21:04 [32minfo[39m: Attempting UI extension registration...
+2020-09-08 07:21:04 [31merror[39m: connect ECONNREFUSED 172.21.0.9:8000
+2020-09-08 07:21:04 [32minfo[39m: Failed registration (Attempt #3). Attempting again in 30 seconds.
+2020-09-08 07:21:13 [32minfo[39m: Execute liveness check
+2020-09-08 07:22:40 [32minfo[39m: Attempting UI extension registration...
+2020-09-08 07:22:40 [32minfo[39m: Server is running version 2020.3.0, 0, 2020.3.0, 37, d048229, Fri Sep  4 22:06:07 UTC 2020
+2020-09-08 07:22:40 [32minfo[39m: Node server started without a TLS certificate on port : 3000
+2020-09-08 07:22:41 [31merror[39m: connect ECONNREFUSED 172.21.0.21:8000
+2020-09-08 07:22:41 [32minfo[39m: Failed registration (Attempt #1). Attempting again in 30 seconds.
+2020-09-08 07:22:48 [32minfo[39m: Execute liveness check
+2020-09-08 07:22:58 [32minfo[39m: Execute liveness check
+2020-09-08 07:23:08 [32minfo[39m: Execute liveness check
+2020-09-08 07:23:11 [32minfo[39m: Attempting UI extension registration...
+2020-09-08 07:23:11 [31merror[39m: connect ECONNREFUSED 172.21.0.21:8000
+2020-09-08 07:23:11 [32minfo[39m: Failed registration (Attempt #2). Attempting again in 30 seconds.
+2020-09-08 07:23:18 [32minfo[39m: Execute liveness check
+2020-09-08 07:23:29 [32minfo[39m: Execute liveness check
+2020-09-08 07:23:39 [32minfo[39m: Execute liveness check
+2020-09-08 07:23:40 [32minfo[39m: Attempting UI extension registration...
+2020-09-08 07:23:42 [31merror[39m: connect ECONNREFUSED 172.21.0.21:8000
+2020-09-08 07:23:42 [32minfo[39m: Failed registration (Attempt #3). Attempting again in 30 seconds.
+2020-09-08 07:23:49 [32minfo[39m: Execute liveness check
+2020-09-08 07:23:59 [32minfo[39m: Execute liveness check
+2020-09-08 07:24:09 [32minfo[39m: Execute liveness check
+2020-09-08 07:24:11 [32minfo[39m: Attempting UI extension registration...
+2020-09-08 07:24:11 [31merror[39m: connect ECONNREFUSED 172.21.0.21:8000
+2020-09-08 07:24:11 [32minfo[39m: Failed registration (Attempt #4). Attempting again in 30 seconds.
+2020-09-08 07:24:19 [32minfo[39m: Execute liveness check
+2020-09-08 07:24:29 [32minfo[39m: Execute liveness check
+2020-09-08 07:24:40 [32minfo[39m: Execute liveness check
+2020-09-08 07:24:41 [32minfo[39m: Attempting UI extension registration...
+2020-09-08 07:24:41 [31merror[39m: connect ECONNREFUSED 172.21.0.21:8000
+2020-09-08 07:24:41 [32minfo[39m: Failed registration (Attempt #5). Attempting again in 30 seconds.
+2020-09-08 07:24:50 [32minfo[39m: Execute liveness check
+2020-09-08 07:25:00 [32minfo[39m: Execute liveness check
+2020-09-08 07:25:10 [32minfo[39m: Execute liveness check
+2020-09-08 07:25:11 [32minfo[39m: Attempting UI extension registration...
+2020-09-08 07:25:11 [31merror[39m: connect ECONNREFUSED 172.21.0.21:8000
+2020-09-08 07:25:11 [32minfo[39m: Failed registration (Attempt #6). Attempting again in 30 seconds.
+2020-09-08 07:25:20 [32minfo[39m: Execute liveness check
+2020-09-08 07:25:30 [32minfo[39m: Execute liveness check
+2020-09-08 07:25:40 [32minfo[39m: Execute liveness check
+2020-09-08 07:25:41 [32minfo[39m: Attempting UI extension registration...
+2020-09-08 07:25:41 [31merror[39m: connect ECONNREFUSED 172.21.0.21:8000
+2020-09-08 07:25:41 [32minfo[39m: Failed registration (Attempt #7). Attempting again in 30 seconds.
+2020-09-08 07:27:10 [32minfo[39m: Attempting UI extension registration...
+2020-09-08 07:27:10 [32minfo[39m: Server is running version 2020.3.0, 0, 2020.3.0, 37, d048229, Fri Sep  4 22:06:07 UTC 2020
+2020-09-08 07:27:10 [32minfo[39m: Node server started without a TLS certificate on port : 3000
+2020-09-08 07:27:10 [31merror[39m: getaddrinfo ENOTFOUND servicebackend
+2020-09-08 07:27:10 [32minfo[39m: Failed registration (Attempt #1). Attempting again in 30 seconds.
+2020-09-08 07:27:40 [32minfo[39m: Attempting UI extension registration...
+2020-09-08 07:27:40 [31merror[39m: connect ECONNREFUSED 172.22.0.20:8000
+2020-09-08 07:27:40 [32minfo[39m: Failed registration (Attempt #2). Attempting again in 30 seconds.
+2020-09-08 07:28:10 [32minfo[39m: Attempting UI extension registration...
+2020-09-08 07:28:10 [31merror[39m: connect ECONNREFUSED 172.22.0.20:8000
+2020-09-08 07:28:10 [32minfo[39m: Failed registration (Attempt #3). Attempting again in 30 seconds.
+2020-09-08 07:28:40 [32minfo[39m: Attempting UI extension registration...
+2020-09-08 07:28:40 [31merror[39m: connect ECONNREFUSED 172.22.0.20:8000
+2020-09-08 07:28:40 [32minfo[39m: Failed registration (Attempt #4). Attempting again in 30 seconds.
+2020-09-08 07:29:10 [32minfo[39m: Attempting UI extension registration...
+2020-09-08 07:29:10 [31merror[39m: connect ECONNREFUSED 172.22.0.20:8000
+2020-09-08 07:29:10 [32minfo[39m: Failed registration (Attempt #5). Attempting again in 30 seconds.
+2020-09-08 07:29:40 [32minfo[39m: Attempting UI extension registration...
+2020-09-08 07:29:40 [31merror[39m: connect ECONNREFUSED 172.22.0.20:8000
+2020-09-08 07:29:40 [32minfo[39m: Failed registration (Attempt #6). Attempting again in 30 seconds.
+2020-09-08 07:30:10 [32minfo[39m: Attempting UI extension registration...
+2020-09-08 07:30:10 [31merror[39m: connect ECONNREFUSED 172.22.0.20:8000
+2020-09-08 07:30:10 [32minfo[39m: Failed registration (Attempt #7). Attempting again in 30 seconds.
+2020-09-08 07:30:40 [32minfo[39m: Attempting UI extension registration...
+2020-09-08 07:30:40 [31merror[39m: connect ECONNREFUSED 172.22.0.20:8000
+2020-09-08 07:30:40 [32minfo[39m: Failed registration (Attempt #8). Attempting again in 30 seconds.
+2020-09-08 07:31:10 [32minfo[39m: Attempting UI extension registration...
+2020-09-08 07:31:10 [31merror[39m: connect ECONNREFUSED 172.22.0.20:8000
+2020-09-08 07:31:10 [32minfo[39m: Failed registration (Attempt #9). Attempting again in 30 seconds.
+2020-09-08 07:31:40 [32minfo[39m: Attempting UI extension registration...
+2020-09-08 07:31:40 [31merror[39m: connect ECONNREFUSED 172.22.0.20:8000
+2020-09-08 07:31:40 [32minfo[39m: Failed registration (Attempt #10). Attempting again in 30 seconds.
+2020-09-08 07:32:10 [32minfo[39m: Attempting UI extension registration...
+2020-09-08 07:32:10 [31merror[39m: connect ECONNREFUSED 172.22.0.20:8000
+2020-09-08 07:32:10 [32minfo[39m: Failed registration (Attempt #11). Attempting again in 30 seconds.
+2020-09-08 07:32:40 [32minfo[39m: Attempting UI extension registration...
+2020-09-08 07:32:40 [31merror[39m: connect ECONNREFUSED 172.22.0.20:8000
+2020-09-08 07:32:40 [32minfo[39m: Failed registration (Attempt #12). Attempting again in 30 seconds.
+2020-09-08 07:33:10 [32minfo[39m: Attempting UI extension registration...
+2020-09-08 07:33:10 [31merror[39m: connect ECONNREFUSED 172.22.0.20:8000
+2020-09-08 07:33:10 [32minfo[39m: Failed registration (Attempt #13). Attempting again in 30 seconds.
+2020-09-08 07:33:40 [32minfo[39m: Attempting UI extension registration...
+2020-09-08 07:33:40 [31merror[39m: connect ECONNREFUSED 172.22.0.20:8000
+2020-09-08 07:33:40 [32minfo[39m: Failed registration (Attempt #14). Attempting again in 30 seconds.
+2020-09-08 07:34:10 [32minfo[39m: Attempting UI extension registration...
+2020-09-08 07:34:10 [31merror[39m: connect ECONNREFUSED 172.22.0.20:8000
+2020-09-08 07:34:10 [32minfo[39m: Failed registration (Attempt #15). Attempting again in 30 seconds.
+2020-09-08 07:34:40 [32minfo[39m: Attempting UI extension registration...
+2020-09-08 07:34:40 [31merror[39m: connect ECONNREFUSED 172.22.0.20:8000
+2020-09-08 07:34:40 [32minfo[39m: Failed registration (Attempt #16). Attempting again in 30 seconds.
+2020-09-08 07:35:10 [32minfo[39m: Attempting UI extension registration...
+2020-09-08 07:35:10 [31merror[39m: connect ECONNREFUSED 172.22.0.20:8000
+2020-09-08 07:35:10 [32minfo[39m: Failed registration (Attempt #17). Attempting again in 30 seconds.
+2020-09-08 07:35:40 [32minfo[39m: Attempting UI extension registration...
+2020-09-08 07:35:40 [31merror[39m: connect ECONNREFUSED 172.22.0.20:8000
+2020-09-08 07:35:40 [32minfo[39m: Failed registration (Attempt #18). Attempting again in 30 seconds.
+2020-09-08 07:36:10 [32minfo[39m: Attempting UI extension registration...
+2020-09-08 07:36:10 [31merror[39m: connect ECONNREFUSED 172.22.0.20:8000
+2020-09-08 07:36:10 [32minfo[39m: Failed registration (Attempt #19). Attempting again in 30 seconds.
+2020-09-08 07:36:40 [32minfo[39m: Attempting UI extension registration...
+2020-09-08 07:36:40 [31merror[39m: connect ECONNREFUSED 172.22.0.20:8000
+2020-09-08 07:36:40 [32minfo[39m: Failed registration (Attempt #20). Attempting again in 30 seconds.
+2020-09-08 07:37:10 [32minfo[39m: Attempting UI extension registration...
+2020-09-08 07:37:10 [31merror[39m: connect ECONNREFUSED 172.22.0.20:8000
+2020-09-08 07:37:10 [31merror[39m: Maximum number of attempts exceeded. Could not register UI extension.
+2020-09-08 07:39:35 [32minfo[39m: Attempting UI extension registration...
+2020-09-08 07:39:35 [32minfo[39m: Server is running version 2020.3.0, 0, 2020.3.0, 37, d048229, Fri Sep  4 22:06:07 UTC 2020
+2020-09-08 07:39:35 [32minfo[39m: Node server started without a TLS certificate on port : 3000
+2020-09-08 07:39:35 [31merror[39m: connect ECONNREFUSED 172.23.0.21:8000
+2020-09-08 07:39:35 [32minfo[39m: Failed registration (Attempt #1). Attempting again in 30 seconds.
+2020-09-08 07:40:05 [32minfo[39m: Attempting UI extension registration...
+2020-09-08 07:40:05 [31merror[39m: connect ECONNREFUSED 172.23.0.21:8000
+2020-09-08 07:40:05 [32minfo[39m: Failed registration (Attempt #2). Attempting again in 30 seconds.
+2020-09-08 07:40:35 [32minfo[39m: Attempting UI extension registration...
+2020-09-08 07:40:35 [31merror[39m: connect ECONNREFUSED 172.23.0.21:8000
+2020-09-08 07:40:35 [32minfo[39m: Failed registration (Attempt #3). Attempting again in 30 seconds.
+2020-09-08 07:41:05 [32minfo[39m: Attempting UI extension registration...
+2020-09-08 07:41:05 [31merror[39m: connect ECONNREFUSED 172.23.0.21:8000
+2020-09-08 07:41:05 [32minfo[39m: Failed registration (Attempt #4). Attempting again in 30 seconds.
+2020-09-08 07:41:35 [32minfo[39m: Attempting UI extension registration...
+2020-09-08 07:41:35 [31merror[39m: connect ECONNREFUSED 172.23.0.21:8000
+2020-09-08 07:41:35 [32minfo[39m: Failed registration (Attempt #5). Attempting again in 30 seconds.
+2020-09-08 07:42:05 [32minfo[39m: Attempting UI extension registration...
+2020-09-08 07:42:05 [31merror[39m: connect ECONNREFUSED 172.23.0.21:8000
+2020-09-08 07:42:05 [32minfo[39m: Failed registration (Attempt #6). Attempting again in 30 seconds.
+2020-09-08 07:42:35 [32minfo[39m: Attempting UI extension registration...
+2020-09-08 07:42:35 [31merror[39m: connect ECONNREFUSED 172.23.0.21:8000
+2020-09-08 07:42:35 [32minfo[39m: Failed registration (Attempt #7). Attempting again in 30 seconds.
+2020-09-08 07:43:05 [32minfo[39m: Attempting UI extension registration...
+2020-09-08 07:43:05 [31merror[39m: connect ECONNREFUSED 172.23.0.21:8000
+2020-09-08 07:43:05 [32minfo[39m: Failed registration (Attempt #8). Attempting again in 30 seconds.
+2020-09-08 07:43:35 [32minfo[39m: Attempting UI extension registration...
+2020-09-08 07:43:35 [31merror[39m: connect ECONNREFUSED 172.23.0.21:8000
+2020-09-08 07:43:35 [32minfo[39m: Failed registration (Attempt #9). Attempting again in 30 seconds.
+2020-09-08 07:44:05 [32minfo[39m: Attempting UI extension registration...
+2020-09-08 07:44:05 [31merror[39m: connect ECONNREFUSED 172.23.0.21:8000
+2020-09-08 07:44:05 [32minfo[39m: Failed registration (Attempt #10). Attempting again in 30 seconds.
+2020-09-08 07:44:35 [32minfo[39m: Attempting UI extension registration...
+2020-09-08 07:44:35 [31merror[39m: connect ECONNREFUSED 172.23.0.21:8000
+2020-09-08 07:44:35 [32minfo[39m: Failed registration (Attempt #11). Attempting again in 30 seconds.
+2020-09-08 07:45:05 [32minfo[39m: Attempting UI extension registration...
+2020-09-08 07:45:05 [31merror[39m: connect ECONNREFUSED 172.23.0.21:8000
+2020-09-08 07:45:05 [32minfo[39m: Failed registration (Attempt #12). Attempting again in 30 seconds.
+2020-09-08 07:45:35 [32minfo[39m: Attempting UI extension registration...
+2020-09-08 07:45:35 [31merror[39m: connect ECONNREFUSED 172.23.0.21:8000
+2020-09-08 07:45:35 [32minfo[39m: Failed registration (Attempt #13). Attempting again in 30 seconds.
+2020-09-08 07:46:04 [32minfo[39m: Attempting UI extension registration...
+2020-09-08 07:46:04 [31merror[39m: connect ECONNREFUSED 172.23.0.21:8000
+2020-09-08 07:46:04 [32minfo[39m: Failed registration (Attempt #14). Attempting again in 30 seconds.
+2020-09-08 07:46:34 [32minfo[39m: Attempting UI extension registration...
+2020-09-08 07:46:34 [31merror[39m: connect ECONNREFUSED 172.23.0.21:8000
+2020-09-08 07:46:34 [32minfo[39m: Failed registration (Attempt #15). Attempting again in 30 seconds.
+2020-09-08 07:47:04 [32minfo[39m: Attempting UI extension registration...
+2020-09-08 07:47:04 [31merror[39m: connect ECONNREFUSED 172.23.0.21:8000
+2020-09-08 07:47:04 [32minfo[39m: Failed registration (Attempt #16). Attempting again in 30 seconds.
+2020-09-08 07:47:34 [32minfo[39m: Attempting UI extension registration...
+2020-09-08 07:47:34 [31merror[39m: connect ECONNREFUSED 172.23.0.21:8000
+2020-09-08 07:47:34 [32minfo[39m: Failed registration (Attempt #17). Attempting again in 30 seconds.
+2020-09-08 07:48:04 [32minfo[39m: Attempting UI extension registration...
+2020-09-08 07:48:04 [31merror[39m: connect ECONNREFUSED 172.23.0.21:8000
+2020-09-08 07:48:04 [32minfo[39m: Failed registration (Attempt #18). Attempting again in 30 seconds.
+2020-09-08 07:48:34 [32minfo[39m: Attempting UI extension registration...
+2020-09-08 07:48:34 [31merror[39m: connect ECONNREFUSED 172.23.0.21:8000
+2020-09-08 07:48:34 [32minfo[39m: Failed registration (Attempt #19). Attempting again in 30 seconds.
+2020-09-08 07:49:04 [32minfo[39m: Attempting UI extension registration...
+2020-09-08 07:49:04 [31merror[39m: connect ECONNREFUSED 172.23.0.21:8000
+2020-09-08 07:49:04 [32minfo[39m: Failed registration (Attempt #20). Attempting again in 30 seconds.
+2020-09-08 07:49:34 [32minfo[39m: Attempting UI extension registration...
+2020-09-08 07:49:34 [31merror[39m: connect ECONNREFUSED 172.23.0.21:8000
+2020-09-08 07:49:34 [31merror[39m: Maximum number of attempts exceeded. Could not register UI extension.
+2020-09-08 08:19:25 [32minfo[39m: Attempting UI extension registration...
+2020-09-08 08:19:25 [32minfo[39m: Server is running version 2020.3.0, 0, 2020.3.0, 37, d048229, Fri Sep  4 22:06:07 UTC 2020
+2020-09-08 08:19:25 [32minfo[39m: Node server started without a TLS certificate on port : 3000
+2020-09-08 08:19:26 [31merror[39m: connect ECONNREFUSED 172.24.0.20:8000
+2020-09-08 08:19:26 [32minfo[39m: Failed registration (Attempt #1). Attempting again in 30 seconds.
+2020-09-08 08:19:56 [32minfo[39m: Attempting UI extension registration...
+2020-09-08 08:19:56 [31merror[39m: connect ECONNREFUSED 172.24.0.20:8000
+2020-09-08 08:19:56 [32minfo[39m: Failed registration (Attempt #2). Attempting again in 30 seconds.
+2020-09-08 08:20:26 [32minfo[39m: Attempting UI extension registration...
+2020-09-08 08:20:26 [31merror[39m: connect ECONNREFUSED 172.24.0.20:8000
+2020-09-08 08:20:26 [32minfo[39m: Failed registration (Attempt #3). Attempting again in 30 seconds.
+2020-09-08 08:20:56 [32minfo[39m: Attempting UI extension registration...
+2020-09-08 08:20:56 [31merror[39m: connect ECONNREFUSED 172.24.0.20:8000
+2020-09-08 08:20:56 [32minfo[39m: Failed registration (Attempt #4). Attempting again in 30 seconds.
+2020-09-08 08:21:26 [32minfo[39m: Attempting UI extension registration...
+2020-09-08 08:21:26 [31merror[39m: connect ECONNREFUSED 172.24.0.20:8000
+2020-09-08 08:21:26 [32minfo[39m: Failed registration (Attempt #5). Attempting again in 30 seconds.
+2020-09-08 08:21:56 [32minfo[39m: Attempting UI extension registration...
+2020-09-08 08:21:56 [31merror[39m: connect ECONNREFUSED 172.24.0.20:8000
+2020-09-08 08:21:56 [32minfo[39m: Failed registration (Attempt #6). Attempting again in 30 seconds.
+2020-09-08 08:22:26 [32minfo[39m: Attempting UI extension registration...
+2020-09-08 08:22:26 [31merror[39m: connect ECONNREFUSED 172.24.0.20:8000
+2020-09-08 08:22:26 [32minfo[39m: Failed registration (Attempt #7). Attempting again in 30 seconds.

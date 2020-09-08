@@ -30,11 +30,12 @@
         # Internal IP address 10.xxxx
         # Domain = demo.liveobjects.ai
 
-        sudo cp ${DIR}/nginx.template ${DIR}/${DEPLOY_URL}
+        sudo cp ${DIR}/templates/.nginx.template ${DIR}/${DEPLOY_URL}
 
         sudo sed -i "s/${REPL_DEPLOY_URL}/${DEPLOY_URL}/g" ${DIR}/${DEPLOY_URL}
         sudo sed -i "s/${REPL_INTERNAL_IP}/${INTERNAL_IP}/g" ${DIR}/${DEPLOY_URL}
 
+        sudo cp ${DIR}/${DEPLOY_URL} /etc/nginx/sites
         sudo cp ${DIR}/${DEPLOY_URL} /etc/nginx/sites
 
         info 'Starting Nginx'
