@@ -7,3 +7,8 @@ docker-compose/data/**/*
 utils/gcp/docker.cred
 vm-docker-compose/pgdata
 vm-docker-compose/logs/**/*
+vm-docker-compose/logs/**/*
+vm-docker-compose/logs/businessgrammar/app.log
+vm-docker-compose/logs/discoveryautojoin/app.log
+vm-docker-compose/logs/extensions/app.log
+vm-docker-compose/logs/documentation/app.log
