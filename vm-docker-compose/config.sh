@@ -46,6 +46,7 @@
 
     }
 
+
     input_SYSMON() {
 
         PS3='Do you want to install the system monitoring tools : '
@@ -69,8 +70,42 @@
                 *) error "invalid option $REPLY";;
             esac
         done
+        
+        info "System Monitoring Tools : ${SYSMON}" 
 
     }
+
+    input_INGRESS_PROTOCOL() {
+
+        PS3='Do you want to use INGRESS with SSL '
+        echo
+
+        local _options=("y" "n" "exit")
+        select SELECT in "${_options[@]}"
+        do
+            case $SELECT in
+                "y")
+                    export INGRESS_SSL=y
+                    export PROTOCOL_INGRESS=https
+                    break
+                    ;;
+                "n")
+                    export INGRESS_SSL=n
+                    export PROTOCOL_INGRESS=http
+                    break
+                    ;;
+                "exit")
+                    exit 1
+                    ;;
+                *) error "invalid option $REPLY";;
+            esac
+        done
+
+        info "INGRESS with SSL certificate : ${INGRESS_SSL}" 
+        info "INGRESS Protocol : ${PROTOCOL_INGRESS}" 
+
+    }
+
     input_NGINX() {
 
         PS3='Do you want to run NGINX as a docker container : '
@@ -138,11 +173,10 @@
         fi
                 ## ip, dns, ingress
         if [[ ${DEPLOYMENT} == "ingress" ]] ; then
-            input_INTERNAL_IP
+            # input_INTERNAL_IP
             input_DNS
 
             info "DNS : ${DEPLOY_URL}" 
-            info "Internal IP : ${INTERNAL_IP}" 
         fi
 
         info "Deployment :${DEPLOYMENT} "
@@ -202,13 +236,15 @@
                     INTERNAL_IP=$var1
                     break
                 else
-                    echo
-                    echo ' Invalid IP address ' $var1 
-                    echo
+                    error
+                    error ' Invalid IP address ' $var1 
+                    error
                 fi
             fi
         done
-        echo
+        info
+        info "Internal IP : ${INTERNAL_IP}" 
+
 
     }
 
@@ -241,21 +277,28 @@
 
         input_DEPLOYMENT
 
-        if [[ "${DEPLOYMENT}" == "ip" || "${DEPLOYMENT}" == "ingress" ]]; then
+        if [[ "${DEPLOYMENT}" == "ip" ]]; then
             PROTOCOL="http"
-        else
-            if [[ "${DEPLOYMENT}" == "dns" ]]; then
-            # Can run with or w/o SSL
-                input_PROTOCOL
-            fi
         fi
+
+        if [[ "${DEPLOYMENT}" == "ingress" ]]; then
+            PROTOCOL="http"
+            input_INGRESS_PROTOCOL
+        fi
+
+        if [[ "${DEPLOYMENT}" == "dns" ]]; then
+            # Can run with or w/o SSL
+            input_PROTOCOL
+        fi
+        
+
+
     
         input_SYSMON
 
         export DEPLOYMENT=${DEPLOYMENT}
         export PROTOCOL=${PROTOCOL}
         export DEPLOY_URL=${DEPLOY_URL}
-
 
         FILE=.env
         if [[ -f "$FILE" ]]; then
@@ -277,11 +320,12 @@
             input_NGINX
 
             if [[ "${NGINX_DOCKER}" == "y" ]]; then
-                info "Configure NGINX "
+                info "Configure NGINX in docker "
                 cat ./templates/.docker-compose-nginx.template >> ./docker-compose.yml
             else
-                info "Configure NGINX"
+                info "Configure NGINX installed outside of the docker network"
                 # DEPLOYMENT 
+                input_INTERNAL_IP
                 . "./nginx_create_site.sh" ${INTERNAL_IP} ${DEPLOY_URL}
             fi
         fi

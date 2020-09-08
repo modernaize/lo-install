@@ -6,3 +6,4 @@ docker-compose/data/**/*
 **/*/docker.cred
 utils/gcp/docker.cred
 vm-docker-compose/pgdata
+vm-docker-compose/logs/**/*

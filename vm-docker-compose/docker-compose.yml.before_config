@@ -134,7 +134,7 @@ services:
       - ${LOGS_DIR}/logs/dashboards:/home/node/app/logs
     restart: always
     healthcheck:
-      test: ["CMD", "curl", "-k", "-f", "${PROTOCOL}://dashboard:3000/live"]
+      test: ["CMD", "curl", "-k", "-f", "${PROTOCOL}://dashboards:3000/live"]
       interval: 10s
       timeout: 5s
       retries: 3
@@ -142,6 +142,7 @@ services:
   wdc:
     image: ${REPOSITORY}/lo-tableau-wdc:${UI_WDC_VERSION}
     container_name: wdc
+    hostname: wdc
     ports:
       - "3006:3000"
     environment:
@@ -158,6 +159,7 @@ services:
   businessgrammar:
     image: ${REPOSITORY}/lo-ui-business-grammar:${UI_BUSINESS_GRAMMAR_VERSION}
     container_name: businessgrammar
+    hostname: businessgrammar
     env_file:
       - ./.env
     ports:
@@ -174,6 +176,7 @@ services:
   extensions:
     image: ${REPOSITORY}/lo-ui-extensions:${UI_EXTENSIONS_VERSION}
     container_name: extension 
+    hostname: extension
     env_file:
       - ./.env
     ports:
@@ -190,6 +193,7 @@ services:
   documentation:
     image: ${REPOSITORY}/lo-ui-documentation:${UI_DOCUMENTATION_VERSION}
     container_name: documentation
+    hostname: documentation
     env_file:
       - ./.env
     ports:
@@ -203,9 +207,10 @@ services:
       timeout: 5s
       retries: 3
 
-  autojoin:
+  discoveryautojoin:
     image: ${REPOSITORY}/lo-ui-discovery-autojoin:${UI_DISCOVERY_AUTOJOIN_VERSION}
-    container_name: autojoin
+    container_name: discoveryautojoin
+    hostname: discoveryautojoin
     env_file:
       - ./.env
     ports:
@@ -214,7 +219,7 @@ services:
       - ${LOGS_DIR}/logs/discoveryautojoin:/home/node/app/logs
     restart: always
     healthcheck:
-      test: ["CMD", "curl", "-k", "-f", "${PROTOCOL}://autojoin:3000/live"]
+      test: ["CMD", "curl", "-k", "-f", "${PROTOCOL}://discoveryautojoin:3000/live"]
       interval: 10s
       timeout: 5s
       retries: 3
@@ -222,6 +227,7 @@ services:
   serviceautojoin:
     image: ${REPOSITORY}/autojoin:${AUTOJOIN_VERSION}
     container_name: serviceautojoin
+    hostname: serviceautojoin
     command: gunicorn --workers=2 --worker-tmp-dir /dev/shm -c gunicorn_config.py --bind 0.0.0.0:5002 wsgi:APP
     depends_on:
       - db
@@ -235,143 +241,3 @@ services:
       - ${LODATA_DIR}/data/procmine:/mnt/procmine
       - ${LOGS_DIR}/logs/service:/mnt/logs
     restart: always
-  
-  nginx:
-    container_name: nginx
-    image: nginx:alpine
-    volumes:
-      - "./nginx/sites/liveobjects.local.conf:/etc/nginx/conf.d/liveobjects.local.conf:ro"
-      - "./nginx/nginx.conf:/etc/nginx/nginx.conf:ro"
-      - ./webserver/certbot/conf:/etc/letsencrypt
-      - ./webserver/certbot/www:/var/www/certbot
-      - ${LOGS_DIR}/logs/nginx:/var/log/nginx
-    ports:
-      - 80:80
-      - 443:443
-    restart: unless-stopped
-    command: /bin/sh -c "while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g 'daemon off;'" # 💡
-      
-  prometheus:
-    image: prom/prometheus:v2.19.0 
-    container_name: prometheus
-    volumes:
-      - ./sysmon/prometheus:/etc/prometheus
-      - prometheus_data:/prometheus
-    command:
-      - '--config.file=/etc/prometheus/prometheus.yml'
-      - '--storage.tsdb.path=/prometheus'
-      - '--web.console.libraries=/etc/prometheus/console_libraries'
-      - '--web.console.templates=/etc/prometheus/consoles'
-      - '--storage.tsdb.retention.time=200h'
-      - '--web.enable-lifecycle'
-    restart: unless-stopped
-    expose:
-      - 9090
-    labels:
-      org.label-schema.group: "monitoring"
-      
-  alertmanager:
-    image: prom/alertmanager:v0.20.0
-    container_name: alertmanager
-    volumes:
-      - ./sysmon/alertmanager:/etc/alertmanager
-    command:
-      - '--config.file=/etc/alertmanager/config.yml'
-      - '--storage.path=/alertmanager'
-    restart: unless-stopped
-    expose:
-      - 9093
-    labels:
-      org.label-schema.group: "monitoring"
-  
-  nodeexporter:
-    image: prom/node-exporter:v0.18.1 
-    container_name: nodeexporter
-    volumes:
-      - /proc:/host/proc:ro
-      - /sys:/host/sys:ro
-      - /:/rootfs:ro
-    command:
-      - '--path.procfs=/host/proc'
-      - '--path.rootfs=/rootfs'
-      - '--path.sysfs=/host/sys'
-      - '--collector.filesystem.ignored-mount-points=^/(sys|proc|dev|host|etc)($$|/)'
-    restart: unless-stopped
-    expose:
-      - 9100
-    labels:
-      org.label-schema.group: "monitoring"
-
-  cadvisor:
-    image: gcr.io/google-containers/cadvisor:v0.36.0
-    container_name: cadvisor
-    volumes:
-      - /:/rootfs:ro 
-      - /var/run:/var/run:ro 
-      - /sys:/sys:ro 
-      - /var/lib/docker/:/var/lib/docker:ro 
-      - /dev/disk/:/dev/disk:ro 
-    restart: unless-stopped
-    expose:
-      - 8080
-    labels:
-      org.label-schema.group: "monitoring"
-
-  grafana:
-    image: grafana/grafana:7.1.1
-    container_name: grafana
-    volumes:
-      - grafana_data:/var/lib/grafana
-      - ./sysmon/grafana/provisioning:/etc/grafana/provisioning
-    env_file:
-      - './sysmon/grafana/env.grafana'
-    restart: unless-stopped
-    ports :
-      - "4444:3000"
-    labels:
-      org.label-schema.group: "monitoring"
-
-  pushgateway:
-    image: prom/pushgateway:v1.0.1 
-    container_name: pushgateway
-    restart: unless-stopped
-    expose:
-      - 9091
-    labels:
-      org.label-schema.group: "monitoring"
-
-  caddy:
-    image: stefanprodan/caddy:0.10.10
-    container_name: caddy
-    ports:
-      - "8080:8080"
-      - "9090:9090"
-      - "9093:9093"
-      - "9091:9091"
-    volumes:
-      - ./sysmon/caddy:/etc/caddy
-    env_file:
-      - './sysmon/caddy/env.caddy'
-    restart: unless-stopped
-    labels:
-      org.label-schema.group: "monitoring"
-
-  postgresql-exporter:
-    image: wrouesnel/postgres_exporter:v0.8.0
-    container_name: postgresqlexporter
-    ports:
-      - 9187:9187
-    env_file:
-      - './sysmon//postgresql-exporter/env.postgresql-exporter'
-    volumes:
-      - ./sysmon/postgresql-exporter/custom-queries.yml:/custom-queries.yaml
-    restart: unless-stopped
-    labels:
-      org.label-schema.group: "monitoring"
-
-volumes:
-  
-    prometheus_data: {}
-    grafana_data: {}
-
-    

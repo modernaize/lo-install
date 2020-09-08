@@ -686,3 +686,873 @@
 2020-09-08 08:22:26 [32minfo[39m: Execute liveness check
 2020-09-08 08:22:36 [32minfo[39m: Execute liveness check
 2020-09-08 08:22:47 [32minfo[39m: Execute liveness check
+2020-09-08 08:27:33 [32minfo[39m: Attempting UI extension registration...
+2020-09-08 08:27:33 [32minfo[39m: Server is running version 2020.2.0, 0, 2020.3.0, 109, c0bc235, Fri Sep  4 12:10:27 UTC 2020
+2020-09-08 08:27:33 [32minfo[39m: Node server started without a TLS certificate on port : 3000
+2020-09-08 08:27:33 [31merror[39m: connect ECONNREFUSED 172.25.0.11:8000
+2020-09-08 08:27:33 [32minfo[39m: Failed registration (Attempt #1). Attempting again in 30 seconds.
+2020-09-08 08:27:41 [32minfo[39m: Execute liveness check
+2020-09-08 08:27:51 [32minfo[39m: Execute liveness check
+2020-09-08 08:28:01 [32minfo[39m: Execute liveness check
+2020-09-08 08:28:03 [32minfo[39m: Attempting UI extension registration...
+2020-09-08 08:28:03 [31merror[39m: connect ECONNREFUSED 172.25.0.11:8000
+2020-09-08 08:28:03 [32minfo[39m: Failed registration (Attempt #2). Attempting again in 30 seconds.
+2020-09-08 08:28:11 [32minfo[39m: Execute liveness check
+2020-09-08 08:28:21 [32minfo[39m: Execute liveness check
+2020-09-08 08:28:31 [32minfo[39m: Execute liveness check
+2020-09-08 08:28:33 [32minfo[39m: Attempting UI extension registration...
+2020-09-08 08:28:33 [31merror[39m: connect ECONNREFUSED 172.25.0.11:8000
+2020-09-08 08:28:33 [32minfo[39m: Failed registration (Attempt #3). Attempting again in 30 seconds.
+2020-09-08 08:28:42 [32minfo[39m: Execute liveness check
+2020-09-08 08:28:52 [32minfo[39m: Execute liveness check
+2020-09-08 08:29:02 [32minfo[39m: Execute liveness check
+2020-09-08 08:29:02 [32minfo[39m: Attempting UI extension registration...
+2020-09-08 08:29:02 [31merror[39m: connect ECONNREFUSED 172.25.0.11:8000
+2020-09-08 08:29:02 [32minfo[39m: Failed registration (Attempt #4). Attempting again in 30 seconds.
+2020-09-08 08:29:12 [32minfo[39m: Execute liveness check
+2020-09-08 08:29:22 [32minfo[39m: Execute liveness check
+2020-09-08 08:29:32 [32minfo[39m: Execute liveness check
+2020-09-08 08:29:32 [32minfo[39m: Attempting UI extension registration...
+2020-09-08 08:29:32 [31merror[39m: connect ECONNREFUSED 172.25.0.11:8000
+2020-09-08 08:29:32 [32minfo[39m: Failed registration (Attempt #5). Attempting again in 30 seconds.
+2020-09-08 08:29:42 [32minfo[39m: Execute liveness check
+2020-09-08 08:29:52 [32minfo[39m: Execute liveness check
+2020-09-08 08:30:02 [32minfo[39m: Attempting UI extension registration...
+2020-09-08 08:30:02 [31merror[39m: connect ECONNREFUSED 172.25.0.11:8000
+2020-09-08 08:30:02 [32minfo[39m: Failed registration (Attempt #6). Attempting again in 30 seconds.
+2020-09-08 08:30:03 [32minfo[39m: Execute liveness check
+2020-09-08 08:30:13 [32minfo[39m: Execute liveness check
+2020-09-08 08:30:23 [32minfo[39m: Execute liveness check
+2020-09-08 08:30:32 [32minfo[39m: Attempting UI extension registration...
+2020-09-08 08:30:32 [31merror[39m: connect ECONNREFUSED 172.25.0.11:8000
+2020-09-08 08:30:32 [32minfo[39m: Failed registration (Attempt #7). Attempting again in 30 seconds.
+2020-09-08 08:30:33 [32minfo[39m: Execute liveness check
+2020-09-08 08:30:43 [32minfo[39m: Execute liveness check
+2020-09-08 08:30:53 [32minfo[39m: Execute liveness check
+2020-09-08 08:31:02 [32minfo[39m: Attempting UI extension registration...
+2020-09-08 08:31:02 [31merror[39m: connect ECONNREFUSED 172.25.0.11:8000
+2020-09-08 08:31:02 [32minfo[39m: Failed registration (Attempt #8). Attempting again in 30 seconds.
+2020-09-08 08:31:03 [32minfo[39m: Execute liveness check
+2020-09-08 08:31:14 [32minfo[39m: Execute liveness check
+2020-09-08 08:31:24 [32minfo[39m: Execute liveness check
+2020-09-08 08:31:32 [32minfo[39m: Attempting UI extension registration...
+2020-09-08 08:31:32 [31merror[39m: connect ECONNREFUSED 172.25.0.11:8000
+2020-09-08 08:31:32 [32minfo[39m: Failed registration (Attempt #9). Attempting again in 30 seconds.
+2020-09-08 08:31:34 [32minfo[39m: Execute liveness check
+2020-09-08 08:31:44 [32minfo[39m: Execute liveness check
+2020-09-08 08:31:54 [32minfo[39m: Execute liveness check
+2020-09-08 08:32:02 [32minfo[39m: Attempting UI extension registration...
+2020-09-08 08:32:02 [31merror[39m: connect ECONNREFUSED 172.25.0.11:8000
+2020-09-08 08:32:02 [32minfo[39m: Failed registration (Attempt #10). Attempting again in 30 seconds.
+2020-09-08 08:32:04 [32minfo[39m: Execute liveness check
+2020-09-08 08:32:14 [32minfo[39m: Execute liveness check
+2020-09-08 08:32:25 [32minfo[39m: Execute liveness check
+2020-09-08 08:32:32 [32minfo[39m: Attempting UI extension registration...
+2020-09-08 08:32:32 [31merror[39m: connect ECONNREFUSED 172.25.0.11:8000
+2020-09-08 08:32:32 [32minfo[39m: Failed registration (Attempt #11). Attempting again in 30 seconds.
+2020-09-08 08:32:35 [32minfo[39m: Execute liveness check
+2020-09-08 08:32:45 [32minfo[39m: Execute liveness check
+2020-09-08 08:32:55 [32minfo[39m: Execute liveness check
+2020-09-08 08:33:02 [32minfo[39m: Attempting UI extension registration...
+2020-09-08 08:33:02 [31merror[39m: connect ECONNREFUSED 172.25.0.11:8000
+2020-09-08 08:33:02 [32minfo[39m: Failed registration (Attempt #12). Attempting again in 30 seconds.
+2020-09-08 08:33:05 [32minfo[39m: Execute liveness check
+2020-09-08 08:33:34 [32minfo[39m: Attempting UI extension registration...
+2020-09-08 08:33:34 [32minfo[39m: Server is running version 2020.2.0, 0, 2020.3.0, 109, c0bc235, Fri Sep  4 12:10:27 UTC 2020
+2020-09-08 08:33:34 [32minfo[39m: Node server started without a TLS certificate on port : 3000
+2020-09-08 08:33:34 [31merror[39m: connect ECONNREFUSED 172.26.0.12:8000
+2020-09-08 08:33:34 [32minfo[39m: Failed registration (Attempt #1). Attempting again in 30 seconds.
+2020-09-08 08:33:42 [32minfo[39m: Execute liveness check
+2020-09-08 08:33:52 [32minfo[39m: Execute liveness check
+2020-09-08 08:34:02 [32minfo[39m: Execute liveness check
+2020-09-08 08:34:04 [32minfo[39m: Attempting UI extension registration...
+2020-09-08 08:34:04 [31merror[39m: connect ECONNREFUSED 172.26.0.12:8000
+2020-09-08 08:34:04 [32minfo[39m: Failed registration (Attempt #2). Attempting again in 30 seconds.
+2020-09-08 08:34:12 [32minfo[39m: Execute liveness check
+2020-09-08 08:34:22 [32minfo[39m: Execute liveness check
+2020-09-08 08:34:32 [32minfo[39m: Execute liveness check
+2020-09-08 08:34:34 [32minfo[39m: Attempting UI extension registration...
+2020-09-08 08:34:34 [31merror[39m: Request failed with status code 500
+2020-09-08 08:34:34 [32minfo[39m: Failed registration (Attempt #3). Attempting again in 30 seconds.
+2020-09-08 08:34:43 [32minfo[39m: Execute liveness check
+2020-09-08 08:34:53 [32minfo[39m: Execute liveness check
+2020-09-08 08:35:03 [32minfo[39m: Execute liveness check
+2020-09-08 08:35:04 [32minfo[39m: Attempting UI extension registration...
+2020-09-08 08:35:05 [32minfo[39m: Successfully registered!
+2020-09-08 08:35:05 [34mdebug[39m: Service registration was successful
+2020-09-08 08:35:13 [32minfo[39m: Execute liveness check
+2020-09-08 08:35:23 [32minfo[39m: Execute liveness check
+2020-09-08 08:35:33 [32minfo[39m: Execute liveness check
+2020-09-08 08:35:43 [32minfo[39m: Execute liveness check
+2020-09-08 08:35:54 [32minfo[39m: Execute liveness check
+2020-09-08 08:37:10 [32minfo[39m: Execute liveness check
+2020-09-08 08:37:21 [32minfo[39m: Execute liveness check
+2020-09-08 08:37:32 [32minfo[39m: Execute liveness check
+2020-09-08 08:37:43 [32minfo[39m: Execute liveness check
+2020-09-08 08:37:54 [32minfo[39m: Execute liveness check
+2020-09-08 09:16:09 [32minfo[39m: Execute liveness check
+2020-09-08 09:16:20 [32minfo[39m: Execute liveness check
+2020-09-08 09:16:32 [32minfo[39m: Execute liveness check
+2020-09-08 09:16:42 [32minfo[39m: Execute liveness check
+2020-09-08 09:16:53 [32minfo[39m: Execute liveness check
+2020-09-08 09:17:04 [32minfo[39m: Execute liveness check
+2020-09-08 09:17:15 [32minfo[39m: Execute liveness check
+2020-09-08 09:17:26 [32minfo[39m: Execute liveness check
+2020-09-08 09:17:36 [32minfo[39m: Execute liveness check
+2020-09-08 09:17:47 [32minfo[39m: Execute liveness check
+2020-09-08 09:17:57 [32minfo[39m: Execute liveness check
+2020-09-08 09:18:07 [32minfo[39m: Execute liveness check
+2020-09-08 09:18:18 [32minfo[39m: Execute liveness check
+2020-09-08 09:18:28 [32minfo[39m: Execute liveness check
+2020-09-08 09:18:38 [32minfo[39m: Execute liveness check
+2020-09-08 09:18:48 [32minfo[39m: Execute liveness check
+2020-09-08 09:18:58 [32minfo[39m: Execute liveness check
+2020-09-08 09:19:09 [32minfo[39m: Execute liveness check
+2020-09-08 09:19:19 [32minfo[39m: Execute liveness check
+2020-09-08 09:19:29 [32minfo[39m: Execute liveness check
+2020-09-08 09:19:39 [32minfo[39m: Execute liveness check
+2020-09-08 09:19:49 [32minfo[39m: Execute liveness check
+2020-09-08 09:20:01 [32minfo[39m: Execute liveness check
+2020-09-08 09:52:42 [32minfo[39m: Execute liveness check
+2020-09-08 09:52:53 [32minfo[39m: Execute liveness check
+2020-09-08 09:53:04 [32minfo[39m: Execute liveness check
+2020-09-08 09:53:14 [32minfo[39m: Execute liveness check
+2020-09-08 09:53:26 [32minfo[39m: Execute liveness check
+2020-09-08 09:59:58 [32minfo[39m: Execute liveness check
+2020-09-08 10:00:08 [32minfo[39m: Execute liveness check
+2020-09-08 10:00:18 [32minfo[39m: Execute liveness check
+2020-09-08 10:05:45 [32minfo[39m: Attempting UI extension registration...
+2020-09-08 10:05:45 [32minfo[39m: Server is running version 2020.2.0, 0, 2020.3.0, 109, c0bc235, Fri Sep  4 12:10:27 UTC 2020
+2020-09-08 10:05:45 [32minfo[39m: Node server started without a TLS certificate on port : 3000
+2020-09-08 10:05:45 [31merror[39m: connect ECONNREFUSED 172.27.0.13:8000
+2020-09-08 10:05:45 [32minfo[39m: Failed registration (Attempt #1). Attempting again in 30 seconds.
+2020-09-08 10:05:53 [32minfo[39m: Execute liveness check
+2020-09-08 10:06:03 [32minfo[39m: Execute liveness check
+2020-09-08 10:06:13 [32minfo[39m: Execute liveness check
+2020-09-08 10:06:15 [32minfo[39m: Attempting UI extension registration...
+2020-09-08 10:15:57 [32minfo[39m: Successfully registered!
+2020-09-08 10:15:57 [34mdebug[39m: Service registration was successful
+2020-09-08 10:16:02 [32minfo[39m: Execute liveness check
+2020-09-08 10:16:12 [32minfo[39m: Execute liveness check
+2020-09-08 10:16:22 [32minfo[39m: Execute liveness check
+2020-09-08 10:16:32 [32minfo[39m: Execute liveness check
+2020-09-08 10:16:42 [32minfo[39m: Execute liveness check
+2020-09-08 10:16:53 [32minfo[39m: Execute liveness check
+2020-09-08 10:17:03 [32minfo[39m: Execute liveness check
+2020-09-08 10:17:13 [32minfo[39m: Execute liveness check
+2020-09-08 10:17:23 [32minfo[39m: Execute liveness check
+2020-09-08 10:17:33 [32minfo[39m: Execute liveness check
+2020-09-08 10:17:43 [32minfo[39m: Execute liveness check
+2020-09-08 10:17:53 [32minfo[39m: Execute liveness check
+2020-09-08 10:18:03 [32minfo[39m: Execute liveness check
+2020-09-08 10:18:13 [32minfo[39m: Execute liveness check
+2020-09-08 10:18:24 [32minfo[39m: Execute liveness check
+2020-09-08 10:18:34 [32minfo[39m: Execute liveness check
+2020-09-08 10:18:44 [32minfo[39m: Execute liveness check
+2020-09-08 10:18:54 [32minfo[39m: Execute liveness check
+2020-09-08 10:19:04 [32minfo[39m: Execute liveness check
+2020-09-08 10:19:14 [32minfo[39m: Execute liveness check
+2020-09-08 10:19:24 [32minfo[39m: Execute liveness check
+2020-09-08 10:19:34 [32minfo[39m: Execute liveness check
+2020-09-08 10:19:45 [32minfo[39m: Execute liveness check
+2020-09-08 10:19:55 [32minfo[39m: Execute liveness check
+2020-09-08 10:20:05 [32minfo[39m: Execute liveness check
+2020-09-08 10:20:15 [32minfo[39m: Execute liveness check
+2020-09-08 10:20:25 [32minfo[39m: Execute liveness check
+2020-09-08 10:20:35 [32minfo[39m: Execute liveness check
+2020-09-08 10:20:45 [32minfo[39m: Execute liveness check
+2020-09-08 10:20:55 [32minfo[39m: Execute liveness check
+2020-09-08 10:21:05 [32minfo[39m: Execute liveness check
+2020-09-08 10:21:15 [32minfo[39m: Execute liveness check
+2020-09-08 10:21:25 [32minfo[39m: Execute liveness check
+2020-09-08 10:21:36 [32minfo[39m: Execute liveness check
+2020-09-08 10:21:46 [32minfo[39m: Execute liveness check
+2020-09-08 10:21:56 [32minfo[39m: Execute liveness check
+2020-09-08 10:22:06 [32minfo[39m: Execute liveness check
+2020-09-08 10:22:16 [32minfo[39m: Execute liveness check
+2020-09-08 10:22:26 [32minfo[39m: Execute liveness check
+2020-09-08 10:22:36 [32minfo[39m: Execute liveness check
+2020-09-08 10:22:46 [32minfo[39m: Execute liveness check
+2020-09-08 10:22:56 [32minfo[39m: Execute liveness check
+2020-09-08 10:23:06 [32minfo[39m: Execute liveness check
+2020-09-08 10:23:16 [32minfo[39m: Execute liveness check
+2020-09-08 10:23:27 [32minfo[39m: Execute liveness check
+2020-09-08 10:23:37 [32minfo[39m: Execute liveness check
+2020-09-08 10:23:47 [32minfo[39m: Execute liveness check
+2020-09-08 10:23:57 [32minfo[39m: Execute liveness check
+2020-09-08 10:24:00 [34mdebug[39m: Executing routes.get
+2020-09-08 10:24:00 [34mdebug[39m: Executing routes.get
+2020-09-08 10:24:01 [34mdebug[39m: Executing allApi
+2020-09-08 10:24:01 [34mdebug[39m: Executing allApi
+2020-09-08 10:24:01 [34mdebug[39m: Executing getUserInfo
+2020-09-08 10:24:01 [32minfo[39m: http://127.0.0.1:3003/lic/userInfo call successful
+2020-09-08 10:24:01 [34mdebug[39m: Executing allApi
+2020-09-08 10:24:01 [32minfo[39m: http://127.0.0.1:3003/api/settings/user call successful
+2020-09-08 10:24:01 [34mdebug[39m: Executing allApi
+2020-09-08 10:24:01 [34mdebug[39m: Executing allApi
+2020-09-08 10:24:01 [32minfo[39m: http://127.0.0.1:3003/api/scenario call successful
+2020-09-08 10:24:01 [32minfo[39m: http://127.0.0.1:3003/api/security/me call successful
+2020-09-08 10:24:01 [34mdebug[39m: Executing allApi
+2020-09-08 10:24:01 [32minfo[39m: http://127.0.0.1:3003/api/settings/options/decimal_separators call successful
+2020-09-08 10:24:01 [32minfo[39m: http://127.0.0.1:3003/api/scenario call successful
+2020-09-08 10:24:01 [34mdebug[39m: Executing allApi
+2020-09-08 10:24:01 [32minfo[39m: http://127.0.0.1:3003/api/scenario call successful
+2020-09-08 10:24:01 [32minfo[39m: http://127.0.0.1:3003/api/scenario call successful
+2020-09-08 10:24:07 [32minfo[39m: Execute liveness check
+2020-09-08 10:24:17 [32minfo[39m: Execute liveness check
+2020-09-08 10:24:27 [32minfo[39m: Execute liveness check
+2020-09-08 10:24:37 [32minfo[39m: Execute liveness check
+2020-09-08 10:24:47 [32minfo[39m: Execute liveness check
+2020-09-08 10:24:57 [32minfo[39m: Execute liveness check
+2020-09-08 10:25:08 [32minfo[39m: Execute liveness check
+2020-09-08 10:25:18 [32minfo[39m: Execute liveness check
+2020-09-08 10:25:28 [32minfo[39m: Execute liveness check
+2020-09-08 10:25:38 [32minfo[39m: Execute liveness check
+2020-09-08 10:25:48 [32minfo[39m: Execute liveness check
+2020-09-08 10:25:58 [32minfo[39m: Execute liveness check
+2020-09-08 10:26:08 [32minfo[39m: Execute liveness check
+2020-09-08 10:26:18 [32minfo[39m: Execute liveness check
+2020-09-08 10:26:28 [32minfo[39m: Execute liveness check
+2020-09-08 10:26:38 [32minfo[39m: Execute liveness check
+2020-09-08 10:26:48 [32minfo[39m: Execute liveness check
+2020-09-08 10:38:29 [32minfo[39m: Attempting UI extension registration...
+2020-09-08 10:38:29 [32minfo[39m: Server is running version 2020.2.0, 0, 2020.3.0, 109, c0bc235, Fri Sep  4 12:10:27 UTC 2020
+2020-09-08 10:38:29 [32minfo[39m: Node server started without a TLS certificate on port : 3000
+2020-09-08 10:38:29 [31merror[39m: connect ECONNREFUSED 172.28.0.13:8000
+2020-09-08 10:38:29 [32minfo[39m: Failed registration (Attempt #1). Attempting again in 30 seconds.
+2020-09-08 10:38:37 [32minfo[39m: Execute liveness check
+2020-09-08 10:38:47 [32minfo[39m: Execute liveness check
+2020-09-08 10:38:57 [32minfo[39m: Execute liveness check
+2020-09-08 10:38:59 [32minfo[39m: Attempting UI extension registration...
+2020-09-08 10:38:59 [31merror[39m: connect ECONNREFUSED 172.28.0.13:8000
+2020-09-08 10:38:59 [32minfo[39m: Failed registration (Attempt #2). Attempting again in 30 seconds.
+2020-09-08 10:39:07 [32minfo[39m: Execute liveness check
+2020-09-08 10:39:17 [32minfo[39m: Execute liveness check
+2020-09-08 10:39:27 [32minfo[39m: Execute liveness check
+2020-09-08 10:39:29 [32minfo[39m: Attempting UI extension registration...
+2020-09-08 10:39:29 [31merror[39m: connect ECONNREFUSED 172.28.0.13:8000
+2020-09-08 10:39:29 [32minfo[39m: Failed registration (Attempt #3). Attempting again in 30 seconds.
+2020-09-08 10:39:37 [32minfo[39m: Execute liveness check
+2020-09-08 10:39:48 [32minfo[39m: Execute liveness check
+2020-09-08 10:39:58 [32minfo[39m: Execute liveness check
+2020-09-08 10:39:59 [32minfo[39m: Attempting UI extension registration...
+2020-09-08 10:39:59 [31merror[39m: connect ECONNREFUSED 172.28.0.13:8000
+2020-09-08 10:39:59 [32minfo[39m: Failed registration (Attempt #4). Attempting again in 30 seconds.
+2020-09-08 10:40:08 [32minfo[39m: Execute liveness check
+2020-09-08 10:40:18 [32minfo[39m: Execute liveness check
+2020-09-08 10:40:28 [32minfo[39m: Execute liveness check
+2020-09-08 10:40:29 [32minfo[39m: Attempting UI extension registration...
+2020-09-08 10:40:29 [31merror[39m: connect ECONNREFUSED 172.28.0.13:8000
+2020-09-08 10:40:29 [32minfo[39m: Failed registration (Attempt #5). Attempting again in 30 seconds.
+2020-09-08 10:40:38 [32minfo[39m: Execute liveness check
+2020-09-08 10:40:48 [32minfo[39m: Execute liveness check
+2020-09-08 10:40:58 [32minfo[39m: Execute liveness check
+2020-09-08 10:40:59 [32minfo[39m: Attempting UI extension registration...
+2020-09-08 10:40:59 [31merror[39m: connect ECONNREFUSED 172.28.0.13:8000
+2020-09-08 10:40:59 [32minfo[39m: Failed registration (Attempt #6). Attempting again in 30 seconds.
+2020-09-08 10:41:08 [32minfo[39m: Execute liveness check
+2020-09-08 10:41:19 [32minfo[39m: Execute liveness check
+2020-09-08 10:41:28 [32minfo[39m: Attempting UI extension registration...
+2020-09-08 10:41:28 [31merror[39m: connect ECONNREFUSED 172.28.0.13:8000
+2020-09-08 10:41:28 [32minfo[39m: Failed registration (Attempt #7). Attempting again in 30 seconds.
+2020-09-08 10:41:29 [32minfo[39m: Execute liveness check
+2020-09-08 10:41:39 [32minfo[39m: Execute liveness check
+2020-09-08 10:41:49 [32minfo[39m: Execute liveness check
+2020-09-08 10:41:58 [32minfo[39m: Attempting UI extension registration...
+2020-09-08 10:41:58 [31merror[39m: connect ECONNREFUSED 172.28.0.13:8000
+2020-09-08 10:41:58 [32minfo[39m: Failed registration (Attempt #8). Attempting again in 30 seconds.
+2020-09-08 10:41:59 [32minfo[39m: Execute liveness check
+2020-09-08 10:42:09 [32minfo[39m: Execute liveness check
+2020-09-08 10:42:19 [32minfo[39m: Execute liveness check
+2020-09-08 10:42:28 [32minfo[39m: Attempting UI extension registration...
+2020-09-08 10:42:28 [31merror[39m: connect ECONNREFUSED 172.28.0.13:8000
+2020-09-08 10:42:28 [32minfo[39m: Failed registration (Attempt #9). Attempting again in 30 seconds.
+2020-09-08 10:42:29 [32minfo[39m: Execute liveness check
+2020-09-08 10:42:40 [32minfo[39m: Execute liveness check
+2020-09-08 10:42:50 [32minfo[39m: Execute liveness check
+2020-09-08 10:42:58 [32minfo[39m: Attempting UI extension registration...
+2020-09-08 10:42:58 [31merror[39m: connect ECONNREFUSED 172.28.0.13:8000
+2020-09-08 10:42:58 [32minfo[39m: Failed registration (Attempt #10). Attempting again in 30 seconds.
+2020-09-08 10:43:00 [32minfo[39m: Execute liveness check
+2020-09-08 10:43:10 [32minfo[39m: Execute liveness check
+2020-09-08 10:43:20 [32minfo[39m: Execute liveness check
+2020-09-08 10:43:28 [32minfo[39m: Attempting UI extension registration...
+2020-09-08 10:43:28 [31merror[39m: connect ECONNREFUSED 172.28.0.13:8000
+2020-09-08 10:43:28 [32minfo[39m: Failed registration (Attempt #11). Attempting again in 30 seconds.
+2020-09-08 10:43:30 [32minfo[39m: Execute liveness check
+2020-09-08 10:43:40 [32minfo[39m: Execute liveness check
+2020-09-08 10:43:50 [32minfo[39m: Execute liveness check
+2020-09-08 10:43:58 [32minfo[39m: Attempting UI extension registration...
+2020-09-08 10:43:58 [31merror[39m: connect ECONNREFUSED 172.28.0.13:8000
+2020-09-08 10:43:58 [32minfo[39m: Failed registration (Attempt #12). Attempting again in 30 seconds.
+2020-09-08 10:44:00 [32minfo[39m: Execute liveness check
+2020-09-08 10:44:10 [32minfo[39m: Execute liveness check
+2020-09-08 10:44:21 [32minfo[39m: Execute liveness check
+2020-09-08 10:44:28 [32minfo[39m: Attempting UI extension registration...
+2020-09-08 10:44:28 [31merror[39m: connect ECONNREFUSED 172.28.0.13:8000
+2020-09-08 10:44:28 [32minfo[39m: Failed registration (Attempt #13). Attempting again in 30 seconds.
+2020-09-08 10:44:31 [32minfo[39m: Execute liveness check
+2020-09-08 10:44:41 [32minfo[39m: Execute liveness check
+2020-09-08 10:44:51 [32minfo[39m: Execute liveness check
+2020-09-08 10:44:58 [32minfo[39m: Attempting UI extension registration...
+2020-09-08 10:44:58 [31merror[39m: connect ECONNREFUSED 172.28.0.13:8000
+2020-09-08 10:44:58 [32minfo[39m: Failed registration (Attempt #14). Attempting again in 30 seconds.
+2020-09-08 10:45:01 [32minfo[39m: Execute liveness check
+2020-09-08 10:45:11 [32minfo[39m: Execute liveness check
+2020-09-08 10:45:21 [32minfo[39m: Execute liveness check
+2020-09-08 10:45:28 [32minfo[39m: Attempting UI extension registration...
+2020-09-08 10:45:28 [31merror[39m: connect ECONNREFUSED 172.28.0.13:8000
+2020-09-08 10:45:28 [32minfo[39m: Failed registration (Attempt #15). Attempting again in 30 seconds.
+2020-09-08 10:45:31 [32minfo[39m: Execute liveness check
+2020-09-08 10:45:41 [32minfo[39m: Execute liveness check
+2020-09-08 10:45:51 [32minfo[39m: Execute liveness check
+2020-09-08 10:45:58 [32minfo[39m: Attempting UI extension registration...
+2020-09-08 10:45:58 [31merror[39m: connect ECONNREFUSED 172.28.0.13:8000
+2020-09-08 10:45:58 [32minfo[39m: Failed registration (Attempt #16). Attempting again in 30 seconds.
+2020-09-08 10:46:02 [32minfo[39m: Execute liveness check
+2020-09-08 10:46:12 [32minfo[39m: Execute liveness check
+2020-09-08 10:46:22 [32minfo[39m: Execute liveness check
+2020-09-08 10:46:28 [32minfo[39m: Attempting UI extension registration...
+2020-09-08 10:46:28 [31merror[39m: connect ECONNREFUSED 172.28.0.13:8000
+2020-09-08 10:46:28 [32minfo[39m: Failed registration (Attempt #17). Attempting again in 30 seconds.
+2020-09-08 10:46:32 [32minfo[39m: Execute liveness check
+2020-09-08 10:46:42 [32minfo[39m: Execute liveness check
+2020-09-08 10:46:52 [32minfo[39m: Execute liveness check
+2020-09-08 10:46:58 [32minfo[39m: Attempting UI extension registration...
+2020-09-08 10:46:58 [31merror[39m: connect ECONNREFUSED 172.28.0.13:8000
+2020-09-08 10:46:58 [32minfo[39m: Failed registration (Attempt #18). Attempting again in 30 seconds.
+2020-09-08 10:47:02 [32minfo[39m: Execute liveness check
+2020-09-08 10:47:12 [32minfo[39m: Execute liveness check
+2020-09-08 10:47:22 [32minfo[39m: Execute liveness check
+2020-09-08 10:47:28 [32minfo[39m: Attempting UI extension registration...
+2020-09-08 10:47:28 [31merror[39m: connect ECONNREFUSED 172.28.0.13:8000
+2020-09-08 10:47:28 [32minfo[39m: Failed registration (Attempt #19). Attempting again in 30 seconds.
+2020-09-08 10:47:32 [32minfo[39m: Execute liveness check
+2020-09-08 10:47:43 [32minfo[39m: Execute liveness check
+2020-09-08 10:47:53 [32minfo[39m: Execute liveness check
+2020-09-08 10:47:58 [32minfo[39m: Attempting UI extension registration...
+2020-09-08 10:47:58 [31merror[39m: connect ECONNREFUSED 172.28.0.13:8000
+2020-09-08 10:47:58 [32minfo[39m: Failed registration (Attempt #20). Attempting again in 30 seconds.
+2020-09-08 10:48:03 [32minfo[39m: Execute liveness check
+2020-09-08 10:48:13 [32minfo[39m: Execute liveness check
+2020-09-08 10:48:23 [32minfo[39m: Execute liveness check
+2020-09-08 10:48:28 [32minfo[39m: Attempting UI extension registration...
+2020-09-08 10:48:28 [31merror[39m: connect ECONNREFUSED 172.28.0.13:8000
+2020-09-08 10:48:28 [31merror[39m: Maximum number of attempts exceeded. Could not register UI extension.
+2020-09-08 10:48:33 [32minfo[39m: Execute liveness check
+2020-09-08 10:48:43 [32minfo[39m: Execute liveness check
+2020-09-08 10:48:53 [32minfo[39m: Execute liveness check
+2020-09-08 10:49:03 [32minfo[39m: Execute liveness check
+2020-09-08 10:49:13 [32minfo[39m: Execute liveness check
+2020-09-08 10:49:24 [32minfo[39m: Execute liveness check
+2020-09-08 10:49:34 [32minfo[39m: Execute liveness check
+2020-09-08 10:55:01 [32minfo[39m: Execute liveness check
+2020-09-08 10:55:11 [32minfo[39m: Execute liveness check
+2020-09-08 10:55:22 [32minfo[39m: Execute liveness check
+2020-09-08 10:55:32 [32minfo[39m: Execute liveness check
+2020-09-08 10:55:42 [32minfo[39m: Execute liveness check
+2020-09-08 10:55:52 [32minfo[39m: Execute liveness check
+2020-09-08 10:56:02 [32minfo[39m: Execute liveness check
+2020-09-08 10:57:57 [32minfo[39m: Attempting UI extension registration...
+2020-09-08 10:57:57 [32minfo[39m: Server is running version 2020.2.0, 0, 2020.3.0, 109, c0bc235, Fri Sep  4 12:10:27 UTC 2020
+2020-09-08 10:57:57 [32minfo[39m: Node server started without a TLS certificate on port : 3000
+2020-09-08 10:57:59 [31merror[39m: connect ECONNREFUSED 172.29.0.13:8000
+2020-09-08 10:57:59 [32minfo[39m: Failed registration (Attempt #1). Attempting again in 30 seconds.
+2020-09-08 10:58:06 [32minfo[39m: Execute liveness check
+2020-09-08 10:58:16 [32minfo[39m: Execute liveness check
+2020-09-08 10:58:26 [32minfo[39m: Execute liveness check
+2020-09-08 10:58:28 [32minfo[39m: Attempting UI extension registration...
+2020-09-08 10:58:29 [32minfo[39m: Successfully registered!
+2020-09-08 10:58:29 [34mdebug[39m: Service registration was successful
+2020-09-08 10:58:36 [32minfo[39m: Execute liveness check
+2020-09-08 10:58:46 [32minfo[39m: Execute liveness check
+2020-09-08 10:58:57 [32minfo[39m: Execute liveness check
+2020-09-08 10:59:07 [32minfo[39m: Execute liveness check
+2020-09-08 10:59:17 [32minfo[39m: Execute liveness check
+2020-09-08 10:59:27 [32minfo[39m: Execute liveness check
+2020-09-08 10:59:37 [32minfo[39m: Execute liveness check
+2020-09-08 10:59:47 [32minfo[39m: Execute liveness check
+2020-09-08 10:59:57 [32minfo[39m: Execute liveness check
+2020-09-08 11:00:07 [32minfo[39m: Execute liveness check
+2020-09-08 11:00:17 [32minfo[39m: Execute liveness check
+2020-09-08 11:00:27 [32minfo[39m: Execute liveness check
+2020-09-08 11:00:38 [32minfo[39m: Execute liveness check
+2020-09-08 11:00:48 [32minfo[39m: Execute liveness check
+2020-09-08 11:00:58 [32minfo[39m: Execute liveness check
+2020-09-08 11:01:08 [32minfo[39m: Execute liveness check
+2020-09-08 11:01:18 [32minfo[39m: Execute liveness check
+2020-09-08 11:01:28 [32minfo[39m: Execute liveness check
+2020-09-08 11:01:38 [32minfo[39m: Execute liveness check
+2020-09-08 11:01:48 [32minfo[39m: Execute liveness check
+2020-09-08 11:01:58 [32minfo[39m: Execute liveness check
+2020-09-08 11:02:08 [32minfo[39m: Execute liveness check
+2020-09-08 11:02:22 [32minfo[39m: Attempting UI extension registration...
+2020-09-08 11:02:22 [32minfo[39m: Server is running version 2020.2.0, 0, 2020.3.0, 109, c0bc235, Fri Sep  4 12:10:27 UTC 2020
+2020-09-08 11:02:22 [32minfo[39m: Node server started without a TLS certificate on port : 3000
+2020-09-08 11:02:23 [31merror[39m: connect ECONNREFUSED 172.30.0.12:8000
+2020-09-08 11:02:23 [32minfo[39m: Failed registration (Attempt #1). Attempting again in 30 seconds.
+2020-09-08 11:02:30 [32minfo[39m: Execute liveness check
+2020-09-08 11:02:41 [32minfo[39m: Execute liveness check
+2020-09-08 11:02:51 [32minfo[39m: Execute liveness check
+2020-09-08 11:02:53 [32minfo[39m: Attempting UI extension registration...
+2020-09-08 11:02:54 [32minfo[39m: Successfully registered!
+2020-09-08 11:02:54 [34mdebug[39m: Service registration was successful
+2020-09-08 11:03:01 [32minfo[39m: Execute liveness check
+2020-09-08 11:03:11 [32minfo[39m: Execute liveness check
+2020-09-08 11:03:21 [32minfo[39m: Execute liveness check
+2020-09-08 11:03:22 [34mdebug[39m: Executing routes.get
+2020-09-08 11:03:22 [34mdebug[39m: Executing routes.get
+2020-09-08 11:03:31 [32minfo[39m: Execute liveness check
+2020-09-08 11:03:41 [32minfo[39m: Execute liveness check
+2020-09-08 11:03:51 [32minfo[39m: Execute liveness check
+2020-09-08 11:04:00 [34mdebug[39m: Executing routes.get
+2020-09-08 11:04:00 [34mdebug[39m: Executing routes.get
+2020-09-08 11:04:02 [32minfo[39m: Execute liveness check
+2020-09-08 11:04:12 [32minfo[39m: Execute liveness check
+2020-09-08 11:04:22 [32minfo[39m: Execute liveness check
+2020-09-08 11:04:32 [32minfo[39m: Execute liveness check
+2020-09-08 11:04:42 [32minfo[39m: Execute liveness check
+2020-09-08 11:04:52 [32minfo[39m: Execute liveness check
+2020-09-08 11:05:02 [32minfo[39m: Execute liveness check
+2020-09-08 11:05:12 [32minfo[39m: Execute liveness check
+2020-09-08 11:05:22 [32minfo[39m: Execute liveness check
+2020-09-08 11:05:33 [32minfo[39m: Execute liveness check
+2020-09-08 11:05:43 [32minfo[39m: Execute liveness check
+2020-09-08 11:05:53 [32minfo[39m: Execute liveness check
+2020-09-08 11:06:03 [32minfo[39m: Execute liveness check
+2020-09-08 11:06:13 [32minfo[39m: Execute liveness check
+2020-09-08 11:06:23 [32minfo[39m: Execute liveness check
+2020-09-08 11:06:33 [32minfo[39m: Execute liveness check
+2020-09-08 11:06:43 [32minfo[39m: Execute liveness check
+2020-09-08 11:06:53 [32minfo[39m: Execute liveness check
+2020-09-08 11:07:03 [32minfo[39m: Execute liveness check
+2020-09-08 11:07:13 [32minfo[39m: Execute liveness check
+2020-09-08 11:07:24 [32minfo[39m: Execute liveness check
+2020-09-08 11:07:34 [32minfo[39m: Execute liveness check
+2020-09-08 11:07:44 [32minfo[39m: Execute liveness check
+2020-09-08 11:07:54 [32minfo[39m: Execute liveness check
+2020-09-08 11:08:04 [32minfo[39m: Execute liveness check
+2020-09-08 11:08:14 [32minfo[39m: Execute liveness check
+2020-09-08 11:08:24 [32minfo[39m: Execute liveness check
+2020-09-08 11:08:34 [32minfo[39m: Execute liveness check
+2020-09-08 11:08:44 [32minfo[39m: Execute liveness check
+2020-09-08 11:08:55 [32minfo[39m: Execute liveness check
+2020-09-08 11:09:05 [32minfo[39m: Execute liveness check
+2020-09-08 11:09:15 [32minfo[39m: Execute liveness check
+2020-09-08 11:09:25 [32minfo[39m: Execute liveness check
+2020-09-08 11:09:35 [32minfo[39m: Execute liveness check
+2020-09-08 11:09:45 [32minfo[39m: Execute liveness check
+2020-09-08 11:09:55 [32minfo[39m: Execute liveness check
+2020-09-08 11:10:05 [32minfo[39m: Execute liveness check
+2020-09-08 11:10:16 [32minfo[39m: Execute liveness check
+2020-09-08 11:10:26 [32minfo[39m: Execute liveness check
+2020-09-08 11:10:36 [32minfo[39m: Execute liveness check
+2020-09-08 11:10:46 [32minfo[39m: Execute liveness check
+2020-09-08 11:10:56 [32minfo[39m: Execute liveness check
+2020-09-08 11:11:06 [32minfo[39m: Execute liveness check
+2020-09-08 11:11:16 [32minfo[39m: Execute liveness check
+2020-09-08 11:11:26 [32minfo[39m: Execute liveness check
+2020-09-08 11:11:36 [32minfo[39m: Execute liveness check
+2020-09-08 11:11:47 [32minfo[39m: Execute liveness check
+2020-09-08 11:11:57 [32minfo[39m: Execute liveness check
+2020-09-08 11:12:07 [32minfo[39m: Execute liveness check
+2020-09-08 11:12:17 [32minfo[39m: Execute liveness check
+2020-09-08 11:12:27 [32minfo[39m: Execute liveness check
+2020-09-08 11:12:37 [32minfo[39m: Execute liveness check
+2020-09-08 11:15:59 [32minfo[39m: Attempting UI extension registration...
+2020-09-08 11:15:59 [32minfo[39m: Server is running version 2020.2.0, 0, 2020.3.0, 109, c0bc235, Fri Sep  4 12:10:27 UTC 2020
+2020-09-08 11:15:59 [32minfo[39m: Node server started without a TLS certificate on port : 3000
+2020-09-08 11:15:59 [31merror[39m: connect ECONNREFUSED 172.31.0.12:8000
+2020-09-08 11:15:59 [32minfo[39m: Failed registration (Attempt #1). Attempting again in 30 seconds.
+2020-09-08 11:16:08 [32minfo[39m: Execute liveness check
+2020-09-08 11:16:18 [32minfo[39m: Execute liveness check
+2020-09-08 11:16:28 [32minfo[39m: Execute liveness check
+2020-09-08 11:16:29 [32minfo[39m: Attempting UI extension registration...
+2020-09-08 11:16:30 [32minfo[39m: Successfully registered!
+2020-09-08 11:16:30 [34mdebug[39m: Service registration was successful
+2020-09-08 11:16:38 [32minfo[39m: Execute liveness check
+2020-09-08 11:16:48 [32minfo[39m: Execute liveness check
+2020-09-08 11:16:58 [32minfo[39m: Execute liveness check
+2020-09-08 11:17:08 [32minfo[39m: Execute liveness check
+2020-09-08 11:17:18 [32minfo[39m: Execute liveness check
+2020-09-08 11:17:28 [32minfo[39m: Execute liveness check
+2020-09-08 11:17:38 [32minfo[39m: Execute liveness check
+2020-09-08 11:17:49 [32minfo[39m: Execute liveness check
+2020-09-08 11:17:59 [32minfo[39m: Execute liveness check
+2020-09-08 11:18:09 [32minfo[39m: Execute liveness check
+2020-09-08 11:18:19 [32minfo[39m: Execute liveness check
+2020-09-08 11:18:29 [32minfo[39m: Execute liveness check
+2020-09-08 11:18:39 [32minfo[39m: Execute liveness check
+2020-09-08 11:18:49 [32minfo[39m: Execute liveness check
+2020-09-08 11:18:59 [32minfo[39m: Execute liveness check
+2020-09-08 11:19:10 [32minfo[39m: Execute liveness check
+2020-09-08 11:19:20 [32minfo[39m: Execute liveness check
+2020-09-08 11:19:30 [32minfo[39m: Execute liveness check
+2020-09-08 11:19:40 [32minfo[39m: Execute liveness check
+2020-09-08 11:19:50 [32minfo[39m: Execute liveness check
+2020-09-08 11:20:00 [32minfo[39m: Execute liveness check
+2020-09-08 11:20:10 [32minfo[39m: Execute liveness check
+2020-09-08 11:20:20 [32minfo[39m: Execute liveness check
+2020-09-08 11:20:30 [32minfo[39m: Execute liveness check
+2020-09-08 11:20:41 [32minfo[39m: Execute liveness check
+2020-09-08 11:20:51 [32minfo[39m: Execute liveness check
+2020-09-08 11:21:01 [32minfo[39m: Execute liveness check
+2020-09-08 11:21:11 [32minfo[39m: Execute liveness check
+2020-09-08 11:21:21 [32minfo[39m: Execute liveness check
+2020-09-08 11:21:31 [32minfo[39m: Execute liveness check
+2020-09-08 11:21:41 [32minfo[39m: Execute liveness check
+2020-09-08 11:21:51 [32minfo[39m: Execute liveness check
+2020-09-08 11:22:02 [32minfo[39m: Execute liveness check
+2020-09-08 11:22:12 [32minfo[39m: Execute liveness check
+2020-09-08 11:22:22 [32minfo[39m: Execute liveness check
+2020-09-08 11:22:32 [32minfo[39m: Execute liveness check
+2020-09-08 11:22:42 [32minfo[39m: Execute liveness check
+2020-09-08 11:22:52 [32minfo[39m: Execute liveness check
+2020-09-08 11:23:02 [32minfo[39m: Execute liveness check
+2020-09-08 11:23:12 [32minfo[39m: Execute liveness check
+2020-09-08 11:23:22 [32minfo[39m: Execute liveness check
+2020-09-08 11:23:33 [32minfo[39m: Execute liveness check
+2020-09-08 11:23:43 [32minfo[39m: Execute liveness check
+2020-09-08 11:23:53 [32minfo[39m: Execute liveness check
+2020-09-08 11:24:03 [32minfo[39m: Execute liveness check
+2020-09-08 11:24:13 [32minfo[39m: Execute liveness check
+2020-09-08 11:24:23 [32minfo[39m: Execute liveness check
+2020-09-08 11:24:33 [32minfo[39m: Execute liveness check
+2020-09-08 11:24:43 [32minfo[39m: Execute liveness check
+2020-09-08 11:24:54 [32minfo[39m: Execute liveness check
+2020-09-08 11:25:04 [32minfo[39m: Execute liveness check
+2020-09-08 11:25:14 [32minfo[39m: Execute liveness check
+2020-09-08 11:25:24 [32minfo[39m: Execute liveness check
+2020-09-08 11:25:34 [32minfo[39m: Execute liveness check
+2020-09-08 11:25:44 [32minfo[39m: Execute liveness check
+2020-09-08 11:25:54 [32minfo[39m: Execute liveness check
+2020-09-08 11:26:04 [32minfo[39m: Execute liveness check
+2020-09-08 11:26:14 [32minfo[39m: Execute liveness check
+2020-09-08 11:26:25 [32minfo[39m: Execute liveness check
+2020-09-08 11:26:35 [32minfo[39m: Execute liveness check
+2020-09-08 11:27:24 [32minfo[39m: Attempting UI extension registration...
+2020-09-08 11:27:24 [32minfo[39m: Server is running version 2020.2.0, 0, 2020.3.0, 109, c0bc235, Fri Sep  4 12:10:27 UTC 2020
+2020-09-08 11:27:24 [32minfo[39m: Node server started without a TLS certificate on port : 3000
+2020-09-08 11:27:24 [31merror[39m: connect ECONNREFUSED 192.168.0.14:8000
+2020-09-08 11:27:24 [32minfo[39m: Failed registration (Attempt #1). Attempting again in 30 seconds.
+2020-09-08 11:27:32 [32minfo[39m: Execute liveness check
+2020-09-08 11:27:43 [32minfo[39m: Execute liveness check
+2020-09-08 11:27:53 [32minfo[39m: Execute liveness check
+2020-09-08 11:27:54 [32minfo[39m: Attempting UI extension registration...
+2020-09-08 11:27:54 [32minfo[39m: Successfully registered!
+2020-09-08 11:27:54 [34mdebug[39m: Service registration was successful
+2020-09-08 11:28:03 [32minfo[39m: Execute liveness check
+2020-09-08 11:28:13 [32minfo[39m: Execute liveness check
+2020-09-08 11:28:23 [32minfo[39m: Execute liveness check
+2020-09-08 11:29:18 [32minfo[39m: Attempting UI extension registration...
+2020-09-08 11:29:18 [32minfo[39m: Server is running version 2020.2.0, 0, 2020.3.0, 109, c0bc235, Fri Sep  4 12:10:27 UTC 2020
+2020-09-08 11:29:18 [32minfo[39m: Node server started without a TLS certificate on port : 3000
+2020-09-08 11:29:18 [31merror[39m: connect ECONNREFUSED 192.168.16.12:8000
+2020-09-08 11:29:18 [32minfo[39m: Failed registration (Attempt #1). Attempting again in 30 seconds.
+2020-09-08 11:29:26 [32minfo[39m: Execute liveness check
+2020-09-08 11:29:37 [32minfo[39m: Execute liveness check
+2020-09-08 11:29:47 [32minfo[39m: Execute liveness check
+2020-09-08 11:29:48 [32minfo[39m: Attempting UI extension registration...
+2020-09-08 11:29:49 [32minfo[39m: Successfully registered!
+2020-09-08 11:29:49 [34mdebug[39m: Service registration was successful
+2020-09-08 11:29:57 [32minfo[39m: Execute liveness check
+2020-09-08 11:30:53 [32minfo[39m: Attempting UI extension registration...
+2020-09-08 11:30:53 [32minfo[39m: Server is running version 2020.2.0, 0, 2020.3.0, 109, c0bc235, Fri Sep  4 12:10:27 UTC 2020
+2020-09-08 11:30:53 [32minfo[39m: Node server started without a TLS certificate on port : 3000
+2020-09-08 11:30:53 [31merror[39m: connect ECONNREFUSED 192.168.16.12:8000
+2020-09-08 11:30:53 [32minfo[39m: Failed registration (Attempt #1). Attempting again in 30 seconds.
+2020-09-08 11:31:02 [32minfo[39m: Execute liveness check
+2020-09-08 11:31:12 [32minfo[39m: Execute liveness check
+2020-09-08 11:31:22 [32minfo[39m: Execute liveness check
+2020-09-08 11:31:23 [32minfo[39m: Attempting UI extension registration...
+2020-09-08 11:31:23 [32minfo[39m: Successfully registered!
+2020-09-08 11:31:23 [34mdebug[39m: Service registration was successful
+2020-09-08 11:31:32 [32minfo[39m: Execute liveness check
+2020-09-08 11:31:43 [32minfo[39m: Execute liveness check
+2020-09-08 11:31:53 [32minfo[39m: Execute liveness check
+2020-09-08 11:32:03 [32minfo[39m: Execute liveness check
+2020-09-08 11:32:13 [32minfo[39m: Execute liveness check
+2020-09-08 11:32:23 [32minfo[39m: Execute liveness check
+2020-09-08 11:32:32 [34mdebug[39m: Executing routes.get
+2020-09-08 11:32:32 [34mdebug[39m: Executing routes.get
+2020-09-08 11:32:33 [32minfo[39m: Execute liveness check
+2020-09-08 11:32:34 [34mdebug[39m: Executing routes.get
+2020-09-08 11:32:34 [34mdebug[39m: Executing routes.get
+2020-09-08 11:32:43 [32minfo[39m: Execute liveness check
+2020-09-08 11:32:53 [32minfo[39m: Execute liveness check
+2020-09-08 11:33:03 [32minfo[39m: Execute liveness check
+2020-09-08 11:33:13 [32minfo[39m: Execute liveness check
+2020-09-08 11:33:23 [32minfo[39m: Execute liveness check
+2020-09-08 11:33:33 [32minfo[39m: Execute liveness check
+2020-09-08 11:33:44 [32minfo[39m: Execute liveness check
+2020-09-08 11:33:54 [32minfo[39m: Execute liveness check
+2020-09-08 11:34:04 [32minfo[39m: Execute liveness check
+2020-09-08 11:34:14 [32minfo[39m: Execute liveness check
+2020-09-08 11:34:24 [32minfo[39m: Execute liveness check
+2020-09-08 11:34:34 [32minfo[39m: Execute liveness check
+2020-09-08 11:34:44 [32minfo[39m: Execute liveness check
+2020-09-08 11:34:54 [32minfo[39m: Execute liveness check
+2020-09-08 11:35:04 [32minfo[39m: Execute liveness check
+2020-09-08 11:35:14 [32minfo[39m: Execute liveness check
+2020-09-08 11:35:25 [32minfo[39m: Execute liveness check
+2020-09-08 11:35:35 [32minfo[39m: Execute liveness check
+2020-09-08 11:35:44 [32minfo[39m: Execute liveness check
+2020-09-08 11:35:55 [32minfo[39m: Execute liveness check
+2020-09-08 11:36:05 [32minfo[39m: Execute liveness check
+2020-09-08 11:36:15 [32minfo[39m: Execute liveness check
+2020-09-08 11:36:31 [32minfo[39m: Execute liveness check
+2020-09-08 11:36:41 [32minfo[39m: Execute liveness check
+2020-09-08 11:36:52 [32minfo[39m: Execute liveness check
+2020-09-08 12:12:33 [32minfo[39m: Execute liveness check
+2020-09-08 12:12:45 [32minfo[39m: Execute liveness check
+2020-09-08 12:12:56 [32minfo[39m: Execute liveness check
+2020-09-08 12:13:07 [32minfo[39m: Execute liveness check
+2020-09-08 12:13:17 [32minfo[39m: Execute liveness check
+2020-09-08 12:13:28 [32minfo[39m: Execute liveness check
+2020-09-08 12:13:39 [32minfo[39m: Execute liveness check
+2020-09-08 12:13:49 [32minfo[39m: Execute liveness check
+2020-09-08 12:14:00 [32minfo[39m: Execute liveness check
+2020-09-08 12:14:10 [32minfo[39m: Execute liveness check
+2020-09-08 12:14:21 [32minfo[39m: Execute liveness check
+2020-09-08 12:14:31 [32minfo[39m: Execute liveness check
+2020-09-08 12:14:42 [32minfo[39m: Execute liveness check
+2020-09-08 12:14:52 [32minfo[39m: Execute liveness check
+2020-09-08 12:15:02 [32minfo[39m: Execute liveness check
+2020-09-08 12:15:12 [32minfo[39m: Execute liveness check
+2020-09-08 12:15:23 [32minfo[39m: Execute liveness check
+2020-09-08 12:15:33 [32minfo[39m: Execute liveness check
+2020-09-08 12:15:43 [32minfo[39m: Execute liveness check
+2020-09-08 12:15:53 [32minfo[39m: Execute liveness check
+2020-09-08 12:54:12 [32minfo[39m: Execute liveness check
+2020-09-08 12:54:22 [32minfo[39m: Execute liveness check
+2020-09-08 12:54:33 [32minfo[39m: Execute liveness check
+2020-09-08 12:54:43 [32minfo[39m: Execute liveness check
+2020-09-08 12:54:54 [32minfo[39m: Execute liveness check
+2020-09-08 12:55:05 [32minfo[39m: Execute liveness check
+2020-09-08 12:55:15 [32minfo[39m: Execute liveness check
+2020-09-08 12:55:26 [32minfo[39m: Execute liveness check
+2020-09-08 12:55:36 [32minfo[39m: Execute liveness check
+2020-09-08 13:47:05 [32minfo[39m: Execute liveness check
+2020-09-08 13:47:53 [32minfo[39m: Execute liveness check
+2020-09-08 13:48:03 [32minfo[39m: Execute liveness check
+2020-09-08 13:48:14 [32minfo[39m: Execute liveness check
+2020-09-08 13:48:24 [32minfo[39m: Execute liveness check
+2020-09-08 13:48:34 [32minfo[39m: Execute liveness check
+2020-09-08 13:48:44 [32minfo[39m: Execute liveness check
+2020-09-08 13:48:54 [32minfo[39m: Execute liveness check
+2020-09-08 13:49:04 [32minfo[39m: Execute liveness check
+2020-09-08 13:49:15 [32minfo[39m: Execute liveness check
+2020-09-08 13:49:25 [32minfo[39m: Execute liveness check
+2020-09-08 13:49:35 [32minfo[39m: Execute liveness check
+2020-09-08 13:49:45 [32minfo[39m: Execute liveness check
+2020-09-08 13:58:45 [32minfo[39m: Attempting UI extension registration...
+2020-09-08 13:58:45 [32minfo[39m: Server is running version 2020.2.0, 0, 2020.3.0, 109, c0bc235, Fri Sep  4 12:10:27 UTC 2020
+2020-09-08 13:58:45 [32minfo[39m: Node server started without a TLS certificate on port : 3000
+2020-09-08 13:58:45 [31merror[39m: connect ECONNREFUSED 192.168.32.14:8000
+2020-09-08 13:58:45 [32minfo[39m: Failed registration (Attempt #1). Attempting again in 30 seconds.
+2020-09-08 13:58:53 [32minfo[39m: Execute liveness check
+2020-09-08 13:59:04 [32minfo[39m: Execute liveness check
+2020-09-08 13:59:14 [32minfo[39m: Execute liveness check
+2020-09-08 13:59:15 [32minfo[39m: Attempting UI extension registration...
+2020-09-08 13:59:15 [32minfo[39m: Successfully registered!
+2020-09-08 13:59:15 [34mdebug[39m: Service registration was successful
+2020-09-08 13:59:24 [32minfo[39m: Execute liveness check
+2020-09-08 13:59:34 [32minfo[39m: Execute liveness check
+2020-09-08 13:59:44 [32minfo[39m: Execute liveness check
+2020-09-08 13:59:54 [32minfo[39m: Execute liveness check
+2020-09-08 14:00:04 [32minfo[39m: Execute liveness check
+2020-09-08 14:00:14 [32minfo[39m: Execute liveness check
+2020-09-08 14:00:24 [32minfo[39m: Execute liveness check
+2020-09-08 14:00:34 [32minfo[39m: Execute liveness check
+2020-09-08 14:00:45 [32minfo[39m: Execute liveness check
+2020-09-08 14:00:55 [32minfo[39m: Execute liveness check
+2020-09-08 14:01:05 [32minfo[39m: Execute liveness check
+2020-09-08 14:01:15 [32minfo[39m: Execute liveness check
+2020-09-08 14:01:25 [32minfo[39m: Execute liveness check
+2020-09-08 14:01:35 [32minfo[39m: Execute liveness check
+2020-09-08 14:01:45 [32minfo[39m: Execute liveness check
+2020-09-08 14:01:55 [32minfo[39m: Execute liveness check
+2020-09-08 14:02:05 [32minfo[39m: Execute liveness check
+2020-09-08 14:02:16 [32minfo[39m: Execute liveness check
+2020-09-08 14:02:26 [32minfo[39m: Execute liveness check
+2020-09-08 14:02:36 [32minfo[39m: Execute liveness check
+2020-09-08 14:02:46 [32minfo[39m: Execute liveness check
+2020-09-08 14:02:56 [32minfo[39m: Execute liveness check
+2020-09-08 14:03:06 [32minfo[39m: Execute liveness check
+2020-09-08 14:03:16 [32minfo[39m: Execute liveness check
+2020-09-08 14:03:26 [32minfo[39m: Execute liveness check
+2020-09-08 14:03:37 [32minfo[39m: Execute liveness check
+2020-09-08 14:03:47 [32minfo[39m: Execute liveness check
+2020-09-08 14:03:57 [32minfo[39m: Execute liveness check
+2020-09-08 14:04:07 [32minfo[39m: Execute liveness check
+2020-09-08 14:04:17 [32minfo[39m: Execute liveness check
+2020-09-08 14:04:27 [32minfo[39m: Execute liveness check
+2020-09-08 14:04:37 [32minfo[39m: Execute liveness check
+2020-09-08 14:04:47 [32minfo[39m: Execute liveness check
+2020-09-08 14:04:57 [32minfo[39m: Execute liveness check
+2020-09-08 14:05:07 [32minfo[39m: Execute liveness check
+2020-09-08 14:05:18 [32minfo[39m: Execute liveness check
+2020-09-08 14:05:28 [32minfo[39m: Execute liveness check
+2020-09-08 14:05:38 [32minfo[39m: Execute liveness check
+2020-09-08 14:05:48 [32minfo[39m: Execute liveness check
+2020-09-08 14:05:58 [32minfo[39m: Execute liveness check
+2020-09-08 14:06:08 [32minfo[39m: Execute liveness check
+2020-09-08 14:06:18 [32minfo[39m: Execute liveness check
+2020-09-08 14:06:28 [32minfo[39m: Execute liveness check
+2020-09-08 14:06:38 [32minfo[39m: Execute liveness check
+2020-09-08 14:11:24 [32minfo[39m: Attempting UI extension registration...
+2020-09-08 14:11:24 [32minfo[39m: Server is running version 2020.2.0, 0, 2020.3.0, 109, c0bc235, Fri Sep  4 12:10:27 UTC 2020
+2020-09-08 14:11:24 [32minfo[39m: Node server started without a TLS certificate on port : 3000
+2020-09-08 14:11:26 [31merror[39m: connect ECONNREFUSED 192.168.48.22:8000
+2020-09-08 14:11:26 [32minfo[39m: Failed registration (Attempt #1). Attempting again in 30 seconds.
+2020-09-08 14:11:33 [32minfo[39m: Execute liveness check
+2020-09-08 14:11:43 [32minfo[39m: Execute liveness check
+2020-09-08 14:11:53 [32minfo[39m: Execute liveness check
+2020-09-08 14:11:56 [32minfo[39m: Attempting UI extension registration...
+2020-09-08 14:11:56 [32minfo[39m: Successfully registered!
+2020-09-08 14:11:56 [34mdebug[39m: Service registration was successful
+2020-09-08 14:12:03 [32minfo[39m: Execute liveness check
+2020-09-08 14:12:14 [32minfo[39m: Execute liveness check
+2020-09-08 14:12:24 [32minfo[39m: Execute liveness check
+2020-09-08 14:12:34 [32minfo[39m: Execute liveness check
+2020-09-08 14:12:44 [32minfo[39m: Execute liveness check
+2020-09-08 14:12:54 [32minfo[39m: Execute liveness check
+2020-09-08 14:13:04 [32minfo[39m: Execute liveness check
+2020-09-08 14:13:14 [32minfo[39m: Execute liveness check
+2020-09-08 14:13:25 [32minfo[39m: Execute liveness check
+2020-09-08 14:13:35 [32minfo[39m: Execute liveness check
+2020-09-08 14:13:45 [32minfo[39m: Execute liveness check
+2020-09-08 14:13:55 [32minfo[39m: Execute liveness check
+2020-09-08 14:14:05 [32minfo[39m: Execute liveness check
+2020-09-08 14:14:15 [32minfo[39m: Execute liveness check
+2020-09-08 14:14:25 [32minfo[39m: Execute liveness check
+2020-09-08 14:14:35 [32minfo[39m: Execute liveness check
+2020-09-08 14:14:46 [32minfo[39m: Execute liveness check
+2020-09-08 14:14:56 [32minfo[39m: Execute liveness check
+2020-09-08 14:15:06 [32minfo[39m: Execute liveness check
+2020-09-08 14:15:16 [32minfo[39m: Execute liveness check
+2020-09-08 14:15:26 [32minfo[39m: Execute liveness check
+2020-09-08 14:15:36 [32minfo[39m: Execute liveness check
+2020-09-08 14:15:46 [32minfo[39m: Execute liveness check
+2020-09-08 14:15:56 [32minfo[39m: Execute liveness check
+2020-09-08 14:16:07 [32minfo[39m: Execute liveness check
+2020-09-08 14:16:17 [32minfo[39m: Execute liveness check
+2020-09-08 14:16:27 [32minfo[39m: Execute liveness check
+2020-09-08 14:16:37 [32minfo[39m: Execute liveness check
+2020-09-08 14:16:47 [32minfo[39m: Execute liveness check
+2020-09-08 14:16:57 [32minfo[39m: Execute liveness check
+2020-09-08 14:17:07 [32minfo[39m: Execute liveness check
+2020-09-08 14:17:17 [32minfo[39m: Execute liveness check
+2020-09-08 14:17:27 [32minfo[39m: Execute liveness check
+2020-09-08 14:17:38 [32minfo[39m: Execute liveness check
+2020-09-08 14:17:48 [32minfo[39m: Execute liveness check
+2020-09-08 14:17:58 [32minfo[39m: Execute liveness check
+2020-09-08 14:18:08 [32minfo[39m: Execute liveness check
+2020-09-08 14:18:18 [32minfo[39m: Execute liveness check
+2020-09-08 14:18:28 [32minfo[39m: Execute liveness check
+2020-09-08 14:18:38 [32minfo[39m: Execute liveness check
+2020-09-08 14:18:48 [32minfo[39m: Execute liveness check
+2020-09-08 14:18:58 [32minfo[39m: Execute liveness check
+2020-09-08 14:19:09 [32minfo[39m: Execute liveness check
+2020-09-08 14:19:19 [32minfo[39m: Execute liveness check
+2020-09-08 14:19:29 [32minfo[39m: Execute liveness check
+2020-09-08 14:19:39 [32minfo[39m: Execute liveness check
+2020-09-08 14:19:49 [32minfo[39m: Execute liveness check
+2020-09-08 14:19:59 [32minfo[39m: Execute liveness check
+2020-09-08 14:20:10 [32minfo[39m: Execute liveness check
+2020-09-08 14:20:20 [32minfo[39m: Execute liveness check
+2020-09-08 14:20:30 [32minfo[39m: Execute liveness check
+2020-09-08 14:20:40 [32minfo[39m: Execute liveness check
+2020-09-08 14:20:51 [32minfo[39m: Execute liveness check
+2020-09-08 14:21:01 [32minfo[39m: Execute liveness check
+2020-09-08 14:21:11 [32minfo[39m: Execute liveness check
+2020-09-08 14:21:21 [32minfo[39m: Execute liveness check
+2020-09-08 14:21:31 [32minfo[39m: Execute liveness check
+2020-09-08 14:21:41 [32minfo[39m: Execute liveness check
+2020-09-08 14:21:51 [32minfo[39m: Execute liveness check
+2020-09-08 14:22:01 [32minfo[39m: Execute liveness check
+2020-09-08 14:22:12 [32minfo[39m: Execute liveness check
+2020-09-08 14:22:22 [32minfo[39m: Execute liveness check
+2020-09-08 14:22:32 [32minfo[39m: Execute liveness check
+2020-09-08 14:22:42 [32minfo[39m: Execute liveness check
+2020-09-08 14:22:52 [32minfo[39m: Execute liveness check
+2020-09-08 14:23:02 [32minfo[39m: Execute liveness check
+2020-09-08 14:23:12 [32minfo[39m: Execute liveness check
+2020-09-08 14:23:22 [32minfo[39m: Execute liveness check
+2020-09-08 14:23:32 [32minfo[39m: Execute liveness check
+2020-09-08 14:23:42 [32minfo[39m: Execute liveness check
+2020-09-08 14:23:52 [32minfo[39m: Execute liveness check
+2020-09-08 14:24:03 [32minfo[39m: Execute liveness check
+2020-09-08 14:24:13 [32minfo[39m: Execute liveness check
+2020-09-08 14:24:23 [32minfo[39m: Execute liveness check
+2020-09-08 14:24:33 [32minfo[39m: Execute liveness check
+2020-09-08 14:24:43 [32minfo[39m: Execute liveness check
+2020-09-08 14:24:53 [32minfo[39m: Execute liveness check
+2020-09-08 14:25:03 [32minfo[39m: Execute liveness check
+2020-09-08 14:25:13 [32minfo[39m: Execute liveness check
+2020-09-08 14:25:23 [32minfo[39m: Execute liveness check
+2020-09-08 14:25:33 [32minfo[39m: Execute liveness check
+2020-09-08 14:25:44 [32minfo[39m: Execute liveness check
+2020-09-08 14:25:54 [32minfo[39m: Execute liveness check
+2020-09-08 14:26:04 [32minfo[39m: Execute liveness check
+2020-09-08 14:26:14 [32minfo[39m: Execute liveness check
+2020-09-08 14:26:24 [32minfo[39m: Execute liveness check
+2020-09-08 14:26:34 [32minfo[39m: Execute liveness check
+2020-09-08 14:26:44 [32minfo[39m: Execute liveness check
+2020-09-08 14:26:54 [32minfo[39m: Execute liveness check
+2020-09-08 14:27:04 [32minfo[39m: Execute liveness check
+2020-09-08 14:27:15 [32minfo[39m: Execute liveness check
+2020-09-08 14:27:25 [32minfo[39m: Execute liveness check
+2020-09-08 14:27:35 [32minfo[39m: Execute liveness check
+2020-09-08 14:27:45 [32minfo[39m: Execute liveness check
+2020-09-08 14:27:55 [32minfo[39m: Execute liveness check
+2020-09-08 14:28:05 [32minfo[39m: Execute liveness check
+2020-09-08 14:28:15 [32minfo[39m: Execute liveness check
+2020-09-08 14:28:25 [32minfo[39m: Execute liveness check
+2020-09-08 14:28:36 [32minfo[39m: Execute liveness check
+2020-09-08 14:28:46 [32minfo[39m: Execute liveness check
+2020-09-08 14:28:56 [32minfo[39m: Execute liveness check
+2020-09-08 14:29:06 [32minfo[39m: Execute liveness check
+2020-09-08 14:29:16 [32minfo[39m: Execute liveness check
+2020-09-08 14:29:26 [32minfo[39m: Execute liveness check
+2020-09-08 14:29:36 [32minfo[39m: Execute liveness check
+2020-09-08 14:29:46 [32minfo[39m: Execute liveness check
+2020-09-08 14:29:57 [32minfo[39m: Execute liveness check
+2020-09-08 14:30:07 [32minfo[39m: Execute liveness check
+2020-09-08 14:30:17 [32minfo[39m: Execute liveness check
+2020-09-08 14:30:27 [32minfo[39m: Execute liveness check
+2020-09-08 14:30:37 [32minfo[39m: Execute liveness check
+2020-09-08 14:30:47 [32minfo[39m: Execute liveness check
+2020-09-08 14:30:57 [32minfo[39m: Execute liveness check
+2020-09-08 14:31:07 [32minfo[39m: Execute liveness check
+2020-09-08 14:31:17 [32minfo[39m: Execute liveness check
+2020-09-08 14:31:27 [32minfo[39m: Execute liveness check
+2020-09-08 14:31:38 [32minfo[39m: Execute liveness check
+2020-09-08 14:31:48 [32minfo[39m: Execute liveness check
+2020-09-08 14:31:58 [32minfo[39m: Execute liveness check
+2020-09-08 14:32:08 [32minfo[39m: Execute liveness check
+2020-09-08 14:32:18 [32minfo[39m: Execute liveness check
+2020-09-08 14:32:28 [32minfo[39m: Execute liveness check
+2020-09-08 14:32:38 [32minfo[39m: Execute liveness check
+2020-09-08 14:32:48 [32minfo[39m: Execute liveness check
+2020-09-08 14:32:58 [32minfo[39m: Execute liveness check
+2020-09-08 14:33:08 [32minfo[39m: Execute liveness check
+2020-09-08 14:33:19 [32minfo[39m: Execute liveness check
+2020-09-08 14:33:29 [32minfo[39m: Execute liveness check
+2020-09-08 14:33:39 [32minfo[39m: Execute liveness check
+2020-09-08 14:33:49 [32minfo[39m: Execute liveness check
+2020-09-08 14:33:59 [32minfo[39m: Execute liveness check
+2020-09-08 14:34:09 [32minfo[39m: Execute liveness check
+2020-09-08 14:34:19 [32minfo[39m: Execute liveness check
+2020-09-08 14:34:29 [32minfo[39m: Execute liveness check
+2020-09-08 14:34:39 [32minfo[39m: Execute liveness check
+2020-09-08 14:34:49 [32minfo[39m: Execute liveness check
+2020-09-08 14:35:00 [32minfo[39m: Execute liveness check
+2020-09-08 14:35:10 [32minfo[39m: Execute liveness check
+2020-09-08 14:35:20 [32minfo[39m: Execute liveness check
+2020-09-08 14:35:30 [32minfo[39m: Execute liveness check
+2020-09-08 14:35:40 [32minfo[39m: Execute liveness check
+2020-09-08 14:35:50 [32minfo[39m: Execute liveness check
+2020-09-08 14:36:00 [32minfo[39m: Execute liveness check
+2020-09-08 14:36:10 [32minfo[39m: Execute liveness check
+2020-09-08 14:36:20 [32minfo[39m: Execute liveness check

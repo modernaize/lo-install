@@ -134,7 +134,7 @@ services:
       - ${LOGS_DIR}/logs/dashboards:/home/node/app/logs
     restart: always
     healthcheck:
-      test: ["CMD", "curl", "-k", "-f", "${PROTOCOL}://dashboard:3000/live"]
+      test: ["CMD", "curl", "-k", "-f", "${PROTOCOL}://dashboards:3000/live"]
       interval: 10s
       timeout: 5s
       retries: 3
@@ -219,7 +219,7 @@ services:
       - ${LOGS_DIR}/logs/discoveryautojoin:/home/node/app/logs
     restart: always
     healthcheck:
-      test: ["CMD", "curl", "-k", "-f", "${PROTOCOL}://autojoin:3000/live"]
+      test: ["CMD", "curl", "-k", "-f", "${PROTOCOL}://discoveryautojoin:3000/live"]
       interval: 10s
       timeout: 5s
       retries: 3
@@ -242,21 +242,6 @@ services:
       - ${LOGS_DIR}/logs/service:/mnt/logs
     restart: always
   
-  nginx:
-    container_name: nginx
-    image: nginx:alpine
-    volumes:
-      - "./nginx/sites/liveobjects.local.conf:/etc/nginx/conf.d/liveobjects.local.conf:ro"
-      - "./nginx/nginx.conf:/etc/nginx/nginx.conf:ro"
-      - ./webserver/certbot/conf:/etc/letsencrypt
-      - ./webserver/certbot/www:/var/www/certbot
-      - ${LOGS_DIR}/logs/nginx:/var/log/nginx
-    ports:
-      - 80:80
-      - 443:443
-    restart: unless-stopped
-    command: /bin/sh -c "while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g 'daemon off;'" # 💡
-      
   prometheus:
     image: prom/prometheus:v2.19.0 
     container_name: prometheus
