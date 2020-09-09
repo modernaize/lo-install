@@ -21,9 +21,14 @@ Ubuntu 19.10
 export INSTANCE=test-1 && export IMAGE=lo-ubuntu-1910-nginx && export IMAGE_PROJECT=live-objects-demo && export ZONE=us-west2-a && export PROJECT=live-objects-demo
 ```
 
-Ubuntu 20.04
+Ubuntu 20.04 with Docker 
 ```
-export INSTANCE=test-2 && export IMAGE=ubuntu-2004-nginx-20200905 && export IMAGE_PROJECT=live-objects-demo && export ZONE=us-west2-a && export PROJECT=live-objects-demo
+export INSTANCE=demo3 && export IMAGE=ubuntu-2004-20200909 && export IMAGE_PROJECT=live-objects-demo && export ZONE=us-west2-a && export PROJECT=live-objects-demo
+```
+
+Ubuntu 20.04 with Docker and NGINX
+```
+export INSTANCE=test-1 && export IMAGE=ubuntu-2004-nginx-20200905 && export IMAGE_PROJECT=live-objects-demo && export ZONE=us-west2-a && export PROJECT=live-objects-demo
 ```
 
 ### Create VM
