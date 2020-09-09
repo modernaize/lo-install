@@ -174,11 +174,14 @@ update your DNS settings and map the DNS and your external IP
 
 ## Obtain a letsencrypt certificate
 
+--staging 1 if you want to test your confg
+
+
 sudo ./getCertificate.sh \
 --domains demo3.liveobjects.rocks \
 --email info@liveobjects.rocks \
 --data-path ./webserver/certbot \
---staging 0
+--staging 1
 
 ##  Certificates
 

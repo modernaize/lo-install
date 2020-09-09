@@ -41,12 +41,11 @@ server {
 
         server_name domain;
 
-        location ~ /\.well-known/acme-challenge/ {
-                allow all;
-                root /var/www/letsencrypt;
-                try_files $uri =404;
-                break;
-        }
+ # Allow only for register SSL (Certbot)
+        location ^~ /.well-known/acme-challenge { root /var/www/certbot; }
+
+  # Redirect to HTTPS
+        location / { return 301 https://domain$request_uri; }
        
         access_log /var/log/nginx/domain-access.log main;
         error_log  /var/log/nginx/domain-error.log;
