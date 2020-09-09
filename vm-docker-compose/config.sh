@@ -245,7 +245,6 @@
         info
         info "Internal IP : ${INTERNAL_IP}" 
 
-
     }
 
     input_DNS() {
@@ -291,9 +290,6 @@
             input_PROTOCOL
         fi
         
-
-
-    
         input_SYSMON
 
         export DEPLOYMENT=${DEPLOYMENT}
@@ -322,6 +318,7 @@
             if [[ "${NGINX_DOCKER}" == "y" ]]; then
                 info "Configure NGINX in docker "
                 cat ./templates/.docker-compose-nginx.template >> ./docker-compose.yml
+                envsubst < ./templates/.nginx-docker.template > ./nginx/sites/modernaize.site
             else
                 info "Configure NGINX installed outside of the docker network"
                 # DEPLOYMENT 
