@@ -10,7 +10,7 @@
 
     check_installed_programs() {
 
-        for i in docker-compose envsubst grep tr cut ; do
+        for i in docker-compose envsubst sed grep tr cut ; do
             if ! [ -x "$(command -v ${i})" ]; then
                 error "Error: ${i} is not installed." >&2
                 exit 1
@@ -317,8 +317,9 @@
 
             if [[ "${NGINX_DOCKER}" == "y" ]]; then
                 info "Configure NGINX in docker "
-                cat ./templates/.docker-compose-nginx.template >> ./docker-compose.yml
-                envsubst < ./templates/.nginx-docker.template > ./nginx/sites/modernaize.site
+                readonly REPL_DEPLOY_URL=domain
+                cp ./templates/.docker-compose-nginx.template >> ./nginx/sites/${DEPLOY_URL}
+                sed -i "s/${REPL_DEPLOY_URL}/${DEPLOY_URL}/g" ./nginx/sites/${DEPLOY_URL}
             else
                 info "Configure NGINX installed outside of the docker network"
                 # DEPLOYMENT 

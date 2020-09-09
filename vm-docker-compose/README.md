@@ -118,7 +118,7 @@ export LO_VERSION=develop
 or
 
 ```
-export LO_VERSION=release/2020.3.0
+export LO_VERSION=release/2020.3.0-nginx
 ```
 
 ```
