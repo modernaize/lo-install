@@ -87,7 +87,7 @@
                 "y")
                     export INGRESS_SSL=y
                     export PROTOCOL_INGRESS=https
-                    CERTBOT_DOCKER
+                    input_CERTBOT_DOCKER
                     break
                     ;;
                 "n")
@@ -132,7 +132,8 @@
         done
 
     }
-    input_INGRESS_SSL() {
+
+    input_CERTBOT_DOCKER() {
 
         PS3='Do you want to run CERTBOT to maintain your LETSENCYPT certificate : '
         echo
