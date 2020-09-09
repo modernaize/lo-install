@@ -10,3 +10,4 @@ vm-docker-compose/data
 vm-docker-compose/logs
 vm-docker-compose/nginx/sites/**/*
 vm-docker-compose/.env*.*
+vm-docker-compose/docker-compose*.*
