@@ -28,7 +28,7 @@ export INSTANCE=demo3 && export IMAGE=ubuntu-2004-20200909 && export IMAGE_PROJE
 
 Ubuntu 20.04 with Docker and NGINX
 ```
-export INSTANCE=test-1 && export IMAGE=ubuntu-2004-nginx-20200905 && export IMAGE_PROJECT=live-objects-demo && export ZONE=us-west2-a && export PROJECT=live-objects-demo
+export INSTANCE=demo4 && export IMAGE=ubuntu-2004-nginx-20200905 && export IMAGE_PROJECT=live-objects-demo && export ZONE=us-west2-a && export PROJECT=live-objects-demo
 ```
 
 ### Create VM
@@ -181,7 +181,7 @@ sudo ./getCertificate.sh \
 --domains demo3.liveobjects.rocks \
 --email info@liveobjects.rocks \
 --data-path ./webserver/certbot \
---staging 1
+--staging 0
 
 ##  Certificates
 
