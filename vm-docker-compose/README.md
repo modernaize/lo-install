@@ -178,7 +178,7 @@ sudo ./getCertificate.sh \
 --domains demo3.liveobjects.rocks \
 --email info@liveobjects.rocks \
 --data-path ./webserver/certbot \
---staging 1
+--staging 0
 
 ##  Certificates
 
