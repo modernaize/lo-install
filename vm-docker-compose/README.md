@@ -169,6 +169,30 @@ cd liveObjectsInstall
 
 update your DNS settings and map the DNS and your external IP
 
+##
+# Request an Letsencrypt certificate
+
+## Obtain a letsencrypt certificate
+
+sudo ./getCertificate.sh \
+--domains demo3.liveobjects.rocks \
+--email info@liveobjects.rocks \
+--data-path ./webserver/certbot \
+--staging 1
+
+##  Certificates
+
+Your certificate and chain have been saved at:
+
+```
+   ./webserver/certbot/conf/live/demo3.liveobjects.rocks/fullchain.pem
+```
+
+Your key file has been saved at:
+```
+   ./webserver/certbot/conf/live/demo3.liveobjects.rocks/privkey.pem
+```
+
 ## Update the GCP DNS Settings with the external IP address
 
 ### Letsencrypt and Certbot
