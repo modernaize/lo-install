@@ -87,6 +87,7 @@
                 "y")
                     export INGRESS_SSL=y
                     export PROTOCOL_INGRESS=https
+                    CERTBOT_DOCKER
                     break
                     ;;
                 "n")
@@ -121,6 +122,31 @@
                     ;;
                 "n")
                     export NGINX_DOCKER=n
+                    break
+                    ;;
+                "exit")
+                    exit 1
+                    ;;
+                *) error "invalid option $REPLY";;
+            esac
+        done
+
+    }
+    input_INGRESS_SSL() {
+
+        PS3='Do you want to run CERTBOT to maintain your LETSENCYPT certificate : '
+        echo
+
+        local _options=("y" "n" "exit")
+        select SELECT in "${_options[@]}"
+        do
+            case $SELECT in
+                "y")
+                    export CERTBOT_DOCKER=y
+                    break
+                    ;;
+                "n")
+                    export CERTBOT_DOCKER=n
                     break
                     ;;
                 "exit")
@@ -317,9 +343,14 @@
 
             if [[ "${NGINX_DOCKER}" == "y" ]]; then
                 info "Configure NGINX in docker "
+                cat ./templates/.docker-compose-nginx.template >> ./docker-compose.yml
                 readonly REPL_DEPLOY_URL=domain
                 cp ./templates/.nginx-docker.template ./nginx/sites/${DEPLOY_URL}
                 sed -i "s/${REPL_DEPLOY_URL}/${DEPLOY_URL}/g" ./nginx/sites/${DEPLOY_URL}
+                if [[ "${CERTBOT_DOCKER}" == "y" ]]; then
+                    cat ./templates/.docker-compose-certbot.template >> ./docker-compose.yml
+                fi
+
             else
                 info "Configure NGINX installed outside of the docker network"
                 # DEPLOYMENT 
