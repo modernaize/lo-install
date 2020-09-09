@@ -318,7 +318,7 @@
             if [[ "${NGINX_DOCKER}" == "y" ]]; then
                 info "Configure NGINX in docker "
                 readonly REPL_DEPLOY_URL=domain
-                cp ./templates/.docker-compose-nginx.template >> ./nginx/sites/${DEPLOY_URL}
+                cp ./templates/.nginx-docker.template ./nginx/sites/${DEPLOY_URL}
                 sed -i "s/${REPL_DEPLOY_URL}/${DEPLOY_URL}/g" ./nginx/sites/${DEPLOY_URL}
             else
                 info "Configure NGINX installed outside of the docker network"

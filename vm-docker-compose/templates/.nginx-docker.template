@@ -39,7 +39,7 @@ server {
         listen 80;
         listen [::]:80;
 
-        server_name ${DEPLOY_URL};
+        server_name domain;
 
         location ~ /\.well-known/acme-challenge/ {
                 allow all;
@@ -48,8 +48,8 @@ server {
                 break;
         }
        
-        access_log /var/log/nginx/${DEPLOY_URL}-access.log main;
-        error_log  /var/log/nginx/${DEPLOY_URL}-error.log;
+        access_log /var/log/nginx/domain-access.log main;
+        error_log  /var/log/nginx/domain-error.log;
 
         client_max_body_size 32400M;
 
