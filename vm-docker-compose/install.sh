@@ -111,6 +111,16 @@
             error >&2 "Failed to mark '$INSTALL_DIR/config.sh' as executable"
             return 3
         }
+        chmod a+x "$INSTALL_DIR/getCertificate.sh" || {
+            error >&2 "Failed to mark '$INSTALL_DIR/getCertificate.sh' as executable"
+            return 3
+        }
+        chmod a+x "$INSTALL_DIR/refresh.sh" || {
+            error >&2 "Failed to mark '$INSTALL_DIR/refresh.sh' as executable"
+            return 3
+        }
+
+
         
         debug "creating directories"
         mkdir -p $HOME/$INSTALL_DIR/keys
