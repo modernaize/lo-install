@@ -120,17 +120,17 @@
             return 3
         }
         
-        info "Creating directories : $HOME/$INSTALL_DIR "
-        mkdir -p $HOME/$INSTALL_DIR/keys
-        mkdir -p $HOME/$INSTALL_DIR/logs
-        mkdir -p $HOME/$INSTALL_DIR/license
-        mkdir -p $HOME/$INSTALL_DIR/pgdata
+        info "Creating directories : $INSTALL_DIR "
+        mkdir -p $INSTALL_DIR/keys
+        mkdir -p $INSTALL_DIR/logs
+        mkdir -p $INSTALL_DIR/license
+        mkdir -p $INSTALL_DIR/pgdata
 
-        info "Grant authorizations : $HOME/$INSTALL_DIR "
-        chmod -R 777 $HOME/$INSTALL_DIR/keys
-        chmod -R 777 $HOME/$INSTALL_DIR/logs
-        chmod -R 777 $HOME/$INSTALL_DIR/license
-        chmod -R 777 $HOME/$INSTALL_DIR/pgdata
+        info "Grant authorizations : $INSTALL_DIR "
+        chmod -R 777 $INSTALL_DIR/keys
+        chmod -R 777 $INSTALL_DIR/logs
+        chmod -R 777 $INSTALL_DIR/license
+        chmod -R 777 $INSTALL_DIR/pgdata
 
         info
         info "Live Objects Installer has been successfully downloaded into directory $INSTALL_DIR "
