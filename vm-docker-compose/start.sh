@@ -58,7 +58,6 @@
         TOKEN=$1
     fi
 
-    mkdir -p .
     validate-env
     docker-docker-login
     main

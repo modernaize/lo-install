@@ -119,15 +119,14 @@
             error >&2 "Failed to mark '$INSTALL_DIR/refresh.sh' as executable"
             return 3
         }
-
-
         
-        debug "creating directories"
+        info "Creating directories : $HOME/$INSTALL_DIR "
         mkdir -p $HOME/$INSTALL_DIR/keys
         mkdir -p $HOME/$INSTALL_DIR/logs
         mkdir -p $HOME/$INSTALL_DIR/license
         mkdir -p $HOME/$INSTALL_DIR/pgdata
 
+        info "Grant authorizations : $HOME/$INSTALL_DIR "
         chmod -R 777 $HOME/$INSTALL_DIR/keys
         chmod -R 777 $HOME/$INSTALL_DIR/logs
         chmod -R 777 $HOME/$INSTALL_DIR/license
