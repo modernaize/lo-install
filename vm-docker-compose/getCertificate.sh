@@ -168,7 +168,7 @@
 				echo
 
 				path="/etc/letsencrypt/live/$domain_name"
-				docker-compose run --rm --entrypoint "openssl req -x509 -nodes -newkey rsa:1024 \
+				docker-compose -f docker-compose-certs.yml run --rm --entrypoint "openssl req -x509 -nodes -newkey rsa:1024 \
 	-days 1 -keyout '$path/privkey.pem' -out '$path/fullchain.pem' -subj '/CN=localhost'" certbot
 			fi
 		done
@@ -222,7 +222,7 @@
 
 				mkdir -p "$data_path/www"
 
-				docker-compose run --rm --entrypoint "certbot certonly --webroot -w /var/www/certbot --cert-name $domain_name $domain_args \
+				docker-compose -f docker-compose-certs.yml run --rm --entrypoint "certbot certonly --webroot -w /var/www/certbot --cert-name $domain_name $domain_args \
 		$staging_arg $email_arg --rsa-key-size $rsa_key_size --agree-tos --force-renewal --non-interactive" certbot
 			fi
 		done
@@ -254,7 +254,7 @@
 		echo
 
 		# Restarting for case if nginx container is already started
-		docker-compose up -d nginx && docker-compose restart nginx
+		docker-compose -f docker-compose-certs.yml up -d nginx && docker-compose -f docker-compose-certs.yml restart nginx
 
 		# Select appropriate email arg
 		case "$email" in
