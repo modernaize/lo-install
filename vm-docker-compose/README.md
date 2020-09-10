@@ -134,7 +134,7 @@ curl -s https://raw.githubusercontent.com/liveobjectsai/lo-install/${LO_VERSION}
 #### Obtain a letsencrypt certificate
 
 ```
-cd liveObjectsInstall
+cd liveObjectsInstall/certbot
 ```
 
 --staging 1 if you want to test your confg
@@ -152,18 +152,19 @@ sudo ./getCertificate.sh \
 Your certificate and chain have been saved at:
 
 ```
-   ./webserver/certbot/conf/live/demo3.liveobjects.rocks/fullchain.pem
+./webserver/certbot/conf/live/demo3.liveobjects.rocks/fullchain.pem
 ```
 
 Your key file has been saved at:
+
 ```
-   ./webserver/certbot/conf/live/demo3.liveobjects.rocks/privkey.pem
+./webserver/certbot/conf/live/demo3.liveobjects.rocks/privkey.pem
 ```
 This will modify .env.template and copies it to .env 
 
 ### Configure the platform
 
-Ensure you are in the installation folder to run the script.
+Ensure you are in the installation folder /liveObjectsInstall to run the configuration script.
 
 ```
 ./config.sh
