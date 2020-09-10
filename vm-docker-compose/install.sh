@@ -111,8 +111,8 @@
             error >&2 "Failed to mark '$INSTALL_DIR/config.sh' as executable"
             return 3
         }
-        chmod a+x "$INSTALL_DIR/getCertificate.sh" || {
-            error >&2 "Failed to mark '$INSTALL_DIR/getCertificate.sh' as executable"
+        chmod a+x "$INSTALL_DIR/certbot/getCertificate.sh" || {
+            error >&2 "Failed to mark '$INSTALL_DIR/certbot/getCertificate.sh' as executable"
             return 3
         }
         chmod a+x "$INSTALL_DIR/refresh.sh" || {
