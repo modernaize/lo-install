@@ -120,13 +120,13 @@
             return 3
         }
         
-        info "Creating directories : $INSTALL_DIR "
+        debug "Creating directories : $INSTALL_DIR "
         mkdir -p $INSTALL_DIR/keys
         mkdir -p $INSTALL_DIR/logs
         mkdir -p $INSTALL_DIR/license
         mkdir -p $INSTALL_DIR/pgdata
 
-        info "Grant authorizations : $INSTALL_DIR "
+        debug "Grant authorizations : $INSTALL_DIR "
         chmod -R 777 $INSTALL_DIR/keys
         chmod -R 777 $INSTALL_DIR/logs
         chmod -R 777 $INSTALL_DIR/license

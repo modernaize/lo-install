@@ -3,7 +3,7 @@
 ## Obtain a certificate
 
 sudo ./getCertificate.sh \
---domains ts1.liveobjects.software \
+--domains demo3.liveobjects.software \
 --email info@liveobjects.online \
 --data-path ./webserver/certbot \
 --staging 1
