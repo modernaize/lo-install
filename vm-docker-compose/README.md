@@ -169,19 +169,20 @@ cd liveObjectsInstall
 
 update your DNS settings and map the DNS and your external IP
 
-##
+
 # Request an Letsencrypt certificate
 
 ## Obtain a letsencrypt certificate
 
 --staging 1 if you want to test your confg
 
-
+```
 sudo ./getCertificate.sh \
 --domains demo3.liveobjects.rocks \
 --email info@liveobjects.rocks \
 --data-path ./webserver/certbot \
---staging 1
+--staging 0
+```
 
 ##  Certificates
 
@@ -198,7 +199,7 @@ Your key file has been saved at:
 
 ## Update the GCP DNS Settings with the external IP address
 
-### Letsencrypt and Certbot
+### Letsencrypt and Certbot if you installed NGINX not in a Docker Container
 
 sudo certbot --nginx --noninteractive --redirect -m mail@liveobjects.rocks --agree-tos -d demo4.liveobjects.rocks
 
@@ -208,15 +209,3 @@ sudo certbot --nginx --noninteractive --redirect -m mail@liveobjects.rocks --agr
 sudo cat /etc/nginx/sites/test4.liveobjects.rocks 
 ```
 
-### NGINX useful commands
-
-#### Checking your Web Server
-
-```
-systemctl status nginx
-```
-
-#### Reloading a changed config
-```
-sudo service nginx reload
-```

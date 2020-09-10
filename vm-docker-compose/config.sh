@@ -74,6 +74,33 @@
         info "System Monitoring Tools : ${SYSMON}" 
 
     }
+    input_SUPPORT() {
+
+        PS3='Do you want to install the remote support tools : '
+        echo
+
+        local _options=("y" "n" "exit")
+        select SELECT in "${_options[@]}"
+        do
+            case $SELECT in
+                "y")
+                    export SUPPORT=y
+                    break
+                    ;;
+                "n")
+                    export SUPPORT=n
+                    break
+                    ;;
+                "exit")
+                    exit 1
+                    ;;
+                *) error "invalid option $REPLY";;
+            esac
+        done
+        
+        info "Support Tools : ${SUPPORT}" 
+
+    }
 
     input_INGRESS_PROTOCOL() {
 
@@ -317,6 +344,7 @@
             input_PROTOCOL
         fi
         
+        input_SUPPORT
         input_SYSMON
 
         export DEPLOYMENT=${DEPLOYMENT}
@@ -358,6 +386,11 @@
                 input_INTERNAL_IP
                 . "./nginx_create_site.sh" ${INTERNAL_IP} ${DEPLOY_URL}
             fi
+        fi
+
+        if [[ "${SUPPORT}" == "y" ]]; then
+            info "Configure Support tools"
+            cat ./templates/.docker-compose-portainer.template >> ./docker-compose.yml
         fi
 
         if [[ "${SYSMON}" == "y" ]]; then

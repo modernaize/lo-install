@@ -72,7 +72,7 @@
       - grafana_data:/var/lib/grafana
       - ./sysmon/grafana/provisioning:/etc/grafana/provisioning
     env_file:
-      - './sysmon/grafana/env.grafana'
+      - ./.env
     restart: unless-stopped
     ports :
       - "4444:3000"
@@ -99,7 +99,7 @@
     volumes:
       - ./sysmon/caddy:/etc/caddy
     env_file:
-      - './sysmon/caddy/env.caddy'
+      - ./.env
     restart: unless-stopped
     labels:
       org.label-schema.group: "monitoring"
@@ -110,7 +110,7 @@
     ports:
       - 9187:9187
     env_file:
-      - './sysmon//postgresql-exporter/env.postgresql-exporter'
+      - ./.env
     volumes:
       - ./sysmon/postgresql-exporter/custom-queries.yml:/custom-queries.yaml
     restart: unless-stopped
