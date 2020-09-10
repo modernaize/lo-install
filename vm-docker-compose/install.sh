@@ -119,7 +119,7 @@
             error >&2 "Failed to mark '$INSTALL_DIR/refresh.sh' as executable"
             return 3
         }
-        
+         
         debug "Creating directories : $INSTALL_DIR "
         mkdir -p $INSTALL_DIR/keys
         mkdir -p $INSTALL_DIR/logs
