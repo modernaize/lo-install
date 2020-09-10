@@ -229,6 +229,18 @@
 
 	}
 
+	createDockerCompose() {
+		        readonly REPL_DEPLOY_URL=domain
+				echo "creating docker-compose file"
+                cp ./templates/.docker-compose-certs.yml ./docker-compose.yml
+				for domain in ${!domains[*]}; do
+					domain_set=(${domains[$domain]})
+					domain_name=$(echo ${domain_set[0]} | grep -o -P $regex)
+					echo "Updating nginx/default.conf"
+                	sed -i "s/${REPL_DEPLOY_URL}/${domain_name}/g" ./nginx/default.conf
+				done
+	}
+
 	main() {
 
 		sanitize "$@"
@@ -242,6 +254,8 @@
 		ssl_dhparams="https://raw.githubusercontent.com/certbot/certbot/master/certbot/certbot/ssl-dhparams.pem"
 
 		runAsRootCheck 
+
+		createDockerCompose
 
 		existingCert
 
@@ -263,6 +277,8 @@
 		esac
 
 		createLetsEncryptCertificate
+		
+		docker-compose down 
 
 	}
 

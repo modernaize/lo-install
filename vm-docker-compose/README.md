@@ -137,11 +137,11 @@ If you want to request an Letsencrypt certificate you need to have finished the 
 
 #### Obtain a letsencrypt certificate
 
-```
-cd liveObjectsInstall/certbot
-```
-
 --staging 1 if you want to test your confg
+
+```
+cd liveObjectsInstall
+```
 
 ```
 sudo ./getCertificate.sh \
@@ -154,8 +154,6 @@ sudo ./getCertificate.sh \
 #### Certificates
 
 Your certificate and chain have been saved at:
-
-in the installation folder liveObjectsInstall
 
 ```
 ./webserver/certbot/conf/live/demo3.liveobjects.rocks/fullchain.pem
