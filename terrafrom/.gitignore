@@ -1,0 +1,4 @@
+.terraform
+credentials.json
+*.tfstate
+*.backup
