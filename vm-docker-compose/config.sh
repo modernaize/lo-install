@@ -372,10 +372,19 @@
 
             if [[ "${NGINX_DOCKER}" == "y" ]]; then
                 info "Configure NGINX in docker "
+
+                if [[ "${PROTOCOL_INGRESS}" == "http" ]]; then
+                    readonly REPL_DEPLOY_URL=domain
+                    cp ./templates/.nginx-docker.template ./nginx/sites/${DEPLOY_URL}
+                    sed -i "s/${REPL_DEPLOY_URL}/${DEPLOY_URL}/g" ./nginx/sites/${DEPLOY_URL}
+                else 
+                    readonly REPL_DEPLOY_URL=domain
+                    cp ./templates/.nginx-docker-ssl.template ./nginx/sites/${DEPLOY_URL}
+                    sed -i "s/${REPL_DEPLOY_URL}/${DEPLOY_URL}/g" ./nginx/sites/${DEPLOY_URL}
+                fi
+
                 cat ./templates/.docker-compose-nginx.template >> ./docker-compose.yml
-                readonly REPL_DEPLOY_URL=domain
-                cp ./templates/.nginx-docker.template ./nginx/sites/${DEPLOY_URL}
-                sed -i "s/${REPL_DEPLOY_URL}/${DEPLOY_URL}/g" ./nginx/sites/${DEPLOY_URL}
+                
                 if [[ "${CERTBOT_DOCKER}" == "y" ]]; then
                     cat ./templates/.docker-compose-certbot.template >> ./docker-compose.yml
                 fi

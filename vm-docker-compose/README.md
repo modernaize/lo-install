@@ -137,18 +137,21 @@ If you want to request an Letsencrypt certificate you need to have finished the 
 
 #### Obtain a letsencrypt certificate
 
---staging 1 if you want to test your confg
-
 ```
 cd liveObjectsInstall
 ```
 
+--staging 1 if you want to test your confg
+--staging 0 if you want to create a production certificate
+
+Note : there a limits per week for production certificates
+
 ```
-sudo ./getCertificate.sh \
+./getCertificate.sh \
 --domains demo3.liveobjects.rocks \
 --email info@liveobjects.rocks \
 --data-path ./webserver/certbot \
---staging 1
+--staging 0
 ```
 
 #### Certificates
@@ -174,20 +177,6 @@ Ensure you are in the installation folder /liveObjectsInstall to run the configu
 ./config.sh
 ```
 
-### Environment variables 
-
-If you want to change the default installation directory from liveObjectsInstaller :
-
-```
-export LO_DIR=
-```
-
-If you want to use an installer tar file from a specific branch or release :
-
-```
-export LO_VERSION=master
-```
-
 ## Provision Live Objects
 
 installs Live Objects with the Access Token ( aka TOKEN ) you got from your sales representative
@@ -205,17 +194,9 @@ cd liveObjectsInstall
 
 ```
 
-## Optional steps to setup NGINX DNS name 
-
-update your DNS settings and map the DNS and your external IP
-
-
-
-
-
 ### Letsencrypt and Certbot if you installed NGINX not in a Docker Container
 
-sudo certbot --nginx --noninteractive --redirect -m mail@liveobjects.rocks --agree-tos -d demo4.liveobjects.rocks
+sudo certbot --nginx --noninteractive --redirect -m mail@liveobjects.rocks --agree-tos -d demo3.liveobjects.rocks
 
 ### check your nginx site 
 

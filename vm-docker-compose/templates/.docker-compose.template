@@ -84,6 +84,7 @@ services:
       timeout: 5s
       retries: 3
     volumes:
+      - ${LICENSE_DIR}/license:/home/node/app/license/lo
       - ${LICENSE_DIR}/logger:/home/node/app/logger
     depends_on:
       - db
