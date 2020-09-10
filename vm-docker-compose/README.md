@@ -125,11 +125,15 @@ export LO_VERSION=release/2020.3.0-nginx
 curl -s https://raw.githubusercontent.com/liveobjectsai/lo-install/${LO_VERSION}/vm-docker-compose/install.sh| bash
 ```
 
-### Configure the Platform
+## Configure the Platform
 
-#### Update the GCP DNS Settings with the external IP address
+### Update the GCP DNS Settings with the external IP address
 
-#### Request an Letsencrypt certificate
+If required update your DNS setting and map your external IP 
+
+### Request an Letsencrypt certificate
+
+If you want to request an Letsencrypt certificate you need to have finished the DNS maping. Otherwise the certificate can't be issued
 
 #### Obtain a letsencrypt certificate
 
@@ -150,6 +154,8 @@ sudo ./getCertificate.sh \
 #### Certificates
 
 Your certificate and chain have been saved at:
+
+in the installation folder liveObjectsInstall
 
 ```
 ./webserver/certbot/conf/live/demo3.liveobjects.rocks/fullchain.pem
