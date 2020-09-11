@@ -1,18 +1,19 @@
-name: Manual Build Charts
-
-on: 
+name: Manually triggered workflow
+on:
   workflow_dispatch:
     inputs:
-      logLevel:
-        description: 'Log level'     
+      name:
+        description: 'Person to greet'
         required: true
-        default: 'warning'
-      tags:
-        description: 'Test scenario tags'  
+        default: 'Mona the Octocat'
+      home:
+        description: 'location'
+        required: false
+
 jobs:
-  printInputs:
+  say_hello:
     runs-on: ubuntu-latest
     steps:
     - run: |
-        echo "Log level: ${{ github.event.inputs.logLevel }}"
-        echo "Tags: ${{ github.event.inputs.tags }}" 
+        echo "Hello ${{ github.event.inputs.name }}!"
+        echo "- in ${{ github.event.inputs.home }}!"
