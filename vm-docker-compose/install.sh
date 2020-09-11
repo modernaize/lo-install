@@ -111,17 +111,26 @@
             error >&2 "Failed to mark '$INSTALL_DIR/config.sh' as executable"
             return 3
         }
-        
-        debug "creating directories"
-        mkdir -p $HOME/$INSTALL_DIR/keys
-        mkdir -p $HOME/$INSTALL_DIR/logs
-        mkdir -p $HOME/$INSTALL_DIR/license
-        mkdir -p $HOME/$INSTALL_DIR/pgdata
+        chmod a+x "$INSTALL_DIR/getCertificate.sh" || {
+            error >&2 "Failed to mark '$INSTALL_DIR/getCertificate.sh' as executable"
+            return 3
+        }
+        chmod a+x "$INSTALL_DIR/refresh.sh" || {
+            error >&2 "Failed to mark '$INSTALL_DIR/refresh.sh' as executable"
+            return 3
+        }
+         
+        debug "Creating directories : $INSTALL_DIR "
+        mkdir -p $INSTALL_DIR/keys
+        mkdir -p $INSTALL_DIR/logs
+        mkdir -p $INSTALL_DIR/license
+        mkdir -p $INSTALL_DIR/pgdata
 
-        chmod -R 777 $HOME/$INSTALL_DIR/keys
-        chmod -R 777 $HOME/$INSTALL_DIR/logs
-        chmod -R 777 $HOME/$INSTALL_DIR/license
-        chmod -R 777 $HOME/$INSTALL_DIR/pgdata
+        debug "Grant authorizations : $INSTALL_DIR "
+        chmod -R 777 $INSTALL_DIR/keys
+        chmod -R 777 $INSTALL_DIR/logs
+        chmod -R 777 $INSTALL_DIR/license
+        chmod -R 777 $INSTALL_DIR/pgdata
 
         info
         info "Live Objects Installer has been successfully downloaded into directory $INSTALL_DIR "
@@ -131,35 +140,6 @@
 
     }
 
-    input_config() {
-
-        PS3='Select the Type of Deployment for your deployment : '
-        echo
-
-        local _options=("ip" "dns" "ingress" "exit")
-        select SELECT in "${_options[@]}"
-        do
-            case $SELECT in
-                "ip")
-                    export DEPLOYMENT=ip
-                    break
-                    ;;
-                "dns")
-                    export DEPLOYMENT=dns
-                    break
-                    ;;
-                "ingress")
-                    export DEPLOYMENT=ingress
-                    break
-                    ;;
-                "exit")
-                    exit 1
-                    ;;
-                *) error "invalid option $REPLY";;
-            esac
-        done
-
-    }
 
     lo_make_install_dir() {
         debug "Executing lo_make_install_dir"

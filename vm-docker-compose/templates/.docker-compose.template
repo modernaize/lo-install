@@ -1,0 +1,244 @@
+version: "3.7"
+
+services:
+
+  db:
+    image: ${REPOSITORY}/postgres:${POSTGRES_VERSION}
+    container_name: db
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U liveobjects"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    env_file:
+      - ./.env
+    volumes:
+      - ${PGDATA_DIR}/pgdata:/var/lib/postgresql/data
+    restart: always
+
+  servicebackend:
+    image: ${REPOSITORY}/service:${SERVICE_VERSION}
+    container_name: service
+    depends_on:
+      - db
+    ports:
+      - "8000:8000"
+    env_file:
+      - ./.env
+    volumes:
+      - ${TLSKEYS_DIR}/keys/tls:/mnt/keys
+      - ${LOGS_DIR}/logs/service:/mnt/logs
+      - ${LODATA_DIR}/data/uploads:/mnt/uploads
+      - ${LODATA_DIR}/data/data:/mnt/data
+    restart: always
+
+  servicelearn:
+    image: ${REPOSITORY}/learn:${ML_VERSION}
+    container_name: learn
+    command: gunicorn --workers=2 --worker-tmp-dir /dev/shm -c gunicorn_config.py --bind 0.0.0.0:5000 wsgi:APP
+    depends_on:
+      - db
+    ports:
+      - "5000:5000"
+    env_file:
+      - ./.env
+    volumes:
+      - ${LODATA_DIR}/data/uns_model:/tmp
+      - ${LODATA_DIR}/data/uns_model/uploads:/tmp/uploads
+      - ${LODATA_DIR}/data/procmine:/mnt/procmine
+      - ${LOGS_DIR}/logs/learn:/mnt/logs
+    restart: always
+
+  ui:
+    image: ${REPOSITORY}/ui:${UI_VERSION}
+    container_name: ui
+    ports:
+      - "3000:3000"
+      - "9991:9991"
+    env_file:
+      - .env
+    volumes:
+      - ${TLSKEYS_DIR}/keys/tls:/home/node/app/keys/tls
+      - ${LOGS_DIR}/logs/ui:/home/node/app/logs
+    restart: always
+    healthcheck:
+      test: ["CMD", "curl", "-k", "-f", "${PROTOCOL}://ui:3000/live"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+  license:
+    image: ${REPOSITORY}/lo-license-service:${LIC_VERSION}
+    container_name: license
+    ports:
+      - "3001:3000"
+      - "9992:9991"
+    env_file:
+      - ./.env
+    restart: always
+    healthcheck:
+      test: ["CMD", "curl", "-f", "${PROTOCOL}://license:3000/live"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+    volumes:
+      - ${LICENSE_DIR}/license:/home/node/app/license/lo
+      - ${LICENSE_DIR}/logger:/home/node/app/logger
+    depends_on:
+      - db
+
+  scenario:
+    image: ${REPOSITORY}/lo-ui-scenario:${UI_SCENARIO_VERSION}
+    container_name: scenario
+    ports:
+      - "3002:3000"
+    env_file:
+      - ./.env
+    volumes:
+      - ${LOGS_DIR}/logs/scenario:/home/node/app/logs
+    restart: always
+    healthcheck:
+      test: ["CMD", "curl", "-k", "-f", "${PROTOCOL}://scenario:3000/live"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+  dyk:
+    image: ${REPOSITORY}/lo-ui-dyk:${UI_DYK_VERSION}
+    container_name: dyk
+    env_file:
+      - ./.env
+    ports:
+      - "3003:3000"
+    volumes:
+      - ${LOGS_DIR}/logs/dyk:/home/node/app/logs
+    restart: always
+    healthcheck:
+      test: ["CMD", "curl", "-k", "-f", "${PROTOCOL}://dyk:3000/live"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+  dashboards:
+    image: ${REPOSITORY}/lo-ui-dashboards:${UI_DASHBOARDS_VERSION}
+    container_name: dashboards
+    hostname: dashboards
+    depends_on:
+      - servicebackend
+    ports:
+      - "3005:3000"
+    env_file:
+      - ./.env
+    volumes:
+      - ${LOGS_DIR}/logs/dashboards:/home/node/app/logs
+    restart: always
+    healthcheck:
+      test: ["CMD", "curl", "-k", "-f", "${PROTOCOL}://dashboards:3000/live"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+  wdc:
+    image: ${REPOSITORY}/lo-tableau-wdc:${UI_WDC_VERSION}
+    container_name: wdc
+    hostname: wdc
+    ports:
+      - "3006:3000"
+    environment:
+      - SERVICE_PROTOCOL=https
+      - SERVICE_HOST=${DEPLOY_URL}
+      - SERVICE_PORT=443
+    healthcheck:
+      test: ["CMD", "curl", "-k", "-f", "${PROTOCOL}://wdc:3000/live"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+    restart: always
+
+  businessgrammar:
+    image: ${REPOSITORY}/lo-ui-business-grammar:${UI_BUSINESS_GRAMMAR_VERSION}
+    container_name: businessgrammar
+    hostname: businessgrammar
+    env_file:
+      - ./.env
+    ports:
+      - "3007:3000"
+    volumes:
+      - ${LOGS_DIR}/logs/businessgrammar:/home/node/app/logs
+    restart: always
+    healthcheck:
+      test: ["CMD", "curl", "-k", "-f", "${PROTOCOL}://businessgrammar:3000/live"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+  extensions:
+    image: ${REPOSITORY}/lo-ui-extensions:${UI_EXTENSIONS_VERSION}
+    container_name: extension 
+    hostname: extension
+    env_file:
+      - ./.env
+    ports:
+      - "3008:3000"
+    volumes:
+      - ${LOGS_DIR}/logs/extensions:/home/node/app/logs
+    restart: always
+    healthcheck:
+      test: ["CMD", "curl", "-k", "-f", "${PROTOCOL}://extensions:3000/live"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      
+  documentation:
+    image: ${REPOSITORY}/lo-ui-documentation:${UI_DOCUMENTATION_VERSION}
+    container_name: documentation
+    hostname: documentation
+    env_file:
+      - ./.env
+    ports:
+      - "3009:3000"
+    volumes:
+      - ${LOGS_DIR}/logs/documentation:/home/node/app/logs
+    restart: always
+    healthcheck:
+      test: ["CMD", "curl", "-k", "-f", "${PROTOCOL}://documentation:3000/live"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+  discoveryautojoin:
+    image: ${REPOSITORY}/lo-ui-discovery-autojoin:${UI_DISCOVERY_AUTOJOIN_VERSION}
+    container_name: discoveryautojoin
+    hostname: discoveryautojoin
+    env_file:
+      - ./.env
+    ports:
+      - "3010:3000"
+    volumes:
+      - ${LOGS_DIR}/logs/discoveryautojoin:/home/node/app/logs
+    restart: always
+    healthcheck:
+      test: ["CMD", "curl", "-k", "-f", "${PROTOCOL}://discoveryautojoin:3000/live"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+  serviceautojoin:
+    image: ${REPOSITORY}/autojoin:${AUTOJOIN_VERSION}
+    container_name: serviceautojoin
+    hostname: serviceautojoin
+    command: gunicorn --workers=2 --worker-tmp-dir /dev/shm -c gunicorn_config.py --bind 0.0.0.0:5002 wsgi:APP
+    depends_on:
+      - db
+    ports:
+      - "5002:5002"
+    env_file:
+      - ./.env
+    volumes:
+      - ${LODATA_DIR}/data/uns_model:/tmp
+      - ${LODATA_DIR}/data/uns_model/uploads:/tmp/uploads
+      - ${LODATA_DIR}/data/procmine:/mnt/procmine
+      - ${LOGS_DIR}/logs/service:/mnt/logs
+    restart: always
