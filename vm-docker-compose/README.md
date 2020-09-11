@@ -23,7 +23,7 @@ export INSTANCE=test-1 && export IMAGE=lo-ubuntu-1910-nginx && export IMAGE_PROJ
 
 Ubuntu 20.04 with Docker 
 ```
-export INSTANCE=demo3 && export IMAGE=ubuntu-2004-20200909 && export IMAGE_PROJECT=live-objects-demo && export ZONE=us-west2-a && export PROJECT=live-objects-demo
+export INSTANCE=demo4 && export IMAGE=ubuntu-2004-20200909 && export IMAGE_PROJECT=live-objects-demo && export ZONE=us-west2-a && export PROJECT=live-objects-demo
 ```
 
 Ubuntu 20.04 with Docker and NGINX
@@ -141,14 +141,14 @@ If you want to request an Letsencrypt certificate you need to have finished the 
 cd liveObjectsInstall
 ```
 
---staging 1 if you want to test your confg
+--staging 1 if you want to test your config
 --staging 0 if you want to create a production certificate
 
 Note : there a limits per week for production certificates
 
 ```
 ./getCertificate.sh \
---domains demo3.liveobjects.rocks \
+--domains demo4.liveobjects.rocks \
 --email info@liveobjects.rocks \
 --data-path ./webserver/certbot \
 --staging 0
@@ -167,11 +167,12 @@ Your key file has been saved at:
 ```
 ./webserver/certbot/conf/live/demo3.liveobjects.rocks/privkey.pem
 ```
-This will modify .env.template and copies it to .env 
 
 ### Configure the platform
 
 Ensure you are in the installation folder /liveObjectsInstall to run the configuration script.
+
+This will modify .env.template and copies it to .env 
 
 ```
 ./config.sh
