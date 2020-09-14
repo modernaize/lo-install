@@ -94,7 +94,7 @@ deployment:
       name: postgre-deployment
     container:
       registry: liveobjects/postgres
-      tag: "P-v2020.2.0"
+      tag: "R-2020.3.0"
       # Always IfNotPresent
       imagePullPolicy: "Always"
       resources:
@@ -111,7 +111,7 @@ deployment:
       name: frontend-deployment
     container:
       registry: liveobjects/ui
-      tag: "P-v2020.2.6"
+      tag: "R-2020.3.0"
       # Always IfNotPresent
       imagePullPolicy: "Always"
       resources:
@@ -128,8 +128,8 @@ deployment:
     metadata:
       name: license-deployment
     container: 
-      registry: liveobjects/license-service
-      tag: "D-develop"
+      registry: liveobjects/lo-license-service
+      tag: "R-2020.3.0"
           # Always IfNotPresent
       imagePullPolicy: "Always"
       resources:
@@ -169,7 +169,7 @@ deployment:
       name: backend-deployment
     container:
       registry: liveobjects/service
-      tag: "P-v2020.2.0"
+      tag: "R-2020.3.0"
       # Always IfNotPresent
       imagePullPolicy: "Always"
       resources:
