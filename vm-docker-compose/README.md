@@ -147,7 +147,7 @@ cd liveObjectsInstall
 Note : there a limits per week for production certificates
 
 ```
-./getCertificate.sh --domains demo6.liveobjects.rocks --email info@liveobjects.rocks --data-path ./webserver/certbot --staging 0
+./getCertificate.sh --domains demo4.liveobjects.rocks --email info@liveobjects.rocks --data-path ./webserver/certbot --staging 0
 ```
 
 #### Certificates
