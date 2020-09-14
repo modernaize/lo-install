@@ -34,6 +34,8 @@ global:
     enabled: true
   discoveryautojoin:
     enabled: true
+  autojoin:
+    enabled: true
 
 
   configMap: true
@@ -346,7 +348,25 @@ deployment:
       name: learn-deployment
     container:
       registry: liveobjects/learn
-      tag: "P-v2020.2.0"
+      tag: "R-2020.3.0"
+      # Always IfNotPresent
+      imagePullPolicy: "Always"
+      resources:
+        requests:
+          cpu: 200m
+          memory: 1G
+      ports:
+        containerPort: 5000
+    spec:
+      replicas: 1
+
+  autojoin:
+    enabled: true
+    metadata:
+      name: autojoin-deployment
+    container:
+      registry: liveobjects/autojoin
+      tag: "R-2020.3.0"
       # Always IfNotPresent
       imagePullPolicy: "Always"
       resources:
@@ -631,6 +651,20 @@ services:
         protocol: TCP
         port: 5000
         targetPort: 5000
+
+  autojoin:
+    enabled: true
+    metadata:
+      name: autojoin-svc
+    spec:
+      selector: 
+        app: autojoin
+      type: ClusterIP
+      ports:
+        protocol: TCP
+        port: 5002
+        targetPort: 5002
+
 
   frontend:
     enabled: true
