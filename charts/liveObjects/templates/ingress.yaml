@@ -36,4 +36,12 @@ spec:
               {{- else }}
               servicePort: {{ .Values.services.frontend.spec.ports.tlsport }}
               {{- end }}
+          - path: /scenario
+            backend:
+              serviceName: {{ .Release.Name }}-{{ .Values.services.scenario.metadata.name }}
+              {{- if or (eq (lower .Values.lo.sslConfiguration ) "none") (eq (lower .Values.lo.sslConfiguration ) "lets-encrypt")  }}
+              servicePort: {{ .Values.services.scenario.spec.ports.port }}
+              {{- else }}
+              servicePort: {{ .Values.services.scenario.spec.ports.tlsport }}
+              {{- end }}
 {{- end }}

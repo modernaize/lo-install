@@ -18,7 +18,8 @@ global:
     enabled: true
   license:
     enabled: true
-
+  scenario:
+    enabled: true
   configMap: true
   networkPolicy: false
   ingress: false
@@ -123,6 +124,24 @@ deployment:
     spec:
       replicas: 1
 
+  scenario:
+    enabled: true
+    metadata:
+      name: scenario-deployment
+    container:
+      registry: liveobjects/lo-ui-scenario
+      tag: "R-2020.3.0"
+      # Always IfNotPresent
+      imagePullPolicy: "Always"
+      resources:
+        requests:
+          cpu: 200m
+          memory: 1G
+      ports:
+        containerPort: 3000
+    spec:
+      replicas: 1
+
   license:
     enabled: true
     metadata:
@@ -137,7 +156,7 @@ deployment:
           cpu: 200m
           memory: 1G
       ports:
-        containerPort: 3001
+        containerPort: 3000
     spec:
       replicas: 1
 
@@ -493,6 +512,27 @@ services:
 # lo.sslConfiguration = slef-signed
         tlsport: 443
         targetPort: 3000
+  scenario:
+    enabled: true
+    metadata:
+      name: scenario-svc
+
+      annotations: {}
+      # alb.ingress.kubernetes.io/scheme: internet-facing, 
+      # alb.ingress.kubernetes.io/tags: 'Environment=dev,Team=test'      
+
+    spec:
+      selector: 
+        app: scenario
+      type: ClusterIP
+      ports:
+        protocol: TCP
+# lo.sslConfiguration = none
+        port: 80
+# lo.sslConfiguration = slef-signed
+        tlsport: 443
+        targetPort: 3000
+
   license:
     enabled: true
     metadata:
@@ -508,9 +548,9 @@ services:
       type: ClusterIP
       ports:
         protocol: TCP
-        port: 3001
+        port: 3000
         tlsport: 443
-        targetPort: 3001
+        targetPort: 3000
 
 loServer:
   ## Live Objects server passwords using existing secret
