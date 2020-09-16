@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
-
+export LC_CTYPE=C
+export LANG=C
 { # make sure that the entire script is downloaded #
     VERSION="1.0.0"
 
@@ -18,6 +19,78 @@
         done
     }
 
+    input_UPGRADE() {
+
+        PS3='Is this an Upgrade deployment? : '
+        echo
+
+        local _options=("y" "n" "exit")
+        select SELECT in "${_options[@]}"
+        do
+            case $SELECT in
+                "y")
+                    export FLYWAY_ENABLE="true"
+                    export FLYWAY_BASELINE_ON_MIGRATE=true"true"
+                    export UPGRADE=y
+                    break
+                    ;;
+                "n")
+                    export FLYWAY_ENABLE="false"
+                    export FLYWAY_BASELINE_ON_MIGRATE=true"false"
+                    export UPGRADE=n
+                    break
+                    ;;
+                "exit")
+                    exit 1
+                    ;;
+                *) error "invalid option $REPLY";;
+            esac
+        done
+
+        info "Upgrade : ${UPGRADE}"
+
+    }
+
+    input_UPGRADE_VERSION() {
+
+        PS3='Verion to upgrade from: '
+        echo
+
+        local _options=("2020.2.x" "exit")
+        select SELECT in "${_options[@]}"
+        do
+            case $SELECT in
+                "2020.2.x")
+                    export UPGRADE_VERSION=2020.2.x
+                    break
+                    ;;
+                "exit")
+                    exit 1
+                    ;;
+                *) error "invalid option $REPLY";;
+            esac
+        done
+
+        info "Upgrade from version : ${UPGRADE_VERSION}"
+
+    }
+
+    input_DEPLOYMENT_PORT() {
+
+        while true; do
+            read -p "Enter the application port : or exit " port1
+
+            if [[ $port1 == "exit" ]]
+            then
+                exit
+            else
+               export DEPLOYMENT_PORT=$port1
+               info "Deployment port: ${DEPLOYMENT_PORT}"
+                    break
+
+            fi
+        done
+    }
     input_PROTOCOL() {
 
         PS3='Select the PROTOCOL for your deployment : '
@@ -343,13 +416,26 @@
             # Can run with or w/o SSL
             input_PROTOCOL
         fi
-        
+        #input deployment port
+        input_DEPLOYMENT_PORT
+
+        # chcek if it is for upgrade
+        input_UPGRADE
+
+        if [[ "${UPGRADE}" == "y" ]]; then
+          # upgrade
+          input_UPGRADE_VERSION
+        fi
+
         input_SUPPORT
         input_SYSMON
 
         export DEPLOYMENT=${DEPLOYMENT}
         export PROTOCOL=${PROTOCOL}
         export DEPLOY_URL=${DEPLOY_URL}
+        export FLYWAY_ENABLE=${FLYWAY_ENABLE}
+        export FLYWAY_BASELINE_ON_MIGRATE=${FLYWAY_BASELINE_ON_MIGRATE}
+        export UPGRADE_VERSION=${UPGRADE_VERSION}
 
         FILE=.env
         if [[ -f "$FILE" ]]; then
@@ -407,6 +493,19 @@
             cat ./templates/.docker-compose-sysmon.template >> ./docker-compose.yml
         fi
 
+
+        if [[ "${UPGRADE}" == "y" ]]; then
+            info "Configure System upgrade: "
+            #may not need this. but envsubst does not seem to work unless we use a ${} veriable in the template
+            sed -i'.org' 's/FLYWAY_ENABLE=false/FLYWAY_ENABLE=true/' .env
+            sed -i'.org' 's/FLYWAY_BASELINE_ON_MIGRATE=false/FLYWAY_BASELINE_ON_MIGRATE=true/' .env
+            sed -i'.org' "s/UPGRADE_VERSION=0.0.0/UPGRADE_VERSION=$UPGRADE_VERSION/" .env
+            rm .env.org
+
+        fi
+
+        sed -i'.org' "s/DEPLOYMENT_PORT=443/DEPLOYMENT_PORT=$DEPLOYMENT_PORT/" .env
+        rm .env.org
     }
 
   main @1

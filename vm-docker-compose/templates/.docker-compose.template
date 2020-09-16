@@ -55,7 +55,7 @@ services:
     image: ${REPOSITORY}/ui:${UI_VERSION}
     container_name: ui
     ports:
-      - "3000:3000"
+      - "${DEPLOYMENT_PORT}:3000"
       - "9991:9991"
     env_file:
       - .env
@@ -146,10 +146,8 @@ services:
     hostname: wdc
     ports:
       - "3006:3000"
-    environment:
-      - SERVICE_PROTOCOL=https
-      - SERVICE_HOST=${DEPLOY_URL}
-      - SERVICE_PORT=443
+    env_file:
+      - ./.env
     healthcheck:
       test: ["CMD", "curl", "-k", "-f", "${PROTOCOL}://wdc:3000/live"]
       interval: 10s
