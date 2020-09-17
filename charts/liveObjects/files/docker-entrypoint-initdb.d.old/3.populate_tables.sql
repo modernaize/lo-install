@@ -36,7 +36,8 @@ values
 ('FILE_SFTP_CSV',6),
 ('FILE_UPLOAD_PDF',7),
 ('FILE_UPLOAD',7),
-('AUTO_JOIN',7);
+('AUTO_JOIN',7),
+('GOOGLE_BIGQUERY',9);
 
 -- extractor type table
 INSERT INTO lo.extractor_type(extractor_type_name) values('Infocube');
@@ -51,36 +52,42 @@ INSERT INTO lo.status_list(status_name) values('Error');
 -- populate form fields table
 
 insert into lo.fieldmapping_type(mapping_type_name) values ('Custom Mapping') , ('Source Mapping') , ('Ontology Mapping');
-
-INSERT INTO lo.form_fields(form_id, field_id, field_name, mandatory) VALUES (3,3,'System ID','X');
-INSERT INTO lo.form_fields(form_id, field_id, field_name, mandatory) VALUES (3,2,'Port','X');
-INSERT INTO lo.form_fields(form_id, field_id, field_name, mandatory) VALUES (3,5,'Password','X');
-INSERT INTO lo.form_fields(form_id, field_id, field_name, mandatory) VALUES (3,4,'User ID','X');
-INSERT INTO lo.form_fields(form_id, field_id, field_name, mandatory) VALUES (3,6,'Instance Number','X');
-INSERT INTO lo.form_fields(form_id, field_id, field_name, mandatory) VALUES (1,2,'Port','X');
-INSERT INTO lo.form_fields(form_id, field_id, field_name, mandatory) VALUES (1,1,'Host IP','X');
-INSERT INTO lo.form_fields(form_id, field_id, field_name, mandatory) VALUES (1,4,'Password','X');
-INSERT INTO lo.form_fields(form_id, field_id, field_name, mandatory) VALUES (1,3,'User ID','X');
-INSERT INTO lo.form_fields(form_id, field_id, field_name, mandatory) VALUES (2,1,'Host IP','X');
-INSERT INTO lo.form_fields(form_id, field_id, field_name, mandatory) VALUES (1,5,'Database Name','X');
-INSERT INTO lo.form_fields(form_id, field_id, field_name, mandatory) VALUES (2,3,'User ID','X');
-INSERT INTO lo.form_fields(form_id, field_id, field_name, mandatory) VALUES (2,2,'Port','X');
-INSERT INTO lo.form_fields(form_id, field_id, field_name, mandatory) VALUES (3,1,'Host IP','X');
-INSERT INTO lo.form_fields(form_id, field_id, field_name, mandatory) VALUES (2,4,'Password','X');
-INSERT INTO lo.form_fields(form_id, field_id, field_name, mandatory) VALUES (6,1,'Host IP','X');
-INSERT INTO lo.form_fields(form_id, field_id, field_name, mandatory) VALUES (6,2,'Port','X');
-INSERT INTO lo.form_fields(form_id, field_id, field_name, mandatory) VALUES (6,3,'User ID','X');
-INSERT INTO lo.form_fields(form_id, field_id, field_name, mandatory) VALUES (6,4,'Password','X');
-INSERT INTO lo.form_fields(form_id, field_id, field_name, mandatory) VALUES (6,5,'SFTP Key Location','X');
-INSERT INTO lo.form_fields(form_id, field_id, field_name, mandatory) VALUES (8,7,'Client Id','x');
-INSERT INTO lo.form_fields(form_id, field_id, field_name, mandatory) VALUES (8,1,'Host IP','x');
-INSERT INTO lo.form_fields(form_id, field_id, field_name, mandatory) VALUES (8,2,'Port','x');
-INSERT INTO lo.form_fields(form_id, field_id, field_name, mandatory) VALUES (8,3,'User ID','x');
-INSERT INTO lo.form_fields(form_id, field_id, field_name, mandatory) VALUES (8,4,'Password','x');
-INSERT INTO lo.form_fields(form_id, field_id, field_name, mandatory) VALUES (8,10,'API Path','x');
-INSERT INTO lo.form_fields(form_id, field_id, field_name, mandatory) VALUES (8,9,'Grant Type','x');
-INSERT INTO lo.form_fields(form_id, field_id, field_name, mandatory) VALUES (8,8,'Client Secret','x');
-
+-- @version 2020.3.0
+-- add display name field
+-- form id 9, Google Big Query
+INSERT INTO lo.form_fields(form_id, field_id, field_name, display_name, mandatory) VALUES (3,3,'System ID','System ID','X');
+INSERT INTO lo.form_fields(form_id, field_id, field_name, display_name, mandatory) VALUES (3,2,'Port','Port','X');
+INSERT INTO lo.form_fields(form_id, field_id, field_name, display_name, mandatory) VALUES (3,5,'Password','Password','X');
+INSERT INTO lo.form_fields(form_id, field_id, field_name, display_name, mandatory) VALUES (3,4,'User ID','User ID','X');
+INSERT INTO lo.form_fields(form_id, field_id, field_name, display_name, mandatory) VALUES (3,6,'Instance Number','Instance Number','X');
+INSERT INTO lo.form_fields(form_id, field_id, field_name, display_name, mandatory) VALUES (1,2,'Port','Port','X');
+INSERT INTO lo.form_fields(form_id, field_id, field_name, display_name, mandatory) VALUES (1,1,'Host IP','Hostname Or IP','X');
+INSERT INTO lo.form_fields(form_id, field_id, field_name, display_name, mandatory) VALUES (1,4,'Password','Password','X');
+INSERT INTO lo.form_fields(form_id, field_id, field_name, display_name, mandatory) VALUES (1,3,'User ID','User ID','X');
+INSERT INTO lo.form_fields(form_id, field_id, field_name, display_name, mandatory) VALUES (2,1,'Host IP','Hostname Or IP','X');
+INSERT INTO lo.form_fields(form_id, field_id, field_name, display_name, mandatory) VALUES (1,5,'Database Name','Database Name','X');
+INSERT INTO lo.form_fields(form_id, field_id, field_name, display_name, mandatory) VALUES (2,3,'User ID','User ID','X');
+INSERT INTO lo.form_fields(form_id, field_id, field_name, display_name, mandatory) VALUES (2,2,'Port','Port','X');
+INSERT INTO lo.form_fields(form_id, field_id, field_name, display_name, mandatory) VALUES (3,1,'Host IP','Hostname Or IP','X');
+INSERT INTO lo.form_fields(form_id, field_id, field_name, display_name, mandatory) VALUES (2,4,'Password','Password','X');
+INSERT INTO lo.form_fields(form_id, field_id, field_name, display_name, mandatory) VALUES (6,1,'Host IP','Hostname Or IP','X');
+INSERT INTO lo.form_fields(form_id, field_id, field_name, display_name, mandatory) VALUES (6,2,'Port','Port','X');
+INSERT INTO lo.form_fields(form_id, field_id, field_name, display_name, mandatory) VALUES (6,3,'User ID','User ID','X');
+INSERT INTO lo.form_fields(form_id, field_id, field_name, display_name, mandatory) VALUES (6,4,'Password','Password','X');
+INSERT INTO lo.form_fields(form_id, field_id, field_name, display_name, mandatory) VALUES (6,5,'SFTP Key Location','SFTP Key Location','X');
+INSERT INTO lo.form_fields(form_id, field_id, field_name, display_name, mandatory) VALUES (8,7,'Client Id','Client Id','x');
+INSERT INTO lo.form_fields(form_id, field_id, field_name, display_name, mandatory) VALUES (8,1,'Host IP','Hostname Or IP','x');
+INSERT INTO lo.form_fields(form_id, field_id, field_name, display_name, mandatory) VALUES (8,2,'Port','Port','x');
+INSERT INTO lo.form_fields(form_id, field_id, field_name, display_name, mandatory) VALUES (8,3,'User ID','User ID','x');
+INSERT INTO lo.form_fields(form_id, field_id, field_name, display_name, mandatory) VALUES (8,4,'Password','Password','x');
+INSERT INTO lo.form_fields(form_id, field_id, field_name, display_name, mandatory) VALUES (8,10,'API Path','API Path','x');
+INSERT INTO lo.form_fields(form_id, field_id, field_name, display_name, mandatory) VALUES (8,9,'Grant Type','Grant Type','x');
+INSERT INTO lo.form_fields(form_id, field_id, field_name, display_name, mandatory) VALUES (8,8,'Client Secret','Client Secret','x');
+INSERT INTO lo.form_fields(form_id, field_id, field_name, display_name, mandatory) VALUES (9,1,'Host IP','Google Access URL','x');
+INSERT INTO lo.form_fields(form_id, field_id, field_name, display_name, mandatory) VALUES (9,2,'Port','Port','x');
+INSERT INTO lo.form_fields(form_id, field_id, field_name, display_name, mandatory) VALUES (9,3,'User ID','Service Account Email','x');
+INSERT INTO lo.form_fields(form_id, field_id, field_name, display_name, mandatory) VALUES (9,4,'SFTP Key Location','Private Key File','x');
+INSERT INTO lo.form_fields(form_id, field_id, field_name, display_name, mandatory) VALUES (9,5,'Database Name','Project ID','x');
 
 insert into lo.model_subtype (model_subtype) values ('process discovery');
 insert into lo.model_subtype (model_subtype) values ('attribute enrichment');
@@ -190,12 +197,17 @@ insert into learn.config_parameters (config_key , config_value) values ('cluster
 insert into learn.config_parameters (config_key , config_value) values ('drill_down_limited', 1);
 insert into learn.config_parameters (config_key , config_value) values ('pic_to_text_config', 'r''--oem 3 --psm 6''');
 --nRows, falsePositive, threshold
+insert into learn.config_parameters (config_key , config_value) values ('outlier_percentage', '0.1');
 insert into learn.config_parameters (config_key , config_value) values
 ('auto_join_sample_size', 10000),
 ('auto_join_false_pos', .001),
 ('auto_join_threshold', .7),
 ('auto_join_alg', 'bloom'),
-('enable_nli_search', 'False');
+('auto_join_match_type', 'name, data'),
+('data_match_threshold', 0.8),
+('column_match_threshold', 0.95),
+('enable_nli_search', 'False'),
+('enable_oauth2_login', 'False');
 
 -- end learn metadata objects
 

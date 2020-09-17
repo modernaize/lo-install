@@ -13,6 +13,8 @@
 -- \set process_mining_schema 'process_mining'
 -- \set customer_data_schema 'customer_data'
 
+CREATE SCHEMA IF NOT EXISTS lo_analytics;
+grant all on schema lo_analytics to liveobjects;
 CREATE SCHEMA IF NOT EXISTS lo_customers;
 grant all on schema lo_customers to liveobjects;
 CREATE SCHEMA IF NOT EXISTS lo;
@@ -25,6 +27,20 @@ create schema if not exists customer_data;
 grant all on schema customer_data to liveobjects;
 
 START TRANSACTION;
+
+CREATE TABLE IF NOT EXISTS lo_analytics.dashboard_extensions (
+    id serial PRIMARY KEY,
+    name varchar(255),
+    url varchar(1000),
+    description varchar(500),
+    created_on timestamptz,
+    modified_on timestamptz,
+    created_by_user_id int,
+    rating int,
+    view_preference varchar(50),
+    image_file BYTEA,
+    UNIQUE (name, url)
+);
 
 -- version
 CREATE TABLE IF NOT EXISTS lo.version(
@@ -55,12 +71,14 @@ create table lo.document_type(
     last_update_timestamptz     timestamptz,
     last_update_user            integer
 );
-
+-- @version 2020.3.0:
+-- add column display_name
 CREATE TABLE lo.form_fields
 (
 	form_id int NOT NULL,
 	field_id int NOT NULL,
 	field_name character varying(40),
+	display_name varchar(64),
 	mandatory character(1),
     record_type                 varchar(64),
     record_status               varchar(32),
@@ -615,63 +633,175 @@ CREATE TABLE learn.data_profile (
     last_update_timestamptz         timestamptz,
     last_update_user                integer
 );
+
+CREATE TABLE lo.autojoin_header (
+    model_id serial primary key,
+    scenario_id integer  references lo.scenario(scenario_id),
+    tags                        text,
+    create_timestamptz          timestamptz,
+    run_time                    varchar(32),
+    job_id                      integer,
+    record_type                 varchar(64),
+    record_status               varchar(32),
+    last_update_timestamptz     timestamptz,
+    last_update_user            integer
+);
+
+
+CREATE TABLE learn.auto_join (
+    join_id serial primary key,
+    model_id integer references lo.autojoin_header(model_id),
+    match_type varchar(20) not null, -- data or name
+    left_table varchar(40),  --lo.extractor_header.target_column_name
+    left_col varchar(64), --lo.extractor_details.target_field_name
+    right_table varchar(40),
+    right_col varchar(64),
+    record_type                     varchar(64),
+    record_status                   varchar(32),
+    last_update_timestamptz         timestamptz,
+    last_update_user                integer
+);
+
+CREATE TABLE learn.auto_join_case_id_rec (
+    id serial primary key,
+    model_id integer references lo.autojoin_header(model_id),
+    match_type varchar(20) not null, -- data or name
+    table_rec varchar(40),
+    column_rec varchar(64), -- case_id column recommendation
+    record_type                     varchar(64),
+    record_status                   varchar(32),
+    last_update_timestamptz         timestamptz,
+    last_update_user                integer
+);
+
+CREATE TABLE learn.process_grammar_define (
+    rule_id serial,
+    rule_name varchar(32),
+    rule_description text,
+    rule_type                       varchar(32),
+    rule text,
+    rule_reporting                  varchar(32),
+    record_type                     varchar(64),
+    record_status                   varchar(32),
+    last_update_timestamptz         timestamptz,
+    last_update_user                integer,
+    PRIMARY KEY (rule_id)
+);
+
+CREATE TABLE learn.process_rule_transaction  (
+    assignment_id integer,
+    rule_id integer,
+    model_id integer,
+    variant_id integer,
+    rule_name varchar(32),
+    rule_reporting varchar(32),
+    record_type                     varchar(64),
+    record_status                   varchar(32),
+    last_update_timestamptz         timestamptz,
+    last_update_user                integer
+);
+
+CREATE TABLE learn.process_rule_assignment (
+    assignment_id serial,
+    rule_id integer,
+    extractor_id integer,
+    record_type                     varchar(64),
+    record_status                   varchar(32),
+    last_update_timestamptz         timestamptz,
+    last_update_user                integer,
+    PRIMARY KEY (assignment_id)
+);
+
 -- end learn schema related table
 
 -- process mining
 -- As of v1.8.0, most of these tables are denormalized
 -- this is intentional for speed of querying
-CREATE TABLE process_mining.variant(
-    model_id integer,
-    filter_id integer,
-    variant_id integer,
-    name varchar(256),
-    count integer,
-    percentage numeric(5, 2),
-    case_ids text,
+CREATE TABLE process_mining.filter(
+    model_id                        integer,
+    filter_id                       integer,
+    name                            varchar(180),
+    criteria                        text,
+    status                          text,
+    message                         text,
     record_type                     varchar(64),
     record_status                   varchar(32),
     last_update_timestamptz         timestamptz,
     last_update_user                integer,
-    PRIMARY KEY (model_id, filter_id, variant_id)
+    PRIMARY KEY(model_id, filter_id)
+);
+
+CREATE TABLE process_mining.process(
+    model_id integer,
+    filter_id integer,
+    case_id text,
+    drilldown_attribute varchar(180),
+    variant_id integer,
+    time integer,
+    record_type                     varchar(64),
+    record_status                   varchar(32),
+    last_update_timestamptz         timestamptz,
+    last_update_user                integer,
+    PRIMARY KEY(model_id, filter_id, case_id)
+);
+
+CREATE TABLE process_mining.variant(
+    model_id                        integer,
+    filter_id                       integer,
+    variant_id                      integer,
+    name                            varchar(180),
+    sequence                        text,
+    count                           integer,
+    percentage                      real,
+    record_type                     varchar(64),
+    record_status                   varchar(32),
+    last_update_timestamptz         timestamptz,
+    last_update_user                integer,
+    PRIMARY KEY(model_id, filter_id, variant_id)
+);
+
+CREATE TABLE process_mining.edge(
+    model_id                        integer,
+    case_id                         text,
+    index                           integer,
+    start_node                      text,
+    end_node                        text,
+    time                            integer,
+    record_type                     varchar(64),
+    record_status                   varchar(32),
+    last_update_timestamptz         timestamptz,
+    last_update_user                integer,
+    PRIMARY KEY(model_id, case_id, index)
+);
+
+CREATE TABLE process_mining.edge_kpi(
+    model_id                        integer,
+    filter_id                       integer,
+    variant_id                      integer,
+    start_node                      varchar(180),
+    end_node                        varchar(180),
+    kpi                             varchar(180),
+    aggregation                     varchar(180),
+    value                           real,
+    record_type                     varchar(64),
+    record_status                   varchar(32),
+    last_update_timestamptz         timestamptz,
+    last_update_user                integer,
+    PRIMARY KEY(model_id, filter_id, variant_id, start_node, end_node, kpi, aggregation)
 );
 
 CREATE TABLE process_mining.variant_kpi(
-    model_id integer,
-    filter_id integer,
-    variant_id integer,
-    kpi_measure varchar(256),
-    aggregation varchar(256),
-    value integer,
+    model_id        integer,
+    filter_id       integer,
+    variant_id      integer,
+    kpi             varchar(180),
+    aggregation     varchar(180),
+    value           real,
     record_type                     varchar(64),
     record_status                   varchar(32),
     last_update_timestamptz         timestamptz,
     last_update_user                integer,
-    PRIMARY KEY (model_id, filter_id, variant_id, kpi_measure, aggregation)
-);
-
-CREATE TABLE process_mining.graph_and_bottlenecks(
-    model_id integer,
-    filter_id integer,
-    variant_id integer,
-    graph text,
-    bottlenecks text,
-    record_type                     varchar(64),
-    record_status                   varchar(32),
-    last_update_timestamptz         timestamptz,
-    last_update_user                integer,
-    PRIMARY KEY (model_id, filter_id, variant_id)
-);
-
-CREATE TABLE process_mining.drilldown(
-    model_id integer,
-    filter_id integer,
-    variant_id integer,
-    drilldown text,
-    record_type                     varchar(64),
-    record_status                   varchar(32),
-    last_update_timestamptz         timestamptz,
-    last_update_user                integer,
-    PRIMARY KEY (model_id, filter_id, variant_id)
+    PRIMARY KEY(model_id, filter_id, variant_id, kpi, aggregation)
 );
 
 CREATE TABLE process_mining.correlation(
@@ -754,6 +884,20 @@ CREATE TABLE process_mining.status(
     last_update_user                integer,
     PRIMARY KEY (model_id, filter_id)
 );
+
+CREATE TABLE process_mining.anomaly(
+    model_id                        integer,
+    filter_id                       integer,
+    case_id                         text,
+    x_coordinate                    real,
+    y_coordinate                    real,
+    distance_from_center            real,
+    record_type                     varchar(64),
+    record_status                   varchar(32),
+    last_update_timestamptz         timestamptz,
+    last_update_user                integer,
+    PRIMARY KEY (model_id, filter_id, case_id)
+);
 -- end process mining schema related objects
 
 create table if not exists customer_data.source_file(
@@ -775,4 +919,19 @@ create table if not exists customer_data.source_file(
 -- last_update_timestamptz      timestamptz
 -- last_update_user             int -- user id
 
+-- Table for tags
+-- Version 2020.3.0
+-- Since 2020.3.0
+create table lo.tags(
+id serial,
+tag_name varchar(64) not null,
+tag_level varchar(64) not null,
+tag_level_id integer not null,
+parent_id integer default 0,
+record_type              varchar(64),
+record_status            varchar(32),
+last_update_timestamptz  timestamptz,
+last_update_user         integer,
+primary key (id)
+);
 COMMIT;

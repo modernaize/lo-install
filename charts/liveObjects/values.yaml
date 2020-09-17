@@ -18,6 +18,25 @@ global:
     enabled: true
   license:
     enabled: true
+  wdc:
+    enabled: true
+  scenario:
+    enabled: true
+  businessgrammar:
+    enabled: true
+  dyk:
+    enabled: true
+  dashboards:
+    enabled: true
+  extensions:
+    enabled: true
+  documentaion:
+    enabled: true
+  discoveryautojoin:
+    enabled: true
+  autojoin:
+    enabled: true
+
 
   configMap: true
   networkPolicy: false
@@ -94,7 +113,7 @@ deployment:
       name: postgre-deployment
     container:
       registry: liveobjects/postgres
-      tag: "P-v2020.2.0"
+      tag: "R-2020.3.0"
       # Always IfNotPresent
       imagePullPolicy: "Always"
       resources:
@@ -111,7 +130,7 @@ deployment:
       name: frontend-deployment
     container:
       registry: liveobjects/ui
-      tag: "P-v2020.2.6"
+      tag: "R-2020.3.0"
       # Always IfNotPresent
       imagePullPolicy: "Always"
       resources:
@@ -123,13 +142,155 @@ deployment:
     spec:
       replicas: 1
 
+  scenario:
+    enabled: true
+    metadata:
+      name: scenario-deployment
+    container:
+      registry: liveobjects/lo-ui-scenario
+      tag: "R-2020.3.0"
+      # Always IfNotPresent
+      imagePullPolicy: "Always"
+      resources:
+        requests:
+          cpu: 200m
+          memory: 1G
+      ports:
+        containerPort: 3000
+    spec:
+      replicas: 1
+  businessgrammar:
+    enabled: true
+    metadata:
+      name: businessgrammar-deployment
+    container:
+      registry: liveobjects/lo-ui-business-grammar
+      tag: "R-2020.3.0"
+      # Always IfNotPresent
+      imagePullPolicy: "Always"
+      resources:
+        requests:
+          cpu: 200m
+          memory: 1G
+      ports:
+        containerPort: 3000
+    spec:
+      replicas: 1
+
+  dyk:
+    enabled: true
+    metadata:
+      name: dyk-deployment
+    container:
+      registry: liveobjects/lo-ui-dyk
+      tag: "R-2020.3.0"
+      # Always IfNotPresent
+      imagePullPolicy: "Always"
+      resources:
+        requests:
+          cpu: 200m
+          memory: 1G
+      ports:
+        containerPort: 3000
+    spec:
+      replicas: 1
+  wdc:
+    enabled: true
+    metadata:
+      name: wdc-deployment
+    container:
+      registry: liveobjects/lo-tableau-wdc
+      tag: "R-2020.3.0"
+      # Always IfNotPresent
+      imagePullPolicy: "Always"
+      resources:
+        requests:
+          cpu: 200m
+          memory: 1G
+      ports:
+        containerPort: 3000
+    spec:
+      replicas: 1
+  discoveryautojoin:
+    enabled: true
+    metadata:
+      name: discoveryautojoin-deployment
+    container:
+      registry: liveobjects/lo-ui-discovery-autojoin
+      tag: "R-2020.3.0"
+      # Always IfNotPresent
+      imagePullPolicy: "Always"
+      resources:
+        requests:
+          cpu: 200m
+          memory: 1G
+      ports:
+        containerPort: 3000
+    spec:
+      replicas: 1
+  documentation:
+    enabled: true
+    metadata:
+      name: documentation-deployment
+    container:
+      registry: liveobjects/lo-ui-documentation
+      tag: "R-2020.3.0"
+      # Always IfNotPresent
+      imagePullPolicy: "Always"
+      resources:
+        requests:
+          cpu: 200m
+          memory: 1G
+      ports:
+        containerPort: 3000
+    spec:
+      replicas: 1
+      
+
+  extensions:
+    enabled: true
+    metadata:
+      name: extensions-deployment
+    container:
+      registry: liveobjects/lo-ui-extensions
+      tag: "R-2020.3.0"
+      # Always IfNotPresent
+      imagePullPolicy: "Always"
+      resources:
+        requests:
+          cpu: 200m
+          memory: 1G
+      ports:
+        containerPort: 3000
+    spec:
+      replicas: 1
+
+  dashboards:
+    enabled: true
+    metadata:
+      name: dashboards-deployment
+    container:
+      registry: liveobjects/lo-ui-dashboards
+      tag: "R-2020.3.0"
+      # Always IfNotPresent
+      imagePullPolicy: "Always"
+      resources:
+        requests:
+          cpu: 200m
+          memory: 1G
+      ports:
+        containerPort: 3000
+    spec:
+      replicas: 1
+
+
   license:
     enabled: true
     metadata:
       name: license-deployment
     container: 
-      registry: liveobjects/license-service
-      tag: "D-develop"
+      registry: liveobjects/lo-license-service
+      tag: "R-2020.3.0"
           # Always IfNotPresent
       imagePullPolicy: "Always"
       resources:
@@ -137,7 +298,7 @@ deployment:
           cpu: 200m
           memory: 1G
       ports:
-        containerPort: 3001
+        containerPort: 3000
     spec:
       replicas: 1
 
@@ -169,7 +330,7 @@ deployment:
       name: backend-deployment
     container:
       registry: liveobjects/service
-      tag: "P-v2020.2.0"
+      tag: "R-2020.3.0"
       # Always IfNotPresent
       imagePullPolicy: "Always"
       resources:
@@ -187,7 +348,25 @@ deployment:
       name: learn-deployment
     container:
       registry: liveobjects/learn
-      tag: "P-v2020.2.0"
+      tag: "R-2020.3.0"
+      # Always IfNotPresent
+      imagePullPolicy: "Always"
+      resources:
+        requests:
+          cpu: 200m
+          memory: 1G
+      ports:
+        containerPort: 5000
+    spec:
+      replicas: 1
+
+  autojoin:
+    enabled: true
+    metadata:
+      name: autojoin-deployment
+    container:
+      registry: liveobjects/autojoin
+      tag: "R-2020.3.0"
       # Always IfNotPresent
       imagePullPolicy: "Always"
       resources:
@@ -473,6 +652,20 @@ services:
         port: 5000
         targetPort: 5000
 
+  autojoin:
+    enabled: true
+    metadata:
+      name: autojoin-svc
+    spec:
+      selector: 
+        app: autojoin
+      type: ClusterIP
+      ports:
+        protocol: TCP
+        port: 5002
+        targetPort: 5002
+
+
   frontend:
     enabled: true
     metadata:
@@ -493,6 +686,169 @@ services:
 # lo.sslConfiguration = slef-signed
         tlsport: 443
         targetPort: 3000
+  scenario:
+    enabled: true
+    metadata:
+      name: scenario-svc
+
+      annotations: {}
+      # alb.ingress.kubernetes.io/scheme: internet-facing, 
+      # alb.ingress.kubernetes.io/tags: 'Environment=dev,Team=test'      
+
+    spec:
+      selector: 
+        app: scenario
+      type: ClusterIP
+      ports:
+        protocol: TCP
+# lo.sslConfiguration = none
+        port: 80
+# lo.sslConfiguration = slef-signed
+        tlsport: 443
+        targetPort: 3000
+  businessgrammar:
+    enabled: true
+    metadata:
+      name: businessgrammar-svc
+
+      annotations: {}
+      # alb.ingress.kubernetes.io/scheme: internet-facing, 
+      # alb.ingress.kubernetes.io/tags: 'Environment=dev,Team=test'      
+
+    spec:
+      selector: 
+        app: businessgrammar
+      type: ClusterIP
+      ports:
+        protocol: TCP
+# lo.sslConfiguration = none
+        port: 80
+# lo.sslConfiguration = slef-signed
+        tlsport: 443
+        targetPort: 3000
+
+  dyk:
+    enabled: true
+    metadata:
+      name: dyk-svc
+
+      annotations: {}
+      # alb.ingress.kubernetes.io/scheme: internet-facing, 
+      # alb.ingress.kubernetes.io/tags: 'Environment=dev,Team=test'      
+
+    spec:
+      selector: 
+        app: dyk
+      type: ClusterIP
+      ports:
+        protocol: TCP
+# lo.sslConfiguration = none
+        port: 80
+# lo.sslConfiguration = slef-signed
+        tlsport: 443
+        targetPort: 3000
+  wdc:
+    enabled: true
+    metadata:
+      name: wdc-svc
+
+      annotations: {}
+      # alb.ingress.kubernetes.io/scheme: internet-facing, 
+      # alb.ingress.kubernetes.io/tags: 'Environment=dev,Team=test'      
+
+    spec:
+      selector: 
+        app: wdc
+      type: ClusterIP
+      ports:
+        protocol: TCP
+# lo.sslConfiguration = none
+        port: 80
+# lo.sslConfiguration = slef-signed
+        tlsport: 443
+        targetPort: 3000
+  discoveryautojoin:
+    enabled: true
+    metadata:
+      name: discoveryautojoin-svc
+
+      annotations: {}
+      # alb.ingress.kubernetes.io/scheme: internet-facing, 
+      # alb.ingress.kubernetes.io/tags: 'Environment=dev,Team=test'      
+
+    spec:
+      selector: 
+        app: discoveryautojoin
+      type: ClusterIP
+      ports:
+        protocol: TCP
+# lo.sslConfiguration = none
+        port: 80
+# lo.sslConfiguration = slef-signed
+        tlsport: 443
+        targetPort: 3000
+  documentation:
+    enabled: true
+    metadata:
+      name: documentation-svc
+
+      annotations: {}
+      # alb.ingress.kubernetes.io/scheme: internet-facing, 
+      # alb.ingress.kubernetes.io/tags: 'Environment=dev,Team=test'      
+
+    spec:
+      selector: 
+        app: documentation
+      type: ClusterIP
+      ports:
+        protocol: TCP
+# lo.sslConfiguration = none
+        port: 80
+# lo.sslConfiguration = slef-signed
+        tlsport: 443
+        targetPort: 3000
+  extensions:
+    enabled: true
+    metadata:
+      name: extensions-svc
+
+      annotations: {}
+      # alb.ingress.kubernetes.io/scheme: internet-facing, 
+      # alb.ingress.kubernetes.io/tags: 'Environment=dev,Team=test'      
+
+    spec:
+      selector: 
+        app: extensions
+      type: ClusterIP
+      ports:
+        protocol: TCP
+# lo.sslConfiguration = none
+        port: 80
+# lo.sslConfiguration = slef-signed
+        tlsport: 443
+        targetPort: 3000
+
+  dashboards:
+    enabled: true
+    metadata:
+      name: dashboards-svc
+
+      annotations: {}
+      # alb.ingress.kubernetes.io/scheme: internet-facing, 
+      # alb.ingress.kubernetes.io/tags: 'Environment=dev,Team=test'      
+
+    spec:
+      selector: 
+        app: dashboards
+      type: ClusterIP
+      ports:
+        protocol: TCP
+# lo.sslConfiguration = none
+        port: 80
+# lo.sslConfiguration = slef-signed
+        tlsport: 443
+        targetPort: 3000
+
   license:
     enabled: true
     metadata:
@@ -508,9 +864,9 @@ services:
       type: ClusterIP
       ports:
         protocol: TCP
-        port: 3001
+        port: 3000
         tlsport: 443
-        targetPort: 3001
+        targetPort: 3000
 
 loServer:
   ## Live Objects server passwords using existing secret

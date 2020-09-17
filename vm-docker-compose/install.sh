@@ -1,9 +1,12 @@
 #!/usr/bin/env bash
+#
+# Copyright 2020 Live Object Inc. All Rights Reserved.
+#
 
 { # make sure that the entire script is downloaded #
 
     DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
-    LATEST_VERSION=v2020.2.6
+    LATEST_VERSION=v2020.3.0
     
     info() {
         # 32 Green
@@ -77,6 +80,7 @@
 
         debug "INSTALL_DIR : $INSTALL_DIR"
 
+
         lo_download -s "$LO_INSTALL_TAR_URL" -o "$INSTALL_DIR/$LO_INSTALL_TAR" || {
             debug "Failed to download : $LO_INSTALL_TAR_URL"
             return 1
@@ -91,14 +95,6 @@
 
         # Ensure that some scripts are executable
         
-        chmod a+x "$INSTALL_DIR/provision.sh" || {
-            error >&2 "Failed to mark '$INSTALL_DIR/provision.sh' as executable"
-            return 3
-        }
-        chmod a+x "$INSTALL_DIR/nginx_provision.sh" || {
-            error >&2 "Failed to mark '$INSTALL_DIR/nginx_provision' as executable"
-            return 3
-        }
         chmod a+x "$INSTALL_DIR/nginx_create_site.sh" || {
             error >&2 "Failed to mark '$INSTALL_DIR/nginx_create_site.sh' as executable"
             return 3
@@ -111,23 +107,42 @@
             error >&2 "Failed to mark '$INSTALL_DIR/stop.sh' as executable"
             return 3
         }
-         chmod a+x "$INSTALL_DIR/update_docker_compose.sh" || {
-            error >&2 "Failed to mark '$INSTALL_DIR/update_docker_compose.sh' as executable"
+        chmod a+x "$INSTALL_DIR/config.sh" || {
+            error >&2 "Failed to mark '$INSTALL_DIR/config.sh' as executable"
             return 3
         }
-        
-        debug "creating data directory $HOME/data"
-        mkdir -p $HOME/data
+        chmod a+x "$INSTALL_DIR/getCertificate.sh" || {
+            error >&2 "Failed to mark '$INSTALL_DIR/getCertificate.sh' as executable"
+            return 3
+        }
+        chmod a+x "$INSTALL_DIR/refresh.sh" || {
+            error >&2 "Failed to mark '$INSTALL_DIR/refresh.sh' as executable"
+            return 3
+        }
+         
+        debug "Creating directories : $INSTALL_DIR "
+        mkdir -p $INSTALL_DIR/keys
+        mkdir -p $INSTALL_DIR/logs
+        mkdir -p $INSTALL_DIR/license
+
+        debug "Grant authorizations : $INSTALL_DIR "
+        chmod -R 777 $INSTALL_DIR/keys
+        chmod -R 777 $INSTALL_DIR/logs
+        chmod -R 777 $INSTALL_DIR/license
 
         info
         info "Live Objects Installer has been successfully downloaded into directory $INSTALL_DIR "
         info
 
+        # input_config
+
     }
+
 
     lo_make_install_dir() {
         debug "Executing lo_make_install_dir"
         local INSTALL_DIR="$(lo_install_dir)"
+        rm -rf "$INSTALL_DIR"
         # Downloading to $INSTALL_DIR
         mkdir -p "$INSTALL_DIR"
 

@@ -1,97 +1,206 @@
 # lo-install
 
 ## Google Cloud Platform
-### Creates GCP VM via cmd line
+
+Please adjust the environment variables below according to your project and your needs
+
+Also the name/domain/dns demo4 , demo4.livebobjects.rocks are being used for illustration purposes only and need to be adopted to your own needs.
+
+### Creates GCP VM via cmd line from scratch
+
+Ubuntu 20.04
 
 ```
-export INSTANCE=test-1
+export INSTANCE=demo4 && export IMAGE=ubuntu-2004-focal-v20200902 && export IMAGE_PROJECT=ubuntu-os-cloud && export ZONE=us-west2-a && export PROJECT=live-objects-demo
 ```
 
+### Creates GCP VM via cmd line based on an existing image
+
+This uses the already provisioned Image with NGINX. 
+
+Ubuntu 19.10
 ```
-gcloud beta compute --project=live-objects-demo instances create ${INSTANCE} --zone=us-west2-a --machine-type=n1-standard-2 --subnet=default --network-tier=PREMIUM --maintenance-policy=MIGRATE --service-account=1009649936809-compute@developer.gserviceaccount.com --scopes=https://www.googleapis.com/auth/devstorage.read_only,https://www.googleapis.com/auth/logging.write,https://www.googleapis.com/auth/monitoring.write,https://www.googleapis.com/auth/servicecontrol,https://www.googleapis.com/auth/service.management.readonly,https://www.googleapis.com/auth/trace.append --tags=http-server,https-server --image=ubuntu-1910-eoan-v20200520 --image-project=ubuntu-os-cloud --boot-disk-size=200GB --boot-disk-type=pd-standard --boot-disk-device-name=${INSTANCE} --reservation-affinity=any
+export INSTANCE=demo4 && export IMAGE=lo-ubuntu-1910-nginx && export IMAGE_PROJECT=live-objects-demo && export ZONE=us-west2-a && export PROJECT=live-objects-demo
 ```
+
+Ubuntu 20.04 with Docker 
+```
+export INSTANCE=demo4 && export IMAGE=ubuntu-2004-20200909 && export IMAGE_PROJECT=live-objects-demo && export ZONE=us-west2-a && export PROJECT=live-objects-demo
+```
+
+Ubuntu 20.04 with Docker and NGINX
+```
+export INSTANCE=demo4 && export IMAGE=ubuntu-2004-nginx-20200905 && export IMAGE_PROJECT=live-objects-demo && export ZONE=us-west2-a && export PROJECT=live-objects-demo
+```
+
+### Create VM
+
+Please update the servcie-account variable with the service account to be used for the VM execution.
+
+export SA=1009649936809-compute@developer.gserviceaccount.com
+
+```
+gcloud beta compute --project=${PROJECT} instances create ${INSTANCE} --zone=${ZONE} --machine-type=e2-standard-4 --subnet=default --network-tier=PREMIUM --maintenance-policy=MIGRATE --service-account={SA} --scopes=https://www.googleapis.com/auth/devstorage.read_only,https://www.googleapis.com/auth/logging.write,https://www.googleapis.com/auth/monitoring.write,https://www.googleapis.com/auth/servicecontrol,https://www.googleapis.com/auth/service.management.readonly,https://www.googleapis.com/auth/trace.append --tags=http-server,https-server --image=${IMAGE} --image-project=${IMAGE_PROJECT} --boot-disk-size=200GB --boot-disk-type=pd-standard --boot-disk-device-name=${INSTANCE} --reservation-affinity=any
+```
+After the VM got created you can continue directly with [Install the platform](#install-the-platform)
 
 ### SSH
 
-so that the docker-compose and profile settings are effective
-
 ```
-gcloud beta compute --project "live-objects-demo" ssh --zone "us-west2-a" ${INSTANCE}
+gcloud beta compute --project ${PROJECT} ssh --zone ${ZONE} ${INSTANCE}
 ```
 
-## Install LiveObjects Installer 
+
+## Provision OS software for  Ubuntu 19.10
+
+* Updates Ubuntu
+* docker-ce
+* docker-compose
+* nginx
+* certbot
+
+
 ### Latest version
+
+If you want want to use the lastest offically released version :
+
 ```
-curl -s https://raw.githubusercontent.com/liveobjectsai/lo-install/v2020.2.6/vm-docker-compose/install.sh| bash
+curl -s https://raw.githubusercontent.com/liveobjectsai/lo-install/v2020.3.0/vm-docker-compose/provision.sh| bash
+```
+
+### Optional : Install Reverse proxy NGINX
+
+```
+curl -s https://raw.githubusercontent.com/liveobjectsai/lo-install/v2020.3.0/vm-docker-compose/provision_nginx.sh| bash
 ```
 
 ### specific version
 
+Otherwise you can use an experimental installer/version :
+
 ```
 export LO_VERSION=develop
+```
+
+or
+
+```
+export LO_VERSION=release/2020.3.0
+```
+
+```
+curl -s https://raw.githubusercontent.com/liveobjectsai/lo-install/${LO_VERSION}/vm-docker-compose/provision.sh| bash
+```
+
+### Optional : Install Reverse proxy NGINX
+
+If you want to run NGINX as a docker container you can skip this step
+
+```
+curl -s https://raw.githubusercontent.com/liveobjectsai/lo-install/${LO_VERSION}/vm-docker-compose/provision_nginx.sh| bash
+```
+
+## logout 
+
+so that the docker-compose and profile settings are effective
+
+```
+exit
+```
+
+## Install the Platform
+
+### SSH
+
+```
+gcloud beta compute --project ${PROJECT} ssh --zone ${ZONE} ${INSTANCE}
+```
+
+### Install LiveObjects Installer 
+#### Latest version
+
+If you want want to use the lastest offically released version :
+
+
+```
+curl -s https://raw.githubusercontent.com/liveobjectsai/lo-install/v2020.3.0/vm-docker-compose/install.sh| bash
+```
+
+#### specific version
+
+Otherwise you can use an experimental installer/version :
+
+```
+export LO_VERSION=develop
+```
+
+or
+
+```
+export LO_VERSION=release/2020.3.0
 ```
 
 ```
 curl -s https://raw.githubusercontent.com/liveobjectsai/lo-install/${LO_VERSION}/vm-docker-compose/install.sh| bash
 ```
 
-## Provision OS software for  Ubuntu 19.10
+## Configure the Platform
 
+### Update the GCP DNS Settings with the external IP address
 
-### Install incl NGINX
+If required update your DNS setting and map your external IP 
 
-```
-cd liveObjectsInstall && ./provision.sh --nginx
-```
+### Request an Letsencrypt certificate
 
-### Install w/o NGINX
+If you want to request an Letsencrypt certificate you need to have finished the DNS mapping. Otherwise the certificate can't be issued successfully
 
-```
-cd liveObjectsInstall && ./provision.sh
-```
-
-
-
-* Updates Ubuntu
-* docker-ce
-* docker-compose
-* nginx
-
-### Environment variables 
-
-If you want to change the default installation directory from liveObjectsInstaller :
+#### Obtain a letsencrypt certificate
 
 ```
-export LO_DIR=
+cd liveObjectsInstall
 ```
 
-If you want to use an installer tar file from a specific branch or release :
+--staging 1 if you want to test your config
+--staging 0 if you want to create a production certificate
+
+Note : there a limits per week for production certificates
+
+You might need to run this command as sudo 
 
 ```
-export LO_VERSION=master
+sudo ./getCertificate.sh --domains demo4.liveobjects.rocks --email info@liveobjects.rocks --data-path ./webserver/certbot --staging 0
 ```
 
-## logout 
+#### Certificates
+
+Your certificate and chain have been saved at:
 
 ```
-exit
+./webserver/certbot/conf/live/demo4.liveobjects.rocks/fullchain.pem
 ```
 
-## SSH
-
-so that the docker-compose and profile settings are effective
+Your key file has been saved at:
 
 ```
-gcloud beta compute --project "live-objects-demo" ssh --zone "europe-west4-c" ${INSTANCE}
+./webserver/certbot/conf/live/demo4.liveobjects.rocks/privkey.pem
 ```
 
+### Configure the platform
+
+Ensure you are in the installation folder /liveObjectsInstall to run the configuration script.
+
+This will modify .env.template and copies it to .env 
+
+```
+./config.sh
+```
 
 ## Provision Live Objects
 
 installs Live Objects with the Access Token ( aka TOKEN ) you got from your sales representative
 
 ```
-export TOKEN=eb76b357-cb60-4dae-8d4f-be8f14a7b5ac && cd liveObjectsInstall && ./start.sh
+export TOKEN=eb76b357-cb60-4dae-8d4f-be8f14a7b5ac  && ./start.sh
 ```
 
 or 
@@ -103,57 +212,13 @@ cd liveObjectsInstall
 
 ```
 
-## Optional steps to setup NGINX 
+### Letsencrypt and Certbot if you installed NGINX not in a Docker Container
 
-Create a nginx site
-
-modify the variables on nginx_create_site.sh
-
-check in GCP what your internal IP address is and update the ip address below accordingly same for the DNS name you are using
-
-```
-./nginx_create_site.sh 10.168.0.18  r202020.liveobjects.online
-```
-
-## Update the GCP DNS Settings with the external IP address
-
-### Letsencrypt and Certbot
-
-### sudo letsencrypt --noninteractive -a webroot --webroot-path=/var/www/letsencrypt -m mail@liveobjects.rocks --agree-tos -d demo.liveobjects.rocks
-
-sudo certbot --nginx --noninteractive --redirect -m mail@liveobjects.online --agree-tos -d test1.liveobjects.online
+sudo certbot --nginx --noninteractive --redirect -m mail@liveobjects.rocks --agree-tos -d demo4.liveobjects.rocks
 
 ### check your nginx site 
 
 ```
-sudo cat /etc/nginx/sites/e4.liveobjects.education 
+sudo cat /etc/nginx/sites/demo4.liveobjects.rocks 
 ```
 
-### update docker-compose file
-
-```
-./update_docker_compose.sh 
-```
-
-### restart Live Objects platform
-
-```
-docker-compose down
-```
-
-```
-docker-compose up -d
-```
-
-### NGINX useful commands
-
-#### Checking your Web Server
-
-```
-systemctl status nginx
-```
-
-#### Reloading a changed config
-```
-sudo service nginx reload
-```
