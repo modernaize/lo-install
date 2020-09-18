@@ -2,6 +2,13 @@
 
 ## Google Cloud Platform
 
+Please make sure that you have the latest Google Cloud SDK installed and have valid IAM User with appropiate authorisation to perform all relavnt actions i.e.
+
+* VM Creation
+* DNS Settings
+* Servcie Account usage
+* SSH access
+
 Please adjust the environment variables below according to your project and your needs
 
 Also the name/domain/dns demo4 , demo4.livebobjects.rocks are being used for illustration purposes only and need to be adopted to your own needs.
@@ -115,6 +122,16 @@ exit
 ```
 gcloud beta compute --project ${PROJECT} ssh --zone ${ZONE} ${INSTANCE}
 ```
+
+Make sure that you have sudo rights to execute the scriot without adding sudo to the commands. 
+
+Your can add youself with the following command to the Docker group :
+
+```
+sudo usermod -aG docker ${USER}
+```
+
+After you have added yourself you need to logoff and login again
 
 ### Install LiveObjects Installer 
 #### Latest version
