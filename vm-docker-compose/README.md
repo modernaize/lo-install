@@ -185,7 +185,7 @@ Note : there a limits per week for production certificates
 You might need to run this command as sudo 
 
 ```
-sudo ./getCertificate.sh --domains hud-2.liveobjects.online --email info@liveobjects.online --data-path ./webserver/certbot --staging 1
+sudo ./getCertificate.sh --domains qa1.liveobjects.software --email info@liveobjects.online --data-path ./webserver/certbot --staging 1
 ```
 
 #### Certificates
