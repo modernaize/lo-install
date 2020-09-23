@@ -55,7 +55,7 @@ services:
     image: ${REPOSITORY}/ui:${UI_VERSION}
     container_name: ui
     ports:
-      - "${DEPLOYMENT_PORT}:3000"
+      - "3000:3000"
       - "9991:9991"
     env_file:
       - .env
