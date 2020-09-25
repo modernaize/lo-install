@@ -43,6 +43,11 @@ spec:
           {{- end }}
         {{- end }}
       {{- end }}
+      initContainers:
+      - name: check-db-ready
+        image: {{ .Values.postgresql.image }}
+        command: ['sh', '-c', 
+          'sleep 60']
       containers:
       - name: backend
         image: {{ .Values.deployment.backend.container.registry }}:{{ .Values.deployment.backend.container.tag }}

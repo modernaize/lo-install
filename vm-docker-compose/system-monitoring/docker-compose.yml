@@ -1,4 +1,4 @@
-version: '3.3'
+version: '3.5'
 
 networks:
   default:
@@ -13,7 +13,7 @@ volumes:
 services:
 
   prometheus:
-    image: prom/prometheus:v2.15.2 
+    image: prom/prometheus:v2.19.0 
     container_name: prometheus
     volumes:
       - ./prometheus:/etc/prometheus
@@ -79,7 +79,7 @@ services:
       org.label-schema.group: "monitoring"
 
   grafana:
-    image: grafana/grafana:6.5.3
+    image: grafana/grafana:7.1.1
     container_name: grafana
     volumes:
       - grafana_data:/var/lib/grafana
@@ -87,8 +87,8 @@ services:
     env_file:
       - './grafana/env.grafana'
     restart: unless-stopped
-    expose:
-      - 3000
+    ports :
+      - "4444:3000"
     labels:
       org.label-schema.group: "monitoring"
 
@@ -105,7 +105,6 @@ services:
     image: stefanprodan/caddy:0.10.10
     container_name: caddy
     ports:
-      - "3000:3000"
       - "8080:8080"
       - "9090:9090"
       - "9093:9093"
@@ -119,7 +118,7 @@ services:
       org.label-schema.group: "monitoring"
 
   postgresql-exporter:
-    image: wrouesnel/postgres_exporter
+    image: wrouesnel/postgres_exporter:v0.8.0
     container_name: postgresqlexporter
     ports:
       - 9187:9187
@@ -130,3 +129,4 @@ services:
     restart: unless-stopped
     labels:
       org.label-schema.group: "monitoring"
+

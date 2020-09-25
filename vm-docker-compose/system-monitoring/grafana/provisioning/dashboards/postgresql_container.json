@@ -13,6 +13,9 @@
       ]
     },
     "description": "Dashboard for PostgreSQL Statistics.",
+    "tags": [
+      "postgresql"
+    ],
     "editable": true,
     "gnetId": 6742,
     "graphTooltip": 0,
@@ -2038,7 +2041,6 @@
     ],
     "schemaVersion": 21,
     "style": "dark",
-    "tags": [],
     "templating": {
       "list": [
         {

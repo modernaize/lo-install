@@ -36,4 +36,69 @@ spec:
               {{- else }}
               servicePort: {{ .Values.services.frontend.spec.ports.tlsport }}
               {{- end }}
+          - path: /scenario
+            backend:
+              serviceName: {{ .Release.Name }}-{{ .Values.services.scenario.metadata.name }}
+              {{- if or (eq (lower .Values.lo.sslConfiguration ) "none") (eq (lower .Values.lo.sslConfiguration ) "lets-encrypt")  }}
+              servicePort: {{ .Values.services.scenario.spec.ports.port }}
+              {{- else }}
+              servicePort: {{ .Values.services.scenario.spec.ports.tlsport }}
+              {{- end }}
+          - path: /businessgrammar
+            backend:
+              serviceName: {{ .Release.Name }}-{{ .Values.services.businessgrammar.metadata.name }}
+              {{- if or (eq (lower .Values.lo.sslConfiguration ) "none") (eq (lower .Values.lo.sslConfiguration ) "lets-encrypt")  }}
+              servicePort: {{ .Values.services.businessgrammar.spec.ports.port }}
+              {{- else }}
+              servicePort: {{ .Values.services.businessgrammar.spec.ports.tlsport }}
+              {{- end }}
+          - path: /dyk
+            backend:
+              serviceName: {{ .Release.Name }}-{{ .Values.services.dyk.metadata.name }}
+              {{- if or (eq (lower .Values.lo.sslConfiguration ) "none") (eq (lower .Values.lo.sslConfiguration ) "lets-encrypt")  }}
+              servicePort: {{ .Values.services.dyk.spec.ports.port }}
+              {{- else }}
+              servicePort: {{ .Values.services.dyk.spec.ports.tlsport }}
+              {{- end }}
+          - path: /dashboards
+            backend:
+              serviceName: {{ .Release.Name }}-{{ .Values.services.dashboards.metadata.name }}
+              {{- if or (eq (lower .Values.lo.sslConfiguration ) "none") (eq (lower .Values.lo.sslConfiguration ) "lets-encrypt")  }}
+              servicePort: {{ .Values.services.dashboards.spec.ports.port }}
+              {{- else }}
+              servicePort: {{ .Values.services.dashboards.spec.ports.tlsport }}
+              {{- end }}
+          - path: /extensions
+            backend:
+              serviceName: {{ .Release.Name }}-{{ .Values.services.extensions.metadata.name }}
+              {{- if or (eq (lower .Values.lo.sslConfiguration ) "none") (eq (lower .Values.lo.sslConfiguration ) "lets-encrypt")  }}
+              servicePort: {{ .Values.services.extensions.spec.ports.port }}
+              {{- else }}
+              servicePort: {{ .Values.services.extensions.spec.ports.tlsport }}
+              {{- end }}
+          - path: /discoveryautojoin
+            backend:
+              serviceName: {{ .Release.Name }}-{{ .Values.services.discoveryautojoin.metadata.name }}
+              {{- if or (eq (lower .Values.lo.sslConfiguration ) "none") (eq (lower .Values.lo.sslConfiguration ) "lets-encrypt")  }}
+              servicePort: {{ .Values.services.discoveryautojoin.spec.ports.port }}
+              {{- else }}
+              servicePort: {{ .Values.services.discoveryautojoin.spec.ports.tlsport }}
+              {{- end }}
+          - path: /documentation
+            backend:
+              serviceName: {{ .Release.Name }}-{{ .Values.services.documentation.metadata.name }}
+              {{- if or (eq (lower .Values.lo.sslConfiguration ) "none") (eq (lower .Values.lo.sslConfiguration ) "lets-encrypt")  }}
+              servicePort: {{ .Values.services.documentation.spec.ports.port }}
+              {{- else }}
+              servicePort: {{ .Values.services.documentation.spec.ports.tlsport }}
+              {{- end }}
+          - path: /wdc
+            backend:
+              serviceName: {{ .Release.Name }}-{{ .Values.services.wdc.metadata.name }}
+              {{- if or (eq (lower .Values.lo.sslConfiguration ) "none") (eq (lower .Values.lo.sslConfiguration ) "lets-encrypt")  }}
+              servicePort: {{ .Values.services.wdc.spec.ports.port }}
+              {{- else }}
+              servicePort: {{ .Values.services.wdc.spec.ports.tlsport }}
+              {{- end }}
+
 {{- end }}

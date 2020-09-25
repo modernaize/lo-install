@@ -1,6 +1,10 @@
-# Live Objects
+liveobjects
+===========
+A Helm chart for Kubernetes to deploy the Live Objects Platform
 
-## Prerequisites
+Current chart version is `2020.2.19`
+
+## Additional Information
 
 for your deployment environment :
 
@@ -103,10 +107,6 @@ kubectl create namespace l2
 ```
 
 ```
-./gcp-env-create.sh -d e2.liveobjects.education -n l2
-```
-
-```
 helm install lo ./ \
 --set ingress.tls.host=r-v181.liveobjects.online \
 --set persistence.enabled=false \
@@ -129,37 +129,171 @@ helm upgrade lo-demo1 ./ \
 -n=demo1
 ```
 
-## Parameters
+## Chart Values
 
-The following tables lists the configurable parameters of the Live Objects Platform chart and their default values.
+| Key | Type | Default | Description |
+|-----|------|---------|-------------|
+| certManager.allowExternal | bool | `true` |  |
+| certManager.ca.name | string | `"letsencrypt"` |  |
+| certManager.letsencrypt.env | string | `"prod"` |  |
+| certManager.letsencrypt.spec.acme.email | string | `"info@liveobjects.education"` |  |
+| certManager.letsencrypt.spec.acme.serverProd | string | `"https://acme-v02.api.letsencrypt.org/directory"` |  |
+| certManager.letsencrypt.spec.acme.serverStaging | string | `"https://acme-staging.api.letsencrypt.org/directory"` |  |
+| certManager.tls.secretName | string | `"lo-tls"` |  |
+| deployment.backend.container.imagePullPolicy | string | `"Always"` |  |
+| deployment.backend.container.ports.containerPort | int | `8000` |  |
+| deployment.backend.container.registry | string | `"liveobjects/service"` |  |
+| deployment.backend.container.resources.requests.cpu | string | `"200m"` |  |
+| deployment.backend.container.resources.requests.memory | string | `"1G"` |  |
+| deployment.backend.container.tag | string | `"P-v2020.2.0"` |  |
+| deployment.backend.enabled | bool | `true` |  |
+| deployment.backend.metadata.name | string | `"backend-deployment"` |  |
+| deployment.backend.spec.replicas | int | `1` |  |
+| deployment.frontend.container.imagePullPolicy | string | `"Always"` |  |
+| deployment.frontend.container.ports.containerPort | int | `3000` |  |
+| deployment.frontend.container.registry | string | `"liveobjects/ui"` |  |
+| deployment.frontend.container.resources.requests.cpu | string | `"200m"` |  |
+| deployment.frontend.container.resources.requests.memory | string | `"1G"` |  |
+| deployment.frontend.container.tag | string | `"P-v2020.2.6"` |  |
+| deployment.frontend.enabled | bool | `true` |  |
+| deployment.frontend.metadata.name | string | `"frontend-deployment"` |  |
+| deployment.frontend.spec.replicas | int | `1` |  |
+| deployment.learn.container.imagePullPolicy | string | `"Always"` |  |
+| deployment.learn.container.ports.containerPort | int | `5000` |  |
+| deployment.learn.container.registry | string | `"liveobjects/learn"` |  |
+| deployment.learn.container.resources.requests.cpu | string | `"200m"` |  |
+| deployment.learn.container.resources.requests.memory | string | `"1G"` |  |
+| deployment.learn.container.tag | string | `"P-v2020.2.0"` |  |
+| deployment.learn.enabled | bool | `true` |  |
+| deployment.learn.metadata.name | string | `"learn-deployment"` |  |
+| deployment.learn.spec.replicas | int | `1` |  |
+| deployment.license.container.imagePullPolicy | string | `"Always"` |  |
+| deployment.license.container.ports.containerPort | int | `3001` |  |
+| deployment.license.container.registry | string | `"liveobjects/license-service"` |  |
+| deployment.license.container.resources.requests.cpu | string | `"200m"` |  |
+| deployment.license.container.resources.requests.memory | string | `"1G"` |  |
+| deployment.license.container.tag | string | `"D-develop"` |  |
+| deployment.license.enabled | bool | `true` |  |
+| deployment.license.healthcheckHttps | bool | `false` |  |
+| deployment.license.livenessProbe.enabled | bool | `false` |  |
+| deployment.license.livenessProbe.failureThreshold | int | `6` |  |
+| deployment.license.livenessProbe.initialDelaySeconds | int | `120` |  |
+| deployment.license.livenessProbe.path | string | `"/live"` |  |
+| deployment.license.livenessProbe.periodSeconds | int | `10` |  |
+| deployment.license.livenessProbe.successThreshold | int | `1` |  |
+| deployment.license.livenessProbe.timeoutSeconds | int | `5` |  |
+| deployment.license.metadata.name | string | `"license-deployment"` |  |
+| deployment.license.readinessProbe.enabled | bool | `false` |  |
+| deployment.license.readinessProbe.failureThreshold | int | `6` |  |
+| deployment.license.readinessProbe.initialDelaySeconds | int | `30` |  |
+| deployment.license.readinessProbe.path | string | `"/ready"` |  |
+| deployment.license.readinessProbe.periodSeconds | int | `10` |  |
+| deployment.license.readinessProbe.successThreshold | int | `1` |  |
+| deployment.license.readinessProbe.timeoutSeconds | int | `5` |  |
+| deployment.license.spec.replicas | int | `1` |  |
+| deployment.postgres.container.imagePullPolicy | string | `"Always"` |  |
+| deployment.postgres.container.ports.containerPort | int | `5432` |  |
+| deployment.postgres.container.registry | string | `"liveobjects/postgres"` |  |
+| deployment.postgres.container.resources.requests.cpu | string | `"200m"` |  |
+| deployment.postgres.container.resources.requests.memory | string | `"1G"` |  |
+| deployment.postgres.container.tag | string | `"P-v2020.2.0"` |  |
+| deployment.postgres.enabled | bool | `true` |  |
+| deployment.postgres.metadata.name | string | `"postgre-deployment"` |  |
+| deployment.postgres.spec.replicas | int | `1` |  |
+| global.backend.enabled | bool | `true` |  |
+| global.configMap | bool | `true` |  |
+| global.dockerSecret | bool | `true` |  |
+| global.frontend.enabled | bool | `true` |  |
+| global.gcp | string | `nil` |  |
+| global.image.registry | string | `"docker.io"` |  |
+| global.image.repository | string | `"liveobjects"` |  |
+| global.ingress | bool | `false` |  |
+| global.labels.track | string | `"stable"` |  |
+| global.learn.enabled | bool | `true` |  |
+| global.license.enabled | bool | `true` |  |
+| global.networkPolicy | bool | `false` |  |
+| global.postrgre.enabled | bool | `true` |  |
+| global.resourceQuotas | bool | `false` |  |
+| ingress.annotations | object | `{}` |  |
+| ingress.name | string | `"frontend-ingress"` |  |
+| ingress.tls.host | string | `nil` |  |
+| lo.sslConfiguration | string | `"none"` |  |
+| loServer.existingSecret | string | `"lologin"` |  |
+| loServer.password.length | int | `20` |  |
+| loServer.user.adminPassword | string | `nil` |  |
+| loServer.user.license_adminPassword | string | `nil` |  |
+| loServer.user.rootPassword | string | `nil` |  |
+| loServer.user.system_adminPassword | string | `nil` |  |
+| metrics.exporter.enabled | bool | `false` |  |
+| metrics.image | string | `nil` |  |
+| persistence.accessMode | string | `"ReadWriteOnce"` |  |
+| persistence.storageClass | string | `"standard"` |  |
+| postgresql.cpu | string | `"1000m"` |  |
+| postgresql.existingSecret | string | `"postgreslogin"` |  |
+| postgresql.exporter.image | string | `"gcr.io/cloud-marketplace/google/gitlab/postgresql-exporter:12.9"` |  |
+| postgresql.image | string | `"liveobjects/postgres:P-v2020.2.0"` |  |
+| postgresql.memory | string | `"1Gi"` |  |
+| postgresql.password.length | int | `20` |  |
+| postgresql.persistence.size | string | `"8Gi"` |  |
+| postgresql.postgresDatabase | string | `"liveobjects"` |  |
+| postgresql.postgresqlPassword | string | `nil` |  |
+| postgresql.username | string | `"liveobjects"` |  |
+| secrets.registry.imagePullSecrets | string | `"regcred"` |  |
+| services.backend.enabled | bool | `true` |  |
+| services.backend.metadata.name | string | `"backend-svc"` |  |
+| services.backend.spec.ports.port | int | `8000` |  |
+| services.backend.spec.ports.protocol | string | `"TCP"` |  |
+| services.backend.spec.ports.targetPort | int | `8000` |  |
+| services.backend.spec.selector.app | string | `"backend"` |  |
+| services.backend.spec.type | string | `"ClusterIP"` |  |
+| services.frontend.enabled | bool | `true` |  |
+| services.frontend.metadata.annotations | object | `{}` |  |
+| services.frontend.metadata.name | string | `"frontend-svc"` |  |
+| services.frontend.spec.ports.port | int | `80` |  |
+| services.frontend.spec.ports.protocol | string | `"TCP"` |  |
+| services.frontend.spec.ports.targetPort | int | `3000` |  |
+| services.frontend.spec.ports.tlsport | int | `443` |  |
+| services.frontend.spec.selector.app | string | `"frontend"` |  |
+| services.frontend.spec.type | string | `"ClusterIP"` |  |
+| services.learn.enabled | bool | `true` |  |
+| services.learn.metadata.name | string | `"learn-svc"` |  |
+| services.learn.spec.ports.port | int | `5000` |  |
+| services.learn.spec.ports.protocol | string | `"TCP"` |  |
+| services.learn.spec.ports.targetPort | int | `5000` |  |
+| services.learn.spec.selector.app | string | `"learn"` |  |
+| services.learn.spec.type | string | `"ClusterIP"` |  |
+| services.license.enabled | bool | `true` |  |
+| services.license.metadata.annotations | object | `{}` |  |
+| services.license.metadata.name | string | `"license-svc"` |  |
+| services.license.spec.ports.port | int | `3001` |  |
+| services.license.spec.ports.protocol | string | `"TCP"` |  |
+| services.license.spec.ports.targetPort | int | `3001` |  |
+| services.license.spec.ports.tlsport | int | `443` |  |
+| services.license.spec.selector.app | string | `"license"` |  |
+| services.license.spec.type | string | `"ClusterIP"` |  |
+| services.postgres.enabled | bool | `true` |  |
+| services.postgres.metadata.name | string | `"postgresql-svc"` |  |
+| services.postgres.spec.clusterIP | string | `"None"` |  |
+| services.postgres.spec.ports.port | int | `5432` |  |
+| services.postgres.spec.ports.protocol | string | `"TCP"` |  |
+| services.postgres.spec.ports.targetPort | int | `5432` |  |
+| services.postgres.spec.selector.app | string | `"postgres"` |  |
+| services.postgres.spec.type | string | `"ClusterIP"` |  |
+| tls.base64EncodedCertificate | string | `nil` |  |
+| tls.base64EncodedPrivateKey | string | `nil` |  |
 
-|                   Parameter                   |                                                                                Description                                                                                |                            Default                            |
-|-----------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------|
-| `persistence.enabled`                           | Persistence enabled                                   | `true`                                                         |
-| `services.postgres.spec.type`                   | Persistence enabled                              |`ClusterIP`                                                         |
-| `ingress.enabled`                           | Ingress enabled                                     | `true`                                                         |
-| `cert-manager.enabled`                      | Certification Manager enabled                       | `true`                                                         |
-| `global.image.registry`                | Registry name                          | docker.io |
-| `global.image.repository`              | Registry name                           | liveobjects |
-| `secrets.registry.imagePullSecrets`    | Name of the secret name                 | regcred |
-| `tls_cert_provided`                    | TLS provided by Live Objects                 | false |
-| `certManager.enabled`                    |                 | true |
-| `certManager.tls.secretName`                    |                 | lo-tls |
-| `certManager.ca.name`                    |                 | letsencrypt |
-| `certManager.ca.letsencrypt.env`                    |         prod or staging         | info@liveobjects.rocks |
-| `certManager.ca.letsencrypt.spec.acme.serverProd`                    |         prod or staging         |  https://acme-v02.api.letsencrypt.org/directory |
-| `certManager.ca.letsencrypt.spec.acme.serverStaging`                    |         prod or staging         | https://acme-staging.api.letsencrypt.org/directory
- |
-| `networkPolicy.enabled`                    |                 | false |
-| `resourceQuotas.enabled`                    |                 | false |
-| `ingress.enabled`                    |                 | true |
-| `ingress.tls`                    |                 | [] |
-| `ingress.annotations`                    |                 | {} |
-| `ingress.name`                    |                 | frontend-ingress |
-| `deployment`                    |                 |  |
-| `persistence`                    |                 |  |
-| `services`                    |                 |  |
-| `postgresql.existingSecret`                    |   PostgreSQL password using existing secret              | postgreslogin |
+## Work with charts repositories
 
+From here you'll want to add the repository to Helm so you can use it
 
-[Misc](./docs/misc.md)
+```
+helm repo add liveobjects-prod https://liveobjectsai.github.io/lo-install/
+```
+
+```
+helm repo update
+```
+
+```
+helm search repo liveobjects
+```

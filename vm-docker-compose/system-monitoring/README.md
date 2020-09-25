@@ -4,7 +4,7 @@ docker-compose up -d
 
 ## Grafana UI
 
-http://localhost:3000
+http://localhost:4444
 
 admin | admin
 

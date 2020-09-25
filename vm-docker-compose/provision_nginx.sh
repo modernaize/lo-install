@@ -18,7 +18,7 @@
         sudo sed -i 's/sites-enabled/sites/' /etc/nginx/nginx.conf
 
         sudo apt-get -y install software-properties-common
-        sudo add-apt-repository -y ppa:certbot/certbot
+        #sudo add-apt-repository -y ppa:certbot/certbot
         sudo apt-get update
         sudo apt-get -y install python3-certbot-nginx
         sudo apt-get -y install letsencrypt
