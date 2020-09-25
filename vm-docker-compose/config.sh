@@ -468,7 +468,8 @@ export LANG=C
                     cp ./templates/.nginx-docker-ssl.template ./nginx/sites/${DEPLOY_URL}
                     sed -i'.org' "s/${REPL_DEPLOY_URL}/${DEPLOY_URL}/g" ./nginx/sites/${DEPLOY_URL}
                 fi
-
+                rm ./nginx/sites/${DEPLOY_URL}.org
+                
                 cat ./templates/.docker-compose-nginx.template >> ./docker-compose.yml
                 
                 if [[ "${CERTBOT_DOCKER}" == "y" ]]; then
