@@ -50,6 +50,10 @@ upstream learningcenterautojoin {
   server learningcenterautojoin:3000;
 }
 
+upstream portainer {
+        server portainer:9000;
+}
+
 server {
 
         listen [::]:443 ssl ipv6only=on; 
@@ -150,6 +154,19 @@ server {
                 proxy_pass http://learningcenterautojoin;
                 proxy_set_header Host $host;
                 proxy_http_version 1.1;
+        }
+
+        location /portainer/ {
+                proxy_http_version 1.1;
+                proxy_set_header Connection "";
+                proxy_pass http://portainer/;
+        }
+
+        location /portainer/api/websocket/ {
+                proxy_set_header Upgrade $http_upgrade;
+                proxy_set_header Connection "upgrade";
+                proxy_http_version 1.1;
+                proxy_pass http://portainer/api/websocket/;
         }
 
 }
