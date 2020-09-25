@@ -66,7 +66,7 @@
       org.label-schema.group: "monitoring"
 
   grafana:
-    image: grafana/grafana:7.1.1
+    image: grafana/grafana:7.2.0
     container_name: grafana
     volumes:
       - grafana_data:/var/lib/grafana
@@ -74,8 +74,8 @@
     env_file:
       - ./.env
     restart: unless-stopped
-    ports :
-      - "4444:3000"
+    expose:
+      - 3001
     labels:
       org.label-schema.group: "monitoring"
 
