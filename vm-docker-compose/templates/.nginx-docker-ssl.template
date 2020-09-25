@@ -34,6 +34,22 @@ upstream discoveryautojoin {
   server discoveryautojoin:3000;
 }
 
+upstream storytelling {
+  server storytelling:3000;
+}
+
+upstream jobscheduler {
+  server jobscheduler:3000;
+}
+
+upstream workschedule {
+  server workschedule:3000;
+}
+
+upstream learningcenterautojoin {
+  server learningcenterautojoin:3000;
+}
+
 server {
 
         listen [::]:443 ssl ipv6only=on; 
@@ -111,6 +127,31 @@ server {
                 proxy_set_header Host $host;
                 proxy_http_version 1.1;
         }
+
+        location /rp-storytelling/ {
+                proxy_pass http://storytelling;
+                proxy_set_header Host $host;
+                proxy_http_version 1.1;
+        }
+
+        location /rp-jobscheduler/ {
+                proxy_pass http://jobscheduler;
+                proxy_set_header Host $host;
+                proxy_http_version 1.1;
+        }
+        
+        location /rp-workschedule/ {
+                proxy_pass http://workschedule;
+                proxy_set_header Host $host;
+                proxy_http_version 1.1;
+        }
+
+        location /rp-learningcenterautojoin/ {
+                proxy_pass http://learningcenterautojoin;
+                proxy_set_header Host $host;
+                proxy_http_version 1.1;
+        }
+
 }
 
 
