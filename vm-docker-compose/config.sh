@@ -462,11 +462,11 @@ export LANG=C
                 if [[ "${PROTOCOL_INGRESS}" == "http" ]]; then
                     readonly REPL_DEPLOY_URL=domain
                     cp ./templates/.nginx-docker.template ./nginx/sites/${DEPLOY_URL}
-                    sed -i "s/${REPL_DEPLOY_URL}/${DEPLOY_URL}/g" ./nginx/sites/${DEPLOY_URL}
+                    sed -i'.org' "s/${REPL_DEPLOY_URL}/${DEPLOY_URL}/g" ./nginx/sites/${DEPLOY_URL}
                 else 
                     readonly REPL_DEPLOY_URL=domain
                     cp ./templates/.nginx-docker-ssl.template ./nginx/sites/${DEPLOY_URL}
-                    sed -i "s/${REPL_DEPLOY_URL}/${DEPLOY_URL}/g" ./nginx/sites/${DEPLOY_URL}
+                    sed -i'.org' "s/${REPL_DEPLOY_URL}/${DEPLOY_URL}/g" ./nginx/sites/${DEPLOY_URL}
                 fi
 
                 cat ./templates/.docker-compose-nginx.template >> ./docker-compose.yml
