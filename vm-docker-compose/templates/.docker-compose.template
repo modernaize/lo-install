@@ -223,6 +223,70 @@ services:
       timeout: 5s
       retries: 3
 
+  storytelling:
+    image: ${REPOSITORY}/lo-ui-story-telling:${UI_STORYTELLING_VERSION}
+    container_name: storytelling
+    ports:
+      - "3011:3000"
+    env_file:
+      - ./.env
+    volumes:
+      - ${LOGS_DIR}/logs/storytelling:/home/node/app/logs
+    restart: always
+    healthcheck:
+      test: ["CMD", "curl", "-k", "-f", "${PROTOCOL}://storytelling:3000/live"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+  jobscheduler:
+    image: ${REPOSITORY}/lo-ui-job-scheduler:${UI_JOBSCHEDULER_VERSION}
+    container_name: jobscheduler
+    ports:
+      - "3012:3000"
+    env_file:
+      - ./.env
+    volumes:
+      - ${LOGS_DIR}/logs/jobscheduler:/home/node/app/logs
+    restart: always
+    healthcheck:
+      test: ["CMD", "curl", "-k", "-f", "${PROTOCOL}://jobscheduler:3000/live"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+  workschedule:
+    image: ${REPOSITORY}/lo-ui-work-schedule:${UI_WORKSCHEDULE_VERSION}
+    container_name: workschedule
+    ports:
+      - "3013:3000"
+    env_file:
+      - ./.env
+    volumes:
+      - ${LOGS_DIR}/logs/workschedule:/home/node/app/logs
+    restart: always
+    healthcheck:
+      test: ["CMD", "curl", "-k", "-f", "${PROTOCOL}://workschedule:3000/live"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+  learningcenterautojoin:
+    image: ${REPOSITORY}/lo-ui-learning-center-autojoin:${UI_LEARNINGCENTER_AUTOJOIN_VERSION}
+    container_name: learningcenterautojoin
+    ports:
+      - "3014:3000"
+    env_file:
+      - ./.env
+    volumes:
+      - ${LOGS_DIR}/logs/learningcenterautojoin:/home/node/app/logs
+    restart: always
+    healthcheck:
+      test: ["CMD", "curl", "-k", "-f", "${PROTOCOL}://learningcenterautojoin:3000/live"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
   serviceautojoin:
     image: ${REPOSITORY}/autojoin:${AUTOJOIN_VERSION}
     container_name: serviceautojoin
