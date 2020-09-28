@@ -294,7 +294,7 @@ deployment:
     metadata:
       name: storytelling-deployment
     container:
-      registry: liveobjects/lo-ui-storytelling
+      registry: liveobjects/lo-ui-story-telling
       tag: "D-develop"
       # Always IfNotPresent
       imagePullPolicy: "Always"
@@ -311,7 +311,7 @@ deployment:
     metadata:
       name: workscheduler-deployment
     container:
-      registry: liveobjects/lo-ui-workscheduler
+      registry: liveobjects/lo-ui-work-scheduler
       tag: "D-develop"
       # Always IfNotPresent
       imagePullPolicy: "Always"
@@ -326,9 +326,9 @@ deployment:
   learningcenterautojoin:
     enabled: true
     metadata:
-      name: learningcenterautojoin-deployment
+      name: learningcenter-autojoin-deployment
     container:
-      registry: liveobjects/lo-ui-learningcenterautojoin
+      registry: liveobjects/lo-ui-learning-center-autojoin
       tag: "D-develop"
       # Always IfNotPresent
       imagePullPolicy: "Always"
@@ -347,7 +347,7 @@ deployment:
     metadata:
       name: jobscheduler-deployment
     container:
-      registry: liveobjects/lo-ui-jobscheduler
+      registry: liveobjects/lo-ui-job-scheduler
       tag: "D-develop"
       # Always IfNotPresent
       imagePullPolicy: "Always"
