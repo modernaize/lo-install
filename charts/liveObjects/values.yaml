@@ -113,7 +113,7 @@ deployment:
       name: postgre-deployment
     container:
       registry: liveobjects/postgres
-      tag: "R-2020.3.0"
+      tag: "P-v2020.3.0"
       # Always IfNotPresent
       imagePullPolicy: "Always"
       resources:
@@ -130,7 +130,7 @@ deployment:
       name: frontend-deployment
     container:
       registry: liveobjects/ui
-      tag: "R-2020.3.0"
+      tag: "P-v2020.3.0"
       # Always IfNotPresent
       imagePullPolicy: "Always"
       resources:
@@ -148,7 +148,7 @@ deployment:
       name: scenario-deployment
     container:
       registry: liveobjects/lo-ui-scenario
-      tag: "R-2020.3.0"
+      tag: "H-lo-1261"
       # Always IfNotPresent
       imagePullPolicy: "Always"
       resources:
@@ -165,7 +165,7 @@ deployment:
       name: businessgrammar-deployment
     container:
       registry: liveobjects/lo-ui-business-grammar
-      tag: "R-2020.3.0"
+      tag: "H-lo-1261"
       # Always IfNotPresent
       imagePullPolicy: "Always"
       resources:
@@ -183,7 +183,7 @@ deployment:
       name: dyk-deployment
     container:
       registry: liveobjects/lo-ui-dyk
-      tag: "R-2020.3.0"
+      tag: "H-lo-1261"
       # Always IfNotPresent
       imagePullPolicy: "Always"
       resources:
@@ -200,7 +200,7 @@ deployment:
       name: wdc-deployment
     container:
       registry: liveobjects/lo-tableau-wdc
-      tag: "R-2020.3.0"
+      tag: "P-v2020.3.0"
       # Always IfNotPresent
       imagePullPolicy: "Always"
       resources:
@@ -211,13 +211,14 @@ deployment:
         containerPort: 3000
     spec:
       replicas: 1
+
   discoveryautojoin:
     enabled: true
     metadata:
       name: discoveryautojoin-deployment
     container:
       registry: liveobjects/lo-ui-discovery-autojoin
-      tag: "R-2020.3.0"
+      tag: "H-lo-1261"
       # Always IfNotPresent
       imagePullPolicy: "Always"
       resources:
@@ -234,7 +235,7 @@ deployment:
       name: documentation-deployment
     container:
       registry: liveobjects/lo-ui-documentation
-      tag: "R-2020.3.0"
+      tag: "H-lo-1261"
       # Always IfNotPresent
       imagePullPolicy: "Always"
       resources:
@@ -253,7 +254,7 @@ deployment:
       name: extensions-deployment
     container:
       registry: liveobjects/lo-ui-extensions
-      tag: "R-2020.3.0"
+      tag: "H-lo-1261"
       # Always IfNotPresent
       imagePullPolicy: "Always"
       resources:
@@ -271,7 +272,7 @@ deployment:
       name: dashboards-deployment
     container:
       registry: liveobjects/lo-ui-dashboards
-      tag: "R-2020.3.0"
+      tag: "H-lo-1261"
       # Always IfNotPresent
       imagePullPolicy: "Always"
       resources:
@@ -290,7 +291,7 @@ deployment:
       name: license-deployment
     container: 
       registry: liveobjects/lo-license-service
-      tag: "R-2020.3.0"
+      tag: "P-v2020.3.0"
           # Always IfNotPresent
       imagePullPolicy: "Always"
       resources:
@@ -330,7 +331,7 @@ deployment:
       name: backend-deployment
     container:
       registry: liveobjects/service
-      tag: "R-2020.3.0"
+      tag: "P-v2020.3.0"
       # Always IfNotPresent
       imagePullPolicy: "Always"
       resources:
@@ -348,7 +349,7 @@ deployment:
       name: learn-deployment
     container:
       registry: liveobjects/learn
-      tag: "R-2020.3.0"
+      tag: "P-v2020.3.0"
       # Always IfNotPresent
       imagePullPolicy: "Always"
       resources:
@@ -366,7 +367,7 @@ deployment:
       name: autojoin-deployment
     container:
       registry: liveobjects/autojoin
-      tag: "R-2020.3.0"
+      tag: "P-v2020.3.0"
       # Always IfNotPresent
       imagePullPolicy: "Always"
       resources:
@@ -885,7 +886,7 @@ loServer:
     
 ## Configuration values for the PostgreSQL server.
 postgresql:
-  image: liveobjects/postgres:P-v2020.2.0
+  image: liveobjects/postgres:P-v2020.3.0
 
   exporter:
     image: gcr.io/cloud-marketplace/google/gitlab/postgresql-exporter:12.9

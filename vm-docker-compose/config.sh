@@ -417,7 +417,7 @@ export LANG=C
             input_PROTOCOL
         fi
         #input deployment port
-        input_DEPLOYMENT_PORT
+        #input_DEPLOYMENT_PORT
 
         # chcek if it is for upgrade
         input_UPGRADE
@@ -504,8 +504,8 @@ export LANG=C
 
         fi
 
-        sed -i'.org' "s/DEPLOYMENT_PORT=443/DEPLOYMENT_PORT=$DEPLOYMENT_PORT/" .env
-        rm .env.org
+        #sed -i'.org' "s/DEPLOYMENT_PORT=443/DEPLOYMENT_PORT=$DEPLOYMENT_PORT/" .env
+        #rm .env.org
     }
 
   main @1
