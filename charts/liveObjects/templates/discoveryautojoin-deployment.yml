@@ -53,6 +53,10 @@ spec:
           value: "{{ .Values.services.backend.spec.ports.targetPort }}"
         - name: NODE_ENV
           value: "production"
+        - name: AUTOJOIN_HOST
+          value: "{{ .Release.Name }}-{{ .Values.services.autojoin.metadata.name }}"
+        - name: AUTOJOIN_PORT
+          value: "{{ .Values.services.autojoin.spec.ports.targetPort }}"
         # To Do for SSL disabled
         - name:  TLS_CERT_PROVIDED
         ## [none] SSL - disabled
