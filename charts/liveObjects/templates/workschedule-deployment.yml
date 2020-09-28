@@ -2,7 +2,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ .Release.Name }}-{{ .Values.deployment.workscheduler.metadata.name }}
+  name: {{ .Release.Name }}-{{ .Values.deployment.workschedule.metadata.name }}
   labels:
     app.kubernetes.io/managed-by: helm
     app.kubernetes.io/name: {{ .Release.Name }}
@@ -13,14 +13,14 @@ metadata:
     app.kubernetes.io/namespace: {{ .Release.Namespace }}
     app.kubernetes.io/track: {{ .Values.global.labels.track | quote }}
 spec:
-  replicas: {{ .Values.deployment.workscheduler.spec.replicas }}
+  replicas: {{ .Values.deployment.workschedule.spec.replicas }}
   selector:
     matchLabels:
-      app: {{ .Release.Name }}-workscheduler
+      app: {{ .Release.Name }}-workschedule
   template:
     metadata:
       labels:
-        app: {{ .Release.Name }}-workscheduler
+        app: {{ .Release.Name }}-workschedule
     spec:
       volumes:
       - name: tls-keys-volume
@@ -31,15 +31,15 @@ spec:
           name: {{ .Release.Name }}-tls-keys
           {{- end }}
       containers:
-      - name: workscheduler
-        image: {{ .Values.deployment.workscheduler.container.registry }}:{{ .Values.deployment.workscheduler.container.tag }}
-        imagePullPolicy: {{ .Values.deployment.workscheduler.container.imagePullPolicy }}
+      - name: workschedule
+        image: {{ .Values.deployment.workschedule.container.registry }}:{{ .Values.deployment.workschedule.container.tag }}
+        imagePullPolicy: {{ .Values.deployment.workschedule.container.imagePullPolicy }}
         resources:
           requests:
-            cpu: {{ .Values.deployment.workscheduler.container.resources.requests.cpu }}
-            memory: {{ .Values.deployment.workscheduler.container.resources.requests.memory }}
+            cpu: {{ .Values.deployment.workschedule.container.resources.requests.cpu }}
+            memory: {{ .Values.deployment.workschedule.container.resources.requests.memory }}
         ports:
-        - containerPort: {{ .Values.deployment.workscheduler.container.ports.containerPort }}
+        - containerPort: {{ .Values.deployment.workschedule.container.ports.containerPort }}
         env:
         {{- if .Values.ingress.tls.host }}
         - name: DEPLOY_URL

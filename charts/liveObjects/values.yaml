@@ -40,7 +40,7 @@ global:
     enabled: true
   jobscheduler:
     enabled: true
-  workscheduler:
+  workschedule:
     enabled: true
   learningcenterautojoin:
     enabled: true
@@ -306,12 +306,12 @@ deployment:
         containerPort: 3000
     spec:
       replicas: 1
-  workscheduler:
+  workschedule:
     enabled: true
     metadata:
-      name: workscheduler-deployment
+      name: workschedule-deployment
     container:
-      registry: liveobjects/lo-ui-work-scheduler
+      registry: liveobjects/lo-ui-work-schedule
       tag: "D-develop"
       # Always IfNotPresent
       imagePullPolicy: "Always"
@@ -945,10 +945,10 @@ services:
 # lo.sslConfiguration = slef-signed
         tlsport: 443
         targetPort: 3000
-  workscheduler:
+  workschedule:
     enabled: true
     metadata:
-      name: workscheduler-svc
+      name: workschedule-svc
 
       annotations: {}
       # alb.ingress.kubernetes.io/scheme: internet-facing, 
@@ -956,7 +956,7 @@ services:
 
     spec:
       selector: 
-        app: workscheduler
+        app: workschedule
       type: ClusterIP
       ports:
         protocol: TCP

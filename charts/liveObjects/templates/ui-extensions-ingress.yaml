@@ -2,7 +2,7 @@
 apiVersion: networking.k8s.io/v1beta1 # for versions before 1.14 use extensions/v1beta1
 kind: Ingress
 metadata:
-  name: {{ .Release.Name }}-frontend-ingress
+  name: {{ .Release.Name }}-ui-extensions-ingress
   annotations:
   {{- if eq (lower .Values.lo.sslConfiguration) "lets-encrypt" }}
     cert-manager.io/cluster-issuer: {{ .Release.Namespace }}-{{ .Values.certManager.ca.name }}-{{ .Values.certManager.letsencrypt.env }}
@@ -28,15 +28,7 @@ spec:
     - host: {{ .Values.ingress.tls.host }}
       http:
         paths: 
-          - path: /
-            backend:
-              serviceName: {{ .Release.Name }}-{{ .Values.services.frontend.metadata.name }}
-              {{- if or (eq (lower .Values.lo.sslConfiguration ) "none") (eq (lower .Values.lo.sslConfiguration ) "lets-encrypt")  }}
-              servicePort: {{ .Values.services.frontend.spec.ports.port }}
-              {{- else }}
-              servicePort: {{ .Values.services.frontend.spec.ports.tlsport }}
-              {{- end }}
-          - path: /scenario
+          - path: /rp-scenario
             backend:
               serviceName: {{ .Release.Name }}-{{ .Values.services.scenario.metadata.name }}
               {{- if or (eq (lower .Values.lo.sslConfiguration ) "none") (eq (lower .Values.lo.sslConfiguration ) "lets-encrypt")  }}
@@ -44,7 +36,7 @@ spec:
               {{- else }}
               servicePort: {{ .Values.services.scenario.spec.ports.tlsport }}
               {{- end }}
-          - path: /businessgrammar
+          - path: /rp-businessgrammar
             backend:
               serviceName: {{ .Release.Name }}-{{ .Values.services.businessgrammar.metadata.name }}
               {{- if or (eq (lower .Values.lo.sslConfiguration ) "none") (eq (lower .Values.lo.sslConfiguration ) "lets-encrypt")  }}
@@ -52,7 +44,7 @@ spec:
               {{- else }}
               servicePort: {{ .Values.services.businessgrammar.spec.ports.tlsport }}
               {{- end }}
-          - path: /dyk
+          - path: /rp-dyk
             backend:
               serviceName: {{ .Release.Name }}-{{ .Values.services.dyk.metadata.name }}
               {{- if or (eq (lower .Values.lo.sslConfiguration ) "none") (eq (lower .Values.lo.sslConfiguration ) "lets-encrypt")  }}
@@ -60,7 +52,7 @@ spec:
               {{- else }}
               servicePort: {{ .Values.services.dyk.spec.ports.tlsport }}
               {{- end }}
-          - path: /dashboards
+          - path: /rp-dashboards
             backend:
               serviceName: {{ .Release.Name }}-{{ .Values.services.dashboards.metadata.name }}
               {{- if or (eq (lower .Values.lo.sslConfiguration ) "none") (eq (lower .Values.lo.sslConfiguration ) "lets-encrypt")  }}
@@ -68,7 +60,7 @@ spec:
               {{- else }}
               servicePort: {{ .Values.services.dashboards.spec.ports.tlsport }}
               {{- end }}
-          - path: /extensions
+          - path: /rp-extensions
             backend:
               serviceName: {{ .Release.Name }}-{{ .Values.services.extensions.metadata.name }}
               {{- if or (eq (lower .Values.lo.sslConfiguration ) "none") (eq (lower .Values.lo.sslConfiguration ) "lets-encrypt")  }}
@@ -76,7 +68,7 @@ spec:
               {{- else }}
               servicePort: {{ .Values.services.extensions.spec.ports.tlsport }}
               {{- end }}
-          - path: /discoveryautojoin
+          - path: /rp-autojoin
             backend:
               serviceName: {{ .Release.Name }}-{{ .Values.services.discoveryautojoin.metadata.name }}
               {{- if or (eq (lower .Values.lo.sslConfiguration ) "none") (eq (lower .Values.lo.sslConfiguration ) "lets-encrypt")  }}
@@ -84,7 +76,7 @@ spec:
               {{- else }}
               servicePort: {{ .Values.services.discoveryautojoin.spec.ports.tlsport }}
               {{- end }}
-          - path: /documentation
+          - path: /rp-documentation
             backend:
               serviceName: {{ .Release.Name }}-{{ .Values.services.documentation.metadata.name }}
               {{- if or (eq (lower .Values.lo.sslConfiguration ) "none") (eq (lower .Values.lo.sslConfiguration ) "lets-encrypt")  }}
@@ -92,6 +84,39 @@ spec:
               {{- else }}
               servicePort: {{ .Values.services.documentation.spec.ports.tlsport }}
               {{- end }}
+          - path: /rp-storytelling
+            backend:
+              serviceName: {{ .Release.Name }}-{{ .Values.services.storytelling.metadata.name }}
+              {{- if or (eq (lower .Values.lo.sslConfiguration ) "none") (eq (lower .Values.lo.sslConfiguration ) "lets-encrypt")  }}
+              servicePort: {{ .Values.services.storytelling.spec.ports.port }}
+              {{- else }}
+              servicePort: {{ .Values.services.storytelling.spec.ports.tlsport }}
+              {{- end }}
+          - path: /rp-jobscheduler
+            backend:
+              serviceName: {{ .Release.Name }}-{{ .Values.services.jobscheduler.metadata.name }}
+              {{- if or (eq (lower .Values.lo.sslConfiguration ) "none") (eq (lower .Values.lo.sslConfiguration ) "lets-encrypt")  }}
+              servicePort: {{ .Values.services.jobscheduler.spec.ports.port }}
+              {{- else }}
+              servicePort: {{ .Values.services.jobscheduler.spec.ports.tlsport }}
+              {{- end }}
+          - path: /rp-workschedule
+            backend:
+              serviceName: {{ .Release.Name }}-{{ .Values.services.workschedule.metadata.name }}
+              {{- if or (eq (lower .Values.lo.sslConfiguration ) "none") (eq (lower .Values.lo.sslConfiguration ) "lets-encrypt")  }}
+              servicePort: {{ .Values.services.workschedule.spec.ports.port }}
+              {{- else }}
+              servicePort: {{ .Values.services.workschedule.spec.ports.tlsport }}
+              {{- end }}
+          - path: /rp-learningcenterautojoin
+            backend:
+              serviceName: {{ .Release.Name }}-{{ .Values.services.learningcenterautojoin.metadata.name }}
+              {{- if or (eq (lower .Values.lo.sslConfiguration ) "none") (eq (lower .Values.lo.sslConfiguration ) "lets-encrypt")  }}
+              servicePort: {{ .Values.services.learningcenterautojoin.spec.ports.port }}
+              {{- else }}
+              servicePort: {{ .Values.services.learningcenterautojoin.spec.ports.tlsport }}
+              {{- end }}
+
           - path: /wdc
             backend:
               serviceName: {{ .Release.Name }}-{{ .Values.services.wdc.metadata.name }}
