@@ -36,7 +36,14 @@ global:
     enabled: true
   autojoin:
     enabled: true
-
+  storytelling:
+    enabled: true
+  jobscheduler:
+    enabled: true
+  workscheduler:
+    enabled: true
+  learningcenterautojoin:
+    enabled: true
 
   configMap: true
   networkPolicy: false
@@ -113,7 +120,7 @@ deployment:
       name: postgre-deployment
     container:
       registry: liveobjects/postgres
-      tag: "R-2020.3.0"
+      tag: "D-develop"
       # Always IfNotPresent
       imagePullPolicy: "Always"
       resources:
@@ -130,7 +137,7 @@ deployment:
       name: frontend-deployment
     container:
       registry: liveobjects/ui
-      tag: "R-2020.3.0"
+      tag: "D-develop"
       # Always IfNotPresent
       imagePullPolicy: "Always"
       resources:
@@ -148,7 +155,7 @@ deployment:
       name: scenario-deployment
     container:
       registry: liveobjects/lo-ui-scenario
-      tag: "R-2020.3.0"
+      tag: "D-develop"
       # Always IfNotPresent
       imagePullPolicy: "Always"
       resources:
@@ -165,7 +172,7 @@ deployment:
       name: businessgrammar-deployment
     container:
       registry: liveobjects/lo-ui-business-grammar
-      tag: "R-2020.3.0"
+      tag: "D-develop"
       # Always IfNotPresent
       imagePullPolicy: "Always"
       resources:
@@ -183,7 +190,7 @@ deployment:
       name: dyk-deployment
     container:
       registry: liveobjects/lo-ui-dyk
-      tag: "R-2020.3.0"
+      tag: "D-develop"
       # Always IfNotPresent
       imagePullPolicy: "Always"
       resources:
@@ -200,7 +207,7 @@ deployment:
       name: wdc-deployment
     container:
       registry: liveobjects/lo-tableau-wdc
-      tag: "R-2020.3.0"
+      tag: "D-develop"
       # Always IfNotPresent
       imagePullPolicy: "Always"
       resources:
@@ -217,7 +224,7 @@ deployment:
       name: discoveryautojoin-deployment
     container:
       registry: liveobjects/lo-ui-discovery-autojoin
-      tag: "R-2020.3.0"
+      tag: "D-develop"
       # Always IfNotPresent
       imagePullPolicy: "Always"
       resources:
@@ -234,7 +241,7 @@ deployment:
       name: documentation-deployment
     container:
       registry: liveobjects/lo-ui-documentation
-      tag: "R-2020.3.0"
+      tag: "D-develop"
       # Always IfNotPresent
       imagePullPolicy: "Always"
       resources:
@@ -253,7 +260,7 @@ deployment:
       name: extensions-deployment
     container:
       registry: liveobjects/lo-ui-extensions
-      tag: "R-2020.3.0"
+      tag: "D-develop"
       # Always IfNotPresent
       imagePullPolicy: "Always"
       resources:
@@ -271,7 +278,58 @@ deployment:
       name: dashboards-deployment
     container:
       registry: liveobjects/lo-ui-dashboards
-      tag: "R-2020.3.0"
+      tag: "D-develop"
+      # Always IfNotPresent
+      imagePullPolicy: "Always"
+      resources:
+        requests:
+          cpu: 200m
+          memory: 1G
+      ports:
+        containerPort: 3000
+    spec:
+      replicas: 1
+  storytelling:
+    enabled: true
+    metadata:
+      name: storytelling-deployment
+    container:
+      registry: liveobjects/lo-ui-storytelling
+      tag: "D-develop"
+      # Always IfNotPresent
+      imagePullPolicy: "Always"
+      resources:
+        requests:
+          cpu: 200m
+          memory: 1G
+      ports:
+        containerPort: 3000
+    spec:
+      replicas: 1
+  workscheduler:
+    enabled: true
+    metadata:
+      name: workscheduler-deployment
+    container:
+      registry: liveobjects/lo-ui-workscheduler
+      tag: "D-develop"
+      # Always IfNotPresent
+      imagePullPolicy: "Always"
+      resources:
+        requests:
+          cpu: 200m
+          memory: 1G
+      ports:
+        containerPort: 3000
+    spec:
+      replicas: 1
+  learningcenterautojoin:
+    enabled: true
+    metadata:
+      name: learningcenterautojoin-deployment
+    container:
+      registry: liveobjects/lo-ui-learningcenterautojoin
+      tag: "D-develop"
       # Always IfNotPresent
       imagePullPolicy: "Always"
       resources:
@@ -284,13 +342,31 @@ deployment:
       replicas: 1
 
 
+  jobscheduler:
+    enabled: true
+    metadata:
+      name: jobscheduler-deployment
+    container:
+      registry: liveobjects/lo-ui-jobscheduler
+      tag: "D-develop"
+      # Always IfNotPresent
+      imagePullPolicy: "Always"
+      resources:
+        requests:
+          cpu: 200m
+          memory: 1G
+      ports:
+        containerPort: 3000
+    spec:
+      replicas: 1
+
   license:
     enabled: true
     metadata:
       name: license-deployment
     container: 
       registry: liveobjects/lo-license-service
-      tag: "R-2020.3.0"
+      tag: "D-develop"
           # Always IfNotPresent
       imagePullPolicy: "Always"
       resources:
@@ -330,7 +406,7 @@ deployment:
       name: backend-deployment
     container:
       registry: liveobjects/service
-      tag: "R-2020.3.0"
+      tag: "D-develop"
       # Always IfNotPresent
       imagePullPolicy: "Always"
       resources:
@@ -348,7 +424,7 @@ deployment:
       name: learn-deployment
     container:
       registry: liveobjects/learn
-      tag: "R-2020.3.0"
+      tag: "D-develop"
       # Always IfNotPresent
       imagePullPolicy: "Always"
       resources:
@@ -366,7 +442,7 @@ deployment:
       name: autojoin-deployment
     container:
       registry: liveobjects/autojoin
-      tag: "R-2020.3.0"
+      tag: "D-develop"
       # Always IfNotPresent
       imagePullPolicy: "Always"
       resources:
@@ -848,6 +924,89 @@ services:
 # lo.sslConfiguration = slef-signed
         tlsport: 443
         targetPort: 3000
+
+  storytelling:
+    enabled: true
+    metadata:
+      name: storytelling-svc
+
+      annotations: {}
+      # alb.ingress.kubernetes.io/scheme: internet-facing, 
+      # alb.ingress.kubernetes.io/tags: 'Environment=dev,Team=test'      
+
+    spec:
+      selector: 
+        app: storytelling
+      type: ClusterIP
+      ports:
+        protocol: TCP
+# lo.sslConfiguration = none
+        port: 80
+# lo.sslConfiguration = slef-signed
+        tlsport: 443
+        targetPort: 3000
+  workscheduler:
+    enabled: true
+    metadata:
+      name: workscheduler-svc
+
+      annotations: {}
+      # alb.ingress.kubernetes.io/scheme: internet-facing, 
+      # alb.ingress.kubernetes.io/tags: 'Environment=dev,Team=test'      
+
+    spec:
+      selector: 
+        app: workscheduler
+      type: ClusterIP
+      ports:
+        protocol: TCP
+# lo.sslConfiguration = none
+        port: 80
+# lo.sslConfiguration = slef-signed
+        tlsport: 443
+        targetPort: 3000
+  learningcenterautojoin:
+    enabled: true
+    metadata:
+      name: learningcenterautojoin-svc
+
+      annotations: {}
+      # alb.ingress.kubernetes.io/scheme: internet-facing, 
+      # alb.ingress.kubernetes.io/tags: 'Environment=dev,Team=test'      
+
+    spec:
+      selector: 
+        app: learningcenterautojoin
+      type: ClusterIP
+      ports:
+        protocol: TCP
+# lo.sslConfiguration = none
+        port: 80
+# lo.sslConfiguration = slef-signed
+        tlsport: 443
+        targetPort: 3000
+
+  jobscheduler:
+    enabled: true
+    metadata:
+      name: jobscheduler-svc
+
+      annotations: {}
+      # alb.ingress.kubernetes.io/scheme: internet-facing, 
+      # alb.ingress.kubernetes.io/tags: 'Environment=dev,Team=test'      
+
+    spec:
+      selector: 
+        app: jobscheduler
+      type: ClusterIP
+      ports:
+        protocol: TCP
+# lo.sslConfiguration = none
+        port: 80
+# lo.sslConfiguration = slef-signed
+        tlsport: 443
+        targetPort: 3000
+
 
   license:
     enabled: true
