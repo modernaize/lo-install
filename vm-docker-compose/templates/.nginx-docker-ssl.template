@@ -106,7 +106,7 @@ server {
                 proxy_http_version 1.1;
         }
         
-        location /rp-discoveryautojoin/ {
+        location /rp-autojoin/ {
                 proxy_pass http://discoveryautojoin;
                 proxy_set_header Host $host;
                 proxy_http_version 1.1;
