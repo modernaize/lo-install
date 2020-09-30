@@ -41,6 +41,10 @@ spec:
         ports:
         - containerPort: {{ .Values.deployment.frontend.container.ports.containerPort }}
         env:
+        - name: AUTOJOIN_HOST
+          value: "{{ .Release.Name }}-{{ .Values.services.autojoin.metadata.name }}"
+        - name: AUTOJOIN_PORT
+          value: "{{ .Values.services.autojoin.spec.ports.targetPort }}"
         - name: SERVICE_HOST
           value: "{{ .Release.Name }}-{{ .Values.services.backend.metadata.name }}"
         - name: SERVICE_PORT

@@ -50,7 +50,7 @@ spec:
         - /dev/shm
         - --config=gunicorn_config.py
         - --bind
-        - 0.0.0.0:5000
+        - 0.0.0.0:5002
         - wsgi:APP
         ports:
         - containerPort: {{ .Values.deployment.autojoin.container.ports.containerPort }}
