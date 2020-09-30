@@ -47,7 +47,8 @@ spec:
         - gunicorn
         - --workers=2
         - --worker-tmp-dir
-        - /dev/shm
+        - /tmp
+        - --config=gunicorn_config.py
         - --bind
         - 0.0.0.0:5000
         - wsgi:APP
