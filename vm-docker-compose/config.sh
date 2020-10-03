@@ -494,7 +494,6 @@ export LANG=C
             cat ./templates/.docker-compose-sysmon.template >> ./docker-compose.yml
         fi
 
-
         if [[ "${UPGRADE}" == "y" ]]; then
             info "Configure System upgrade: "
             #may not need this. but envsubst does not seem to work unless we use a ${} veriable in the template
@@ -505,8 +504,6 @@ export LANG=C
 
         fi
 
-        #sed -i'.org' "s/DEPLOYMENT_PORT=443/DEPLOYMENT_PORT=$DEPLOYMENT_PORT/" .env
-        #rm .env.org
     }
 
   main @1
