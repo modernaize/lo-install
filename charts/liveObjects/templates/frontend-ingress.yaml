@@ -6,6 +6,7 @@ metadata:
   annotations:
   {{- if eq (lower .Values.lo.sslConfiguration) "lets-encrypt" }}
     cert-manager.io/cluster-issuer: {{ .Release.Namespace }}-{{ .Values.certManager.ca.name }}-{{ .Values.certManager.letsencrypt.env }}
+    nginx.ingress.kubernetes.io/proxy-body-size: {{ .Values.ingress.proxyBodySize }}
   {{- end }}
     kubernetes.io/ingress.class: nginx
   labels:
