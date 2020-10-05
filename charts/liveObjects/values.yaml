@@ -105,6 +105,7 @@ ingress:
   
   name: frontend-ingress
   proxyBodySize: 200m
+
 # Deployment
 deployment:
 
