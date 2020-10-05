@@ -67,6 +67,8 @@ spec:
           value: "server.py"
         - name: FLASK_ENV
           value: "production"
+        - name:  LEARN_LOGGING_LOCATION
+          value: "STDOUT"
         - name: DB_HOST
           value: "{{ .Release.Name }}-{{ .Values.services.postgres.metadata.name }}"
         volumeMounts:
