@@ -111,6 +111,7 @@ ingress:
   # nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
   
   name: frontend-ingress
+  proxyBodySize: 200m
 # Deployment
 deployment:
 
