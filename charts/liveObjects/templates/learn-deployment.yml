@@ -47,15 +47,13 @@ spec:
         - gunicorn
         - --workers=2
         - --worker-tmp-dir
-        - /dev/shm
+        - /tmp
+        - --config=gunicorn_config.py
         - --bind
         - 0.0.0.0:5000
         - wsgi:APP
         ports:
         - containerPort: {{ .Values.deployment.learn.container.ports.containerPort }}
-        envFrom:
-        - configMapRef:
-            name: {{ .Release.Name }}-env
         env:
         - name: POSTGRES_PASSWORD
           valueFrom:
@@ -68,6 +66,10 @@ spec:
           value: "production"
         - name: DB_HOST
           value: "{{ .Release.Name }}-{{ .Values.services.postgres.metadata.name }}"
+        - name: LEARN_LOGGING_LOCATION
+          value: "STDOUT"
+        - name: LEARN_LOGGING_LEVEL
+          value: "DEBUG"
         volumeMounts:
         {{- if .Values.persistence.enabled }}
           {{- if .Values.persistence.learn.logs.enabled }}
