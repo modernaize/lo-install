@@ -72,13 +72,13 @@ gcloud beta compute --project ${PROJECT} ssh --zone ${ZONE} ${INSTANCE}
 If you want want to use the lastest offically released version :
 
 ```
-curl -s https://raw.githubusercontent.com/liveobjectsai/lo-install/v2020.3.0/vm-docker-compose/provision.sh| bash
+curl -s https://raw.githubusercontent.com/liveobjectsai/lo-install/v2020.3.1/vm-docker-compose/provision.sh| bash
 ```
 
 ### Optional : Install Reverse proxy NGINX
 
 ```
-curl -s https://raw.githubusercontent.com/liveobjectsai/lo-install/v2020.3.0/vm-docker-compose/provision_nginx.sh| bash
+curl -s https://raw.githubusercontent.com/liveobjectsai/lo-install/v2020.3.1/vm-docker-compose/provision_nginx.sh| bash
 ```
 
 ### specific version
@@ -140,7 +140,7 @@ If you want want to use the lastest offically released version :
 
 
 ```
-curl -s https://raw.githubusercontent.com/liveobjectsai/lo-install/v2020.3.0/vm-docker-compose/install.sh| bash
+curl -s https://raw.githubusercontent.com/liveobjectsai/lo-install/v2020.3.1/vm-docker-compose/install.sh| bash
 ```
 
 #### specific version

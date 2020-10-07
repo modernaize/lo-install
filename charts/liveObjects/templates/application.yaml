@@ -13,7 +13,7 @@ metadata:
 spec:
   descriptor:
     type: Live Objects Process Intelligense Platform
-    version: '2020.2.0'
+    version: '2020.4.0'
     description: |-
       Live Objects is the market's first closed-loop  business process optimization platform. 
       The platform actively generates and manages AI-driven business process customizations that meet changing performance, customer experience and risk needs from business operations. 
