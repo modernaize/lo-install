@@ -63,6 +63,8 @@ spec:
           value: "{{ .Release.Name }}-{{ .Values.services.postgres.metadata.name }}"
         - name: LEARN_HOST
           value: "{{ .Release.Name }}-{{ .Values.services.learn.metadata.name }}"
+        - name: DEPLOYMENT_DOMAIN_NAME
+          value: {{ .Values.ingress.tls.host }}
         - name: POSTGRES_PASSWORD
           valueFrom:
             secretKeyRef:
