@@ -65,6 +65,8 @@ spec:
           value: "{{ .Release.Name }}-{{ .Values.services.learn.metadata.name }}"
         - name: DEPLOYMENT_DOMAIN_NAME
           value: {{ .Values.ingress.tls.host }}
+        - name: SERVICE_LOG_PATH
+          value: /tmp/test_service.log
         - name: POSTGRES_PASSWORD
           valueFrom:
             secretKeyRef:
