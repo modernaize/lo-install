@@ -115,7 +115,7 @@ deployment:
       name: postgre-deployment
     container:
       registry: liveobjects/postgres
-      tag: "P-v2020.3.1"
+      tag: "P-v2020.3.2"
       # Always IfNotPresent
       imagePullPolicy: "Always"
       resources:
@@ -132,7 +132,7 @@ deployment:
       name: frontend-deployment
     container:
       registry: liveobjects/ui
-      tag: "P-v2020.3.1"
+      tag: "P-v2020.3.2"
       # Always IfNotPresentag:
       imagePullPolicy: "Always"
       resources:
@@ -167,7 +167,7 @@ deployment:
       name: businessgrammar-deployment
     container:
       registry: liveobjects/lo-ui-business-grammar
-      tag: "P-v2020.3.1"
+      tag: "P-v2020.3.2"
       # Always IfNotPresent
       imagePullPolicy: "Always"
       resources:
@@ -333,7 +333,7 @@ deployment:
       name: backend-deployment
     container:
       registry: liveobjects/service
-      tag: "P-v2020.3.1"
+      tag: "P-v2020.3.2"
       # Always IfNotPresent
       imagePullPolicy: "Always"
       resources:
@@ -351,7 +351,7 @@ deployment:
       name: learn-deployment
     container:
       registry: liveobjects/learn
-      tag: "P-v2020.3.1"
+      tag: "P-v2020.3.3"
       # Always IfNotPresent
       imagePullPolicy: "Always"
       resources:
@@ -888,7 +888,7 @@ loServer:
     
 ## Configuration values for the PostgreSQL server.
 postgresql:
-  image: liveobjects/postgres:P-v2020.3.1
+  image: liveobjects/postgres:P-v2020.3.2
 
   exporter:
     image: gcr.io/cloud-marketplace/google/gitlab/postgresql-exporter:12.9
