@@ -18,7 +18,7 @@ Also the name/domain/dns demo4 , demo4.livebobjects.rocks are being used for ill
 Ubuntu 20.04
 
 ```
-export INSTANCE=demo4 && export IMAGE=ubuntu-2004-focal-v20200902 && export IMAGE_PROJECT=ubuntu-os-cloud && export ZONE=us-west2-a && export PROJECT=live-objects-demo
+export INSTANCE=qa1 && export IMAGE=ubuntu-2004-focal-v20200902 && export IMAGE_PROJECT=ubuntu-os-cloud && export ZONE=us-west2-a && export PROJECT=modernaize-dev
 ```
 
 ### Creates GCP VM via cmd line based on an existing image
@@ -36,19 +36,28 @@ export INSTANCE=demo4 && export IMAGE=ubuntu-2004-20200909 && export IMAGE_PROJE
 ```
 
 Ubuntu 20.04 with Docker and NGINX
+
 ```
-export INSTANCE=demo4 && export IMAGE=ubuntu-2004-nginx-20200905 && export IMAGE_PROJECT=live-objects-demo && export ZONE=us-west2-a && export PROJECT=live-objects-demo
+export INSTANCE=qa1 && \
+export IMAGE=ubuntu-2004-nginx-20200905 && \
+export IMAGE_PROJECT=live-objects-demo && \
+export ZONE=us-west2-a && \
+export PROJECT=modernaize-dev && \
+export SUBNET=modernaize-internal-us-west2 \
+export TAGS=http-server
 ```
 
 ### Create VM
 
 Please update the servcie-account variable with the service account to be used for the VM execution.
 
-export SA=1009649936809-compute@developer.gserviceaccount.com
+export SA=qa-496@modernaize-dev.iam.gserviceaccount.com
 
 ```
-gcloud beta compute --project=${PROJECT} instances create ${INSTANCE} --zone=${ZONE} --machine-type=e2-standard-4 --subnet=default --network-tier=PREMIUM --maintenance-policy=MIGRATE --service-account={SA} --scopes=https://www.googleapis.com/auth/devstorage.read_only,https://www.googleapis.com/auth/logging.write,https://www.googleapis.com/auth/monitoring.write,https://www.googleapis.com/auth/servicecontrol,https://www.googleapis.com/auth/service.management.readonly,https://www.googleapis.com/auth/trace.append --tags=http-server,https-server --image=${IMAGE} --image-project=${IMAGE_PROJECT} --boot-disk-size=200GB --boot-disk-type=pd-standard --boot-disk-device-name=${INSTANCE} --reservation-affinity=any
+gcloud beta compute --project=${PROJECT} instances create ${INSTANCE} --zone=${ZONE} --machine-type=e2-standard-4 --subnet=${SUBNET} --network-tier=PREMIUM --maintenance-policy=MIGRATE --service-account=${SA} --scopes=https://www.googleapis.com/auth/cloud-platform --tags=${TAGS} --image=${IMAGE} --image-project=${IMAGE_PROJECT} --boot-disk-size=200GB --boot-disk-type=pd-standard --boot-disk-device-name=qa1 --no-shielded-secure-boot --shielded-vtpm --shielded-integrity-monitoring --labels=type=qa --reservation-affinity=any
+
 ```
+
 After the VM got created you can continue directly with [Install the platform](#install-the-platform)
 
 ### SSH
@@ -72,13 +81,13 @@ gcloud beta compute --project ${PROJECT} ssh --zone ${ZONE} ${INSTANCE}
 If you want want to use the lastest offically released version :
 
 ```
-curl -s https://raw.githubusercontent.com/liveobjectsai/lo-install/v2020.3.1/vm-docker-compose/provision.sh| bash
+curl -s https://raw.githubusercontent.com/liveobjectsai/lo-install/v2020.3.2/vm-docker-compose/provision.sh| bash
 ```
 
 ### Optional : Install Reverse proxy NGINX
 
 ```
-curl -s https://raw.githubusercontent.com/liveobjectsai/lo-install/v2020.3.1/vm-docker-compose/provision_nginx.sh| bash
+curl -s https://raw.githubusercontent.com/liveobjectsai/lo-install/v2020.3.2/vm-docker-compose/provision_nginx.sh| bash
 ```
 
 ### specific version
@@ -140,7 +149,7 @@ If you want want to use the lastest offically released version :
 
 
 ```
-curl -s https://raw.githubusercontent.com/liveobjectsai/lo-install/v2020.3.1/vm-docker-compose/install.sh| bash
+curl -s https://raw.githubusercontent.com/liveobjectsai/lo-install/v2020.3.2/vm-docker-compose/install.sh| bash
 ```
 
 #### specific version
