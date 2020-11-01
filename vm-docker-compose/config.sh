@@ -3,6 +3,7 @@ export LC_CTYPE=C
 export LANG=C
 { # make sure that the entire script is downloaded #
     VERSION="1.0.0"
+    CONFIG_LOG="./config.log"
 
     DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
@@ -53,15 +54,19 @@ export LANG=C
 
     input_UPGRADE_VERSION() {
 
-        PS3='Verion to upgrade from: '
+        PS3='Version to upgrade from: '
         echo
 
-        local _options=("2020.2.x" "exit")
+        local _options=("2020.2.x" "2020.3.x" "exit")
         select SELECT in "${_options[@]}"
         do
             case $SELECT in
                 "2020.2.x")
                     export UPGRADE_VERSION=2020.2.x
+                    break
+                    ;;
+                "2020.3.x")
+                    export UPGRADE_VERSION=2020.3.x
                     break
                     ;;
                 "exit")
@@ -296,7 +301,6 @@ export LANG=C
         ## ip, dns, ingress
         if [[ ${DEPLOYMENT} == "dns" ]] ; then
             input_DNS
-            
         fi
                 ## ip, dns, ingress
         if [[ ${DEPLOYMENT} == "ingress" ]] ; then
@@ -440,13 +444,13 @@ export LANG=C
         FILE=.env
         if [[ -f "$FILE" ]]; then
             info "Backup existing .env file"
-            cp .env .env.before_config
+            cp .env .env.`date +"%Y.%m.%d-%H.%M.%S"` 
         fi
 
         FILE=docker-compose.yml
         if [[ -f "$FILE" ]]; then
             info "Backup existing docker-compose file"
-            cp docker-compose.yml docker-compose.yml.before_config
+            cp docker-compose.yml docker-compose.yml.`date +"%Y.%m.%d-%H.%M.%S"`
         fi
 
         info "Creating docker-compose environment"
@@ -501,7 +505,6 @@ export LANG=C
             sed -i'.org' 's/FLYWAY_BASELINE_ON_MIGRATE=false/FLYWAY_BASELINE_ON_MIGRATE=true/' .env
             sed -i'.org' "s/UPGRADE_VERSION=0.0.0/UPGRADE_VERSION=$UPGRADE_VERSION/" .env
             rm .env.org
-
         fi
 
     }

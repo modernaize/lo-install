@@ -2,28 +2,15 @@
 {
 	DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd)"
 
+	# Shared code
+	source ${DIR}/shared.sh
+
 	sanitize() {
-		if [[ -z "$@" ]]; then
-			# Error with instruction
-			{
-				echo
-				echo "[i] Help: Available options"
-				echo
-				echo "  --domains \"[LIST]\"	list of domains (require: quotes and 1 space between each domain)"
-				echo "  --email [STRING]		valid E-mail address - Default info@liveobjects.online"
-				echo "  --data-path [STRING]	path to Certbot folder - Default ./certbot"
-				echo "  --staging [NUMBER]		set to 1 if you're testing your setup (to avoid hitting request limits) - Default 1"
-				echo
-			}
-			exit
-		fi
 
 		clear
-		
+
 		# Set Defaults
-		email="info@liveobjects.online"
 		data_path="./webserver/certbot"
-		staging="1"
 
 		# Define required options
 		while [[ -n "$1" ]]; do
@@ -42,6 +29,7 @@
 					clear
 				fi
 				shift
+				DOMAINS=true
 				;;
 			--email)
 				# Check option value
@@ -50,6 +38,7 @@
 					email="$2"
 				fi
 				shift
+				EMAIL=true
 				;;
 			--data-path)
 				# Check option value
@@ -66,6 +55,7 @@
 					staging=$2
 				fi
 				shift
+				STAGING=true
 				;;
 			*)
 				# Error
@@ -80,17 +70,89 @@
 			shift
 		done
 
-		echo 
+		echo
 		echo "--domains   : $domains "
 		echo "--email     : $email "
 		echo "--data-path : $data_path "
 		echo "--staging   : $staging "
-		echo 
+		echo
+
+		echo "DOMAIN : $DOMAINS"
+
+		if [ "$DOMAINS" != true ]; then
+			prompt_domains
+		fi
+
+		if [ "$EMAIL" != true ]; then
+			prompt_email
+		fi
+
+		if [ "$STAGING" != true ]; then
+			prompt_staging
+		fi
+
+		echo
+		echo "--domains   : $domains "
+		echo "--email     : $email "
+		echo "--data-path : $data_path "
+		echo "--staging   : $staging "
+		echo
+
+	}
+
+	prompt_domains() {
+
+		while true; do
+			read -p "domains: or exit " response
+
+			if [[ $response == "exit" ]]; then
+				exit
+			else
+				domains=$response
+				break
+			fi
+		done
+
+	}
+	prompt_email() {
+		while true; do
+			read -p "email: or exit " response
+
+			if [[ $response == "exit" ]]; then
+				exit
+			else
+				email=$response
+				break
+			fi
+		done
+	}
+
+	prompt_staging() {
+		PS3='Certification type : '
+        echo
+
+        select SELECT in "production" "staging" "exit"
+        do
+            case $SELECT in
+                production)
+                    staging=0
+                    break
+                    ;;
+                staging)
+                    staging=1
+                    break
+                    ;;
+                exit)
+                    exit 1
+                    ;;
+                *) continue
+            esac
+        done
 
 	}
 
 	existingCert() {
-				# Menu for existing folder
+		# Menu for existing folder
 		for domain in ${domains[@]}; do
 
 			domain_name=$(echo $domain | grep -o -P $regex)
@@ -155,7 +217,7 @@
 		# fi
 	}
 	createDummyCertificate() {
-				# Dummy certificate
+		# Dummy certificate
 		for domain in ${!domains[*]}; do
 			domain_set=(${domains[$domain]})
 			domain_name=$(echo ${domain_set[0]} | grep -o -P $regex)
@@ -192,7 +254,7 @@
 	}
 
 	createLetsEncryptCertificate() {
-				# Enable staging mode if needed
+		# Enable staging mode if needed
 		if [ $staging != "0" ]; then staging_arg="--staging"; fi
 
 		for domain in ${!domains[*]}; do
@@ -230,15 +292,15 @@
 	}
 
 	createDockerCompose() {
-		        readonly REPL_DEPLOY_URL=domain
-				echo "creating docker-compose file"
-                cp ./templates/.docker-compose-certs.yml ./docker-compose.yml
-				for domain in ${!domains[*]}; do
-					domain_set=(${domains[$domain]})
-					domain_name=$(echo ${domain_set[0]} | grep -o -P $regex)
-					echo "Updating nginx/default.conf"
-                	sed -i "s/${REPL_DEPLOY_URL}/${domain_name}/g" ./nginx/default.conf
-				done
+		readonly REPL_DEPLOY_URL=domain
+		echo "creating docker-compose file"
+		cp ./templates/.docker-compose-certs.yml ./docker-compose.yml
+		for domain in ${!domains[*]}; do
+			domain_set=(${domains[$domain]})
+			domain_name=$(echo ${domain_set[0]} | grep -o -P $regex)
+			echo "Updating nginx/default.conf"
+			sed -i "s/${REPL_DEPLOY_URL}/${domain_name}/g" ./nginx/default.conf
+		done
 	}
 
 	main() {
@@ -253,7 +315,7 @@
 		options_ssl_nginx="https://raw.githubusercontent.com/certbot/certbot/master/certbot-nginx/certbot_nginx/_internal/tls_configs/options-ssl-nginx.conf"
 		ssl_dhparams="https://raw.githubusercontent.com/certbot/certbot/master/certbot/certbot/ssl-dhparams.pem"
 
-		runAsRootCheck 
+		runAsRootCheck
 
 		createDockerCompose
 
@@ -261,7 +323,7 @@
 
 		downloadTLSParameters
 
-		createDummyCertificate 
+		createDummyCertificate
 
 		echo
 		echo "[i] Starting nginx..."
@@ -277,8 +339,8 @@
 		esac
 
 		createLetsEncryptCertificate
-		
-		docker-compose down 
+
+		docker-compose down
 
 	}
 
