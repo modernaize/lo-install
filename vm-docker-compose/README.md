@@ -123,7 +123,7 @@ exit
 gcloud beta compute --project ${PROJECT} ssh --zone ${ZONE} ${INSTANCE}
 ```
 
-Make sure that you have sudo rights to execute the scriot without adding sudo to the commands. 
+Make sure that you have sudo rights to execute the script without adding sudo to the commands. 
 
 Your can add youself with the following command to the Docker group :
 
@@ -134,10 +134,24 @@ sudo usermod -aG docker ${USER}
 After you have added yourself you need to logoff and login again
 
 ### Install LiveObjects Installer 
+
+#### Installation Directory
+
+We strongly recommend that you decide on an installation directory in the home directory of the instance. After login in switch to the home directory
+
+```
+cd .. 
+```
+
+Create an installation directory , in our case 'modernaize' - but it could be any name and use that during the installation procedure
+
+```
+sudo mkdir modernaize && sudo chmod 777 -R modernaize && cd modernaize
+```
+
 #### Latest version
 
 If you want want to use the lastest offically released version :
-
 
 ```
 curl -s -o ./install.sh https://raw.githubusercontent.com/liveobjectsai/lo-install/v2020.3.0/vm-docker-compose/install.sh && bash install.sh
@@ -239,3 +253,46 @@ sudo certbot --nginx --noninteractive --redirect -m mail@liveobjects.rocks --agr
 sudo cat /etc/nginx/sites/demo4.liveobjects.rocks 
 ```
 
+## Upgrade the Platform
+
+### SSH
+
+```
+gcloud beta compute --project ${PROJECT} ssh --zone ${ZONE} ${INSTANCE}
+```
+
+Make sure that you have sudo rights to execute the script without adding sudo to the commands. 
+
+Switch to your installation directory
+
+### Upgrade the installer]
+
+#### Latest version
+
+If you want want to use the lastest offically released version :
+
+```
+curl -s -o ./install.sh https://raw.githubusercontent.com/liveobjectsai/lo-install/v2020.3.0/vm-docker-compose/install.sh && bash install.sh
+```
+
+#### specific version
+
+Otherwise you can use an experimental installer/version :
+
+```
+export LO_VERSION=develop
+```
+
+or
+
+```
+export LO_VERSION=release/2020.3.0
+```
+
+```
+curl -s -o ./install.sh https://raw.githubusercontent.com/liveobjectsai/lo-install/${LO_VERSION}/vm-docker-compose/install.sh && bash install.sh
+```
+
+Now follow all the steps describe in the configuration section [link](#configure -the-platform)
+
+Make sure that you stop the docker services and start all again after sucessfull execution of the config script 
