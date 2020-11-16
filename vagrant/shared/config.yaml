@@ -4,29 +4,17 @@ vagrant_disksize: 20GB
 # box specific settings
 ## base box setings
 vagrant_box_base: ubuntu/focal64
-## Database settings
-vagrant_ip_db: 192.168.50.11
-vagrant_memory_db: 4096
-vagrant_cpu_db: 4
-vagrant_hostname_db: db-server
-vagrant_vmname_db: postgres
-vagrant_base_box_db: modernaize/base-server-ubuntu-focal64
 ## Application Server settings
 vagrant_ip_server: 192.168.50.10
 vagrant_memory_server: 4096
 vagrant_cpu_server: 4
 vagrant_hostname_server: app-server
 vagrant_vmname_server: app-server
-## Redis - Keypair settings
-vagrant_ip_redis: 192.168.50.12
-vagrant_memory_redis: 4096
-vagrant_cpu_redis: 4
-vagrant_hostname_redis: redis-server
-vagrant_vmname_redis: redis
-## LiveObjects settings
-vagrant_ip_lo: 192.168.50.11
-vagrant_memory_lo: 4096
-vagrant_cpu_lo: 4
-vagrant_hostname_lo: lo-server
-vagrant_vmname_lo: lo
-vagrant_base_box_lo: modernaize/base-server-ubuntu-jessie64.box
+## Modernaize settings
+vagrant_ip_modernaize: 192.168.50.11
+vagrant_memory_modernaize: 8192
+vagrant_cpu_modernaize: 4
+vagrant_hostname_modernaize: modernaize-server
+vagrant_vmname_modernaize: modernaize
+vagrant_base_box_modernaize: base-server-ubuntu-2004
+vagrant_vm_name_modernaize: modernaize
