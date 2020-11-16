@@ -12,3 +12,4 @@ vm-docker-compose/.env*.*
 vagrant/base/server-ubuntu-2004/.vagrant/**/*
 vagrant/base/test/**/*
 **/*/*.box
+vagrant/base/server-ubuntu-2004/base-server-ubuntu-2004
