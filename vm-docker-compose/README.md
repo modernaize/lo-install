@@ -296,3 +296,27 @@ curl -s -o ./install.sh https://raw.githubusercontent.com/liveobjectsai/lo-insta
 Now follow all the steps describe in the configuration section [link](#configure -the-platform)
 
 Make sure that you stop the docker services and start all again after sucessfull execution of the config script 
+
+## Environment Variables
+### install.sh
+
+LO_VERSION
+LO_DIR
+
+### config.sh
+
+PROTOCOL (http || https)
+DEPLOYMENT (ip || dns || ingress)
+PROTOCOL_INGRESS (http || https)
+INGRESS_SSL ( y || n )
+CERTBOT_DOCKER ( y || n )
+DEPLOY_URL
+EXTERNAL_IP
+INTERNAL_IP
+UPGRADE ( y || n )
+FLYWAY_ENABLE 
+FLYWAY_BASELINE_ON_MIGRATE
+UPGRADE_VERSION
+SUPPORT ( y || n )
+SYSMON ( y || n )
+NGINX_DOCKER ( y || n )
