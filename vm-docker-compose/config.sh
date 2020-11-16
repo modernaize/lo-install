@@ -5,14 +5,14 @@ export LANG=C
     VERSION="1.0.0"
     CONFIG_LOG="./config.log"
 
-    DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+    DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd)"
 
     # Shared code
     source ${DIR}/shared.sh
 
     check_installed_programs() {
 
-        for i in docker-compose envsubst sed grep tr cut ; do
+        for i in docker-compose envsubst sed grep tr cut; do
             if ! [ -x "$(command -v ${i})" ]; then
                 error "Error: ${i} is not installed." >&2
                 exit 1
@@ -26,25 +26,24 @@ export LANG=C
         echo
 
         local _options=("y" "n" "exit")
-        select SELECT in "${_options[@]}"
-        do
+        select SELECT in "${_options[@]}"; do
             case $SELECT in
-                "y")
-                    export FLYWAY_ENABLE="true"
-                    export FLYWAY_BASELINE_ON_MIGRATE=true"true"
-                    export UPGRADE=y
-                    break
-                    ;;
-                "n")
-                    export FLYWAY_ENABLE="false"
-                    export FLYWAY_BASELINE_ON_MIGRATE=true"false"
-                    export UPGRADE=n
-                    break
-                    ;;
-                "exit")
-                    exit 1
-                    ;;
-                *) error "invalid option $REPLY";;
+            "y")
+                export FLYWAY_ENABLE="true"
+                export FLYWAY_BASELINE_ON_MIGRATE=true"true"
+                export UPGRADE=y
+                break
+                ;;
+            "n")
+                export FLYWAY_ENABLE="false"
+                export FLYWAY_BASELINE_ON_MIGRATE=true"false"
+                export UPGRADE=n
+                break
+                ;;
+            "exit")
+                exit 1
+                ;;
+            *) error "invalid option $REPLY" ;;
             esac
         done
 
@@ -58,21 +57,20 @@ export LANG=C
         echo
 
         local _options=("2020.2.x" "2020.3.x" "exit")
-        select SELECT in "${_options[@]}"
-        do
+        select SELECT in "${_options[@]}"; do
             case $SELECT in
-                "2020.2.x")
-                    export UPGRADE_VERSION=2020.2.x
-                    break
-                    ;;
-                "2020.3.x")
-                    export UPGRADE_VERSION=2020.3.x
-                    break
-                    ;;
-                "exit")
-                    exit 1
-                    ;;
-                *) error "invalid option $REPLY";;
+            "2020.2.x")
+                export UPGRADE_VERSION=2020.2.x
+                break
+                ;;
+            "2020.3.x")
+                export UPGRADE_VERSION=2020.3.x
+                break
+                ;;
+            "exit")
+                exit 1
+                ;;
+            *) error "invalid option $REPLY" ;;
             esac
         done
 
@@ -85,13 +83,12 @@ export LANG=C
         while true; do
             read -p "Enter the application port : or exit " port1
 
-            if [[ $port1 == "exit" ]]
-            then
+            if [[ $port1 == "exit" ]]; then
                 exit
             else
-               export DEPLOYMENT_PORT=$port1
-               info "Deployment port: ${DEPLOYMENT_PORT}"
-                    break
+                export DEPLOYMENT_PORT=$port1
+                info "Deployment port: ${DEPLOYMENT_PORT}"
+                break
 
             fi
         done
@@ -102,28 +99,26 @@ export LANG=C
         echo
 
         local _options=("https" "http" "exit")
-        select SELECT in "${_options[@]}"
-        do
+        select SELECT in "${_options[@]}"; do
             case $SELECT in
-                "https")
-                    export PROTOCOL=https
-                    break
-                    ;;
-                "http")
-                    export PROTOCOL=http
-                    break
-                    ;;
-                "exit")
-                    exit 1
-                    ;;
-                *) error "invalid option $REPLY";;
+            "https")
+                export PROTOCOL=https
+                break
+                ;;
+            "http")
+                export PROTOCOL=http
+                break
+                ;;
+            "exit")
+                exit 1
+                ;;
+            *) error "invalid option $REPLY" ;;
             esac
         done
 
-        info "Protocol : ${PROTOCOL}" 
+        info "Protocol : ${PROTOCOL}"
 
     }
-
 
     input_SYSMON() {
 
@@ -131,25 +126,24 @@ export LANG=C
         echo
 
         local _options=("y" "n" "exit")
-        select SELECT in "${_options[@]}"
-        do
+        select SELECT in "${_options[@]}"; do
             case $SELECT in
-                "y")
-                    export SYSMON=y
-                    break
-                    ;;
-                "n")
-                    export SYSMON=n
-                    break
-                    ;;
-                "exit")
-                    exit 1
-                    ;;
-                *) error "invalid option $REPLY";;
+            "y")
+                export SYSMON=y
+                break
+                ;;
+            "n")
+                export SYSMON=n
+                break
+                ;;
+            "exit")
+                exit 1
+                ;;
+            *) error "invalid option $REPLY" ;;
             esac
         done
-        
-        info "System Monitoring Tools : ${SYSMON}" 
+
+        info "System Monitoring Tools : ${SYSMON}"
 
     }
     input_SUPPORT() {
@@ -158,25 +152,24 @@ export LANG=C
         echo
 
         local _options=("y" "n" "exit")
-        select SELECT in "${_options[@]}"
-        do
+        select SELECT in "${_options[@]}"; do
             case $SELECT in
-                "y")
-                    export SUPPORT=y
-                    break
-                    ;;
-                "n")
-                    export SUPPORT=n
-                    break
-                    ;;
-                "exit")
-                    exit 1
-                    ;;
-                *) error "invalid option $REPLY";;
+            "y")
+                export SUPPORT=y
+                break
+                ;;
+            "n")
+                export SUPPORT=n
+                break
+                ;;
+            "exit")
+                exit 1
+                ;;
+            *) error "invalid option $REPLY" ;;
             esac
         done
-        
-        info "Support Tools : ${SUPPORT}" 
+
+        info "Support Tools : ${SUPPORT}"
 
     }
 
@@ -186,29 +179,28 @@ export LANG=C
         echo
 
         local _options=("y" "n" "exit")
-        select SELECT in "${_options[@]}"
-        do
+        select SELECT in "${_options[@]}"; do
             case $SELECT in
-                "y")
-                    export INGRESS_SSL=y
-                    export PROTOCOL_INGRESS=https
-                    input_CERTBOT_DOCKER
-                    break
-                    ;;
-                "n")
-                    export INGRESS_SSL=n
-                    export PROTOCOL_INGRESS=http
-                    break
-                    ;;
-                "exit")
-                    exit 1
-                    ;;
-                *) error "invalid option $REPLY";;
+            "y")
+                export INGRESS_SSL=y
+                export PROTOCOL_INGRESS=https
+                input_CERTBOT_DOCKER
+                break
+                ;;
+            "n")
+                export INGRESS_SSL=n
+                export PROTOCOL_INGRESS=http
+                break
+                ;;
+            "exit")
+                exit 1
+                ;;
+            *) error "invalid option $REPLY" ;;
             esac
         done
 
-        info "INGRESS with SSL certificate : ${INGRESS_SSL}" 
-        info "INGRESS Protocol : ${PROTOCOL_INGRESS}" 
+        info "INGRESS with SSL certificate : ${INGRESS_SSL}"
+        info "INGRESS Protocol : ${PROTOCOL_INGRESS}"
 
     }
 
@@ -218,21 +210,20 @@ export LANG=C
         echo
 
         local _options=("y" "n" "exit")
-        select SELECT in "${_options[@]}"
-        do
+        select SELECT in "${_options[@]}"; do
             case $SELECT in
-                "y")
-                    export NGINX_DOCKER=y
-                    break
-                    ;;
-                "n")
-                    export NGINX_DOCKER=n
-                    break
-                    ;;
-                "exit")
-                    exit 1
-                    ;;
-                *) error "invalid option $REPLY";;
+            "y")
+                export NGINX_DOCKER=y
+                break
+                ;;
+            "n")
+                export NGINX_DOCKER=n
+                break
+                ;;
+            "exit")
+                exit 1
+                ;;
+            *) error "invalid option $REPLY" ;;
             esac
         done
 
@@ -244,21 +235,20 @@ export LANG=C
         echo
 
         local _options=("y" "n" "exit")
-        select SELECT in "${_options[@]}"
-        do
+        select SELECT in "${_options[@]}"; do
             case $SELECT in
-                "y")
-                    export CERTBOT_DOCKER=y
-                    break
-                    ;;
-                "n")
-                    export CERTBOT_DOCKER=n
-                    break
-                    ;;
-                "exit")
-                    exit 1
-                    ;;
-                *) error "invalid option $REPLY";;
+            "y")
+                export CERTBOT_DOCKER=y
+                break
+                ;;
+            "n")
+                export CERTBOT_DOCKER=n
+                break
+                ;;
+            "exit")
+                exit 1
+                ;;
+            *) error "invalid option $REPLY" ;;
             esac
         done
 
@@ -270,62 +260,60 @@ export LANG=C
         echo
 
         local _options=("ip" "dns" "ingress" "exit")
-        select SELECT in "${_options[@]}"
-        do
+        select SELECT in "${_options[@]}"; do
             case $SELECT in
-                "ip")
-                    export DEPLOYMENT=ip
-                    break
-                    ;;
-                "dns")
-                    export DEPLOYMENT=dns
-                    break
-                    ;;
-                "ingress")
-                    export DEPLOYMENT=ingress
-                    break
-                    ;;
-                "exit")
-                    exit 1
-                    ;;
-                *) error "invalid option $REPLY";;
+            "ip")
+                export DEPLOYMENT=ip
+                break
+                ;;
+            "dns")
+                export DEPLOYMENT=dns
+                break
+                ;;
+            "ingress")
+                export DEPLOYMENT=ingress
+                break
+                ;;
+            "exit")
+                exit 1
+                ;;
+            *) error "invalid option $REPLY" ;;
             esac
         done
 
         ## ip, dns, ingress
-        if [[ ${DEPLOYMENT} == "ip" ]] ; then
+        if [[ ${DEPLOYMENT} == "ip" ]]; then
             input_EXTERNAL_IP
-            info "External IP : $EXTERNAL_IP" 
+            info "External IP : $EXTERNAL_IP"
         fi
 
         ## ip, dns, ingress
-        if [[ ${DEPLOYMENT} == "dns" ]] ; then
+        if [[ ${DEPLOYMENT} == "dns" ]]; then
             input_DNS
         fi
-                ## ip, dns, ingress
-        if [[ ${DEPLOYMENT} == "ingress" ]] ; then
+        ## ip, dns, ingress
+        if [[ ${DEPLOYMENT} == "ingress" ]]; then
             # input_INTERNAL_IP
             input_DNS
 
-            info "DNS : ${DEPLOY_URL}" 
+            info "DNS : ${DEPLOY_URL}"
         fi
 
         info "Deployment :${DEPLOYMENT} "
 
     }
 
-    checkIP(){
+    checkIP() {
         ip=$1
-        byte1=`echo "$ip"|xargs|cut -d "." -f1`
-        byte2=`echo "$ip"|xargs|cut -d "." -f2`
-        byte3=`echo "$ip"|xargs|cut -d "." -f3`
-        byte4=`echo "$ip"|xargs|cut -d "." -f4`
+        byte1=$(echo "$ip" | xargs | cut -d "." -f1)
+        byte2=$(echo "$ip" | xargs | cut -d "." -f2)
+        byte3=$(echo "$ip" | xargs | cut -d "." -f3)
+        byte4=$(echo "$ip" | xargs | cut -d "." -f4)
 
-        if [[  $ip =~ ^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$  && $byte1 -ge 0 && $byte1 -le 255 && $byte2 -ge 0 && $byte2 -le 255 && $byte3 -ge 0 && $byte3 -le 255 && $byte4 -ge 0 && $byte4 -le 255 ]]
-        then
+        if [[ $ip =~ ^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$ && $byte1 -ge 0 && $byte1 -le 255 && $byte2 -ge 0 && $byte2 -le 255 && $byte3 -ge 0 && $byte3 -le 255 && $byte4 -ge 0 && $byte4 -le 255 ]]; then
             echo "valid"
         else
-            echo "invalid" 
+            echo "invalid"
         fi
     }
 
@@ -334,8 +322,7 @@ export LANG=C
         while true; do
             read -p "Enter the ip address where the deployment is reachable : or exit " var1
 
-            if [[ $var1 == "exit" ]]
-            then
+            if [[ $var1 == "exit" ]]; then
                 exit
             else
                 result=$(checkIP $var1)
@@ -345,7 +332,7 @@ export LANG=C
                     break
                 else
                     error
-                    error ' Invalid IP address ' $var1 
+                    error ' Invalid IP address ' $var1
                     error
                 fi
             fi
@@ -358,8 +345,7 @@ export LANG=C
             info
             read -p "Enter internal ip address: or EXIT " var1
 
-            if [[ $var1 == "exit" ]]
-            then
+            if [[ $var1 == "exit" ]]; then
                 exit
             else
                 result=$(checkIP $var1)
@@ -368,13 +354,13 @@ export LANG=C
                     break
                 else
                     error
-                    error ' Invalid IP address ' $var1 
+                    error ' Invalid IP address ' $var1
                     error
                 fi
             fi
         done
         info
-        info "Internal IP : ${INTERNAL_IP}" 
+        info "Internal IP : ${INTERNAL_IP}"
 
     }
 
@@ -382,30 +368,31 @@ export LANG=C
         while true; do
             read -p "Enter DNS : or exit " var1
 
-            if [[ $var1 == "exit" ]]
-            then
+            if [[ $var1 == "exit" ]]; then
                 exit
             else
                 ## result=$(checkIP $var1)
                 ## if [[ $result == "valid" ]]; then
-                    DEPLOY_URL=$var1
-                    break
+                DEPLOY_URL=$var1
+                break
                 # else
                 #    echo
-                #    echo ' Invalid IP address ' $var1 
+                #    echo ' Invalid IP address ' $var1
                 #    echo
                 # fi
             fi
         done
         info
-        info "DEPLOY_URL : $DEPLOY_URL" 
+        info "DEPLOY_URL : $DEPLOY_URL"
     }
 
     main() {
 
         check_installed_programs
 
-        input_DEPLOYMENT
+        if [ "$DEPLOYMENT" != true ]; then
+            input_DEPLOYMENT
+        fi
 
         if [[ "${DEPLOYMENT}" == "ip" ]]; then
             PROTOCOL="http"
@@ -418,21 +405,29 @@ export LANG=C
 
         if [[ "${DEPLOYMENT}" == "dns" ]]; then
             # Can run with or w/o SSL
-            input_PROTOCOL
+            if [ "$PROTOCOL" != true ]; then
+                input_PROTOCOL
+            fi
         fi
-        #input deployment port
-        #input_DEPLOYMENT_PORT
 
-        # chcek if it is for upgrade
-        input_UPGRADE
+        # check if it is for upgrade
 
         if [[ "${UPGRADE}" == "y" ]]; then
-          # upgrade
-          input_UPGRADE_VERSION
+            # upgrade
+            input_UPGRADE
+            if [[ "${UPGRADE_VERSION}" == "y" ]]; then
+                # upgrade
+                input_UPGRADE_VERSION
+            fi
         fi
 
-        input_SUPPORT
-        input_SYSMON
+        if [ "$SUPPORT" != true ]; then
+            input_SUPPORT
+        fi
+
+        if [ "$SUPPORT" != true ]; then
+            input_SYSMON
+        fi
 
         export DEPLOYMENT=${DEPLOYMENT}
         export PROTOCOL=${PROTOCOL}
@@ -444,17 +439,17 @@ export LANG=C
         FILE=.env
         if [[ -f "$FILE" ]]; then
             info "Backup existing .env file"
-            cp .env .env.`date +"%Y.%m.%d-%H.%M.%S"` 
+            cp .env .env.$(date +"%Y.%m.%d-%H.%M.%S")
         fi
 
         FILE=docker-compose.yml
         if [[ -f "$FILE" ]]; then
             info "Backup existing docker-compose file"
-            cp docker-compose.yml docker-compose.yml.`date +"%Y.%m.%d-%H.%M.%S"`
+            cp docker-compose.yml docker-compose.yml.$(date +"%Y.%m.%d-%H.%M.%S")
         fi
 
         info "Creating docker-compose environment"
-        envsubst < ./templates/.env.template > .env
+        envsubst <./templates/.env.template >.env
         cp ./templates/.docker-compose.template ./docker-compose.yml
 
         if [[ "${DEPLOYMENT}" == "ingress" ]]; then
@@ -467,22 +462,22 @@ export LANG=C
                     readonly REPL_DEPLOY_URL=domain
                     cp ./templates/.nginx-docker.template ./nginx/sites/${DEPLOY_URL}
                     sed -i'.org' "s/${REPL_DEPLOY_URL}/${DEPLOY_URL}/g" ./nginx/sites/${DEPLOY_URL}
-                else 
+                else
                     readonly REPL_DEPLOY_URL=domain
                     cp ./templates/.nginx-docker-ssl.template ./nginx/sites/${DEPLOY_URL}
                     sed -i'.org' "s/${REPL_DEPLOY_URL}/${DEPLOY_URL}/g" ./nginx/sites/${DEPLOY_URL}
                 fi
                 rm ./nginx/sites/${DEPLOY_URL}.org
-                
-                cat ./templates/.docker-compose-nginx.template >> ./docker-compose.yml
-                
+
+                cat ./templates/.docker-compose-nginx.template >>./docker-compose.yml
+
                 if [[ "${CERTBOT_DOCKER}" == "y" ]]; then
-                    cat ./templates/.docker-compose-certbot.template >> ./docker-compose.yml
+                    cat ./templates/.docker-compose-certbot.template >>./docker-compose.yml
                 fi
 
             else
                 info "Configure NGINX installed outside of the docker network"
-                # DEPLOYMENT 
+                # DEPLOYMENT
                 input_INTERNAL_IP
                 . "./nginx_create_site.sh" ${INTERNAL_IP} ${DEPLOY_URL}
             fi
@@ -490,12 +485,12 @@ export LANG=C
 
         if [[ "${SUPPORT}" == "y" ]]; then
             info "Configure Support tools"
-            cat ./templates/.docker-compose-portainer.template >> ./docker-compose.yml
+            cat ./templates/.docker-compose-portainer.template >>./docker-compose.yml
         fi
 
         if [[ "${SYSMON}" == "y" ]]; then
             info "Configure System monitoring"
-            cat ./templates/.docker-compose-sysmon.template >> ./docker-compose.yml
+            cat ./templates/.docker-compose-sysmon.template >>./docker-compose.yml
         fi
 
         if [[ "${UPGRADE}" == "y" ]]; then
@@ -509,6 +504,6 @@ export LANG=C
 
     }
 
-  main @1
-  
+    main @1
+
 }

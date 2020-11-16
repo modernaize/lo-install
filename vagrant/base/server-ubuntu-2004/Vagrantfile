@@ -1,0 +1,57 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+#
+# Use config.yaml for basic VM configuration.
+#
+
+require 'yaml'
+dir = File.dirname(File.expand_path(__FILE__))
+# puts 'test '  + dir
+config_file = "../../shared/config.yaml"
+
+if !File.exist?("#{config_file}")
+  raise 'Configuration file is missing! Please make sure that the configuration exists and try again. please check folder ./config/ for file config.yaml'
+end
+
+config = YAML::load_file("#{config_file}")
+
+$IP = config['vagrant_ip_server']
+$RAM = config['vagrant_memory_server']
+$CPU = config['vagrant_cpu_server']
+$DISKSIZE = config['vagrant_disksize']
+$BASEBOX =  config['vagrant_box_base']
+$HOSTNAME =  config['vagrant_hostname_server']
+
+$message = <<MSG
+----------------------------------------------------------------
+
+  IP = #{$IP}
+
+----------------------------------------------------------------
+MSG
+
+#
+# Check and install all varant plugins
+#
+
+required_plugins = %w( vagrant-scp vagrant-disksize )
+required_plugins.each do |plugin|
+    exec "vagrant plugin install #{plugin};vagrant #{ARGV.join(" ")}" unless Vagrant.has_plugin? plugin || ARGV[0] == 'plugin'
+end
+
+Vagrant.configure("2") do |server|
+  server.vm.box = "#{$BASEBOX}"
+  server.vm.hostname  = "#{$HOSTNAME}"
+  server.vm.network "private_network", ip: "#{$IP}"
+  server.vm.define "modernaize-base-ubuntu-2004"
+  server.disksize.size = "#{$DISKSIZE}"
+  server.vm.provider "virtualbox" do |v|
+    v.name = "modernaize-base-ubuntu-2004"
+    v.memory = "#{$RAM}"
+    v.cpus = "#{$CPU}"
+  end
+  server.vm.synced_folder "../../shared", "/shared"
+  server.vm.provision "shell", path: "scripts/provision.sh"
+  server.vm.post_up_message = $message
+end
