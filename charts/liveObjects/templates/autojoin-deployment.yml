@@ -68,7 +68,7 @@ spec:
         - name: FLASK_ENV
           value: "production"
         - name:  AUTOJOIN_LOGGING_LOCATION
-          value: "STDOUT"
+          value: {{ .Values.deployment.autojoin.loggingLocation }}
         - name: DB_HOST
           value: "{{ .Release.Name }}-{{ .Values.services.postgres.metadata.name }}"
         volumeMounts:

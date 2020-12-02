@@ -434,6 +434,7 @@ deployment:
           memory: 1G
       ports:
         containerPort: 5000
+    loggingLocation: "STDOUT"
     spec:
       replicas: 1
 
@@ -452,6 +453,8 @@ deployment:
           memory: 1G
       ports:
         containerPort: 5000
+    loggingLocation: "STDOUT"
+
     spec:
       replicas: 1
 
