@@ -96,7 +96,7 @@ spec:
         {{- if .Values.persistence.enabled }}
           {{- if .Values.persistence.backend.data.enabled }}
         - name: backend-data-persistent-storage
-          mountPath:/mnt/uploads
+          mountPath: /mnt/uploads
         - name: backend-data-persistent-storage
           mountPath: /mnt/data
           {{- end }}
@@ -105,21 +105,5 @@ spec:
           mountPath: /mnt/logs
           {{- end }}
         {{- end }}
-        readinessProbe:
-          httpGet:
-            path: /actuator/health/readiness
-            port: {{ .Values.deployment.backend.container.ports.containerPort }}
-          initialDelaySeconds: 40
-          timeoutSeconds: 2
-          periodSeconds: 3
-          failureThreshold: 2
-        livenessProbe:
-          httpGet:
-              path: /actuator/health/liveness
-              port: {{ .Values.deployment.backend.container.ports.containerPort }}
-          initialDelaySeconds: 100
-          timeoutSeconds: 2
-          periodSeconds: 8
-          failureThreshold: 1
       imagePullSecrets:
       - name: {{ .Release.Name }}-{{ .Values.secrets.registry.imagePullSecrets }}
