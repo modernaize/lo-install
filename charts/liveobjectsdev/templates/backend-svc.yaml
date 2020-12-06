@@ -1,0 +1,23 @@
+{{- if .Values.services.backend.enabled }}
+kind: Service
+apiVersion: v1
+metadata:
+  name: {{ .Release.Name }}-{{ .Values.services.backend.metadata.name }}
+  labels:
+    app.kubernetes.io/managed-by: helm
+    app.kubernetes.io/name: {{ .Chart.Name }}
+    app.kubernetes.io/version: {{ .Chart.Version }}
+    app.kubernetes.io/appVersion: {{ .Chart.AppVersion }}
+    app.kubernetes.io/component: secret
+    app.kubernetes.io/helm-application: {{ .Release.Name }}
+    app.kubernetes.io/namespace: {{ .Release.Namespace }}
+    app.kubernetes.io/track: {{ .Values.global.labels.track | quote }}
+spec:
+  selector:
+    app: {{ .Values.services.backend.spec.selector.app }}
+  ports:
+  - protocol: {{ .Values.services.backend.spec.ports.protocol }}
+    port: {{ .Values.services.backend.spec.ports.port }}
+    targetPort: {{ .Values.services.backend.spec.ports.targetPort }}
+  type: {{ .Values.services.backend.spec.type }}
+{{- end }}

@@ -1,0 +1,27 @@
+{{- if and (or (.Files.Glob "files/docker-entrypoint-initdb.d/*.{sh,sql,sql.gz}") .Values.initdbScripts) (not .Values.initdbScriptsConfigMap) }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Release.Name }}-lo-init-scripts
+  labels:
+    app.kubernetes.io/managed-by: helm
+    app.kubernetes.io/name: {{ .Chart.Name }}
+    app.kubernetes.io/version: {{ .Chart.Version }}
+    app.kubernetes.io/appVersion: {{ .Chart.AppVersion }}
+    app.kubernetes.io/component: secret
+    app.kubernetes.io/helm-application: {{ .Release.Name }}
+    track: "stable"
+{{- with .Files.Glob "files/docker-entrypoint-initdb.d/*.sql.gz" }}
+binaryData:
+{{- range $path, $bytes := . }}
+  {{ base $path }}: {{ $.Files.Get $path | b64enc | quote }}
+{{- end }}
+{{- end }}
+data:
+{{- with .Files.Glob "files/docker-entrypoint-initdb.d/*.{sh,sql}" }}
+{{ .AsConfig | indent 2 }}
+{{- end }}
+{{- with .Values.initdbScripts }}
+{{ toYaml . | indent 2 }}
+{{- end }}
+{{- end }}

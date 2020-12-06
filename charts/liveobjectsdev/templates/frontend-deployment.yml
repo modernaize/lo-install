@@ -1,0 +1,79 @@
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-{{ .Values.deployment.frontend.metadata.name }}
+  labels:
+    app.kubernetes.io/managed-by: helm
+    app.kubernetes.io/name: {{ .Release.Name }}
+    app.kubernetes.io/version: {{ .Chart.Version }}
+    app.kubernetes.io/appVersion: {{ .Chart.AppVersion }}
+    app.kubernetes.io/component: secret
+    app.kubernetes.io/helm-application: {{ .Release.Name }}
+    app.kubernetes.io/namespace: {{ .Release.Namespace }}
+    app.kubernetes.io/track: {{ .Values.global.labels.track | quote }}
+spec:
+  replicas: {{ .Values.deployment.frontend.spec.replicas }}
+  selector:
+    matchLabels:
+      app: {{ .Release.Name }}-frontend
+  template:
+    metadata:
+      labels:
+        app: {{ .Release.Name }}-frontend
+    spec:
+      volumes:
+      - name: tls-keys-volume
+        configMap:
+          {{- if .Values.tls.base64EncodedPrivateKey }}
+          name: {{ .Release.Name }}-lo-custom-tls
+          {{- else }}
+          name: {{ .Release.Name }}-tls-keys
+          {{- end }}
+      containers:
+      - name: frontend
+        image: {{ .Values.deployment.frontend.container.registry }}:{{ .Values.deployment.frontend.container.tag }}
+        imagePullPolicy: {{ .Values.deployment.frontend.container.imagePullPolicy }}
+        resources:
+          requests:
+            cpu: {{ .Values.deployment.frontend.container.resources.requests.cpu }}
+            memory: {{ .Values.deployment.frontend.container.resources.requests.memory }}
+        ports:
+        - containerPort: {{ .Values.deployment.frontend.container.ports.containerPort }}
+        env:
+        - name: AUTOJOIN_HOST
+          value: "{{ .Release.Name }}-{{ .Values.services.autojoin.metadata.name }}"
+        - name: AUTOJOIN_PORT
+          value: "{{ .Values.services.autojoin.spec.ports.targetPort }}"
+        - name: SERVICE_HOST
+          value: "{{ .Release.Name }}-{{ .Values.services.backend.metadata.name }}"
+        - name: SERVICE_PORT
+          value: "{{ .Values.services.backend.spec.ports.targetPort }}"
+        - name: LEARN_HOST
+          value: "{{ .Release.Name }}-{{ .Values.services.learn.metadata.name }}"
+        - name: LEARN_PORT
+          value: "{{ .Values.services.learn.spec.ports.targetPort }}"
+        - name: LICENSE_HOST
+          value: "{{ .Release.Name }}-{{ .Values.services.license.metadata.name }}"
+        - name: LICENSE_PORT
+          value: "{{ .Values.services.license.spec.ports.targetPort }}"
+        - name: NODE_ENV
+          value: "production"
+        # To Do for SSL disabled
+        - name:  TLS_CERT_PROVIDED
+        ## [none] SSL - disabled
+        ## [lets-encrypt] The Let's Encrypt certificate is generated
+        ## [self-signed] Custom self-signed certificates will be installed on Live Objects instance
+        {{- if eq (lower .Values.lo.sslConfiguration) "self-signed" }}
+          value: "true"
+        {{-  else }}
+          value: "false"
+        {{- end }}
+        volumeMounts:
+        - name: tls-keys-volume # configMaps
+          mountPath: /home/node/app/keys/tls
+      imagePullSecrets:
+      - name: {{ .Release.Name }}-{{ .Values.secrets.registry.imagePullSecrets }}
+
+
+

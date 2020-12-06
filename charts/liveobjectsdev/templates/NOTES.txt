@@ -1,0 +1,45 @@
+1. Application {{ .Release.Name }} got deployed into namespace : {{ .Release.Namespace }}
+
+2. Get the application URL by running these commands:
+{{- if .Values.global.ingress }}
+{{- range $host := .Values.ingress.hosts }}
+  {{- range .paths }}
+  http{{ if $.Values.ingress.tls }}s{{ end }}://{{ $host.host }}{{ . }}
+  {{- end }}
+{{- end }}
+{{- else }}
+
+  echo http{{- if ne (lower $.Values.lo.sslConfiguration) "none" }}s{{ end }}://##external_IP##
+
+    NOTE: It may take a few minutes for the LoadBalancer IP to be available.
+           You can watch the status of by running 'kubectl get --namespace {{ .Release.Namespace }} svc -w {{ .Release.Name }}-{{ $.Values.services.frontend.metadata.name }}'
+
+{{- end }}
+
+3. To get the password for your installation run:
+
+postgres:
+
+      POSTGRES_ADMIN_PASSWORD=$(kubectl get secret \
+        --namespace {{ .Release.Namespace }} \
+        {{ .Release.Name }}-{{ template "postgresql.secretName" . }} \
+        -o jsonpath="{.data.password}" | base64 --decode)
+        echo "${POSTGRES_ADMIN_PASSWORD}\n"
+
+        Please secure this password securly as you might need it in order to access the database.
+
+admin:
+
+LO_ADMIN_PASSWORD=$(kubectl get secret \
+        --namespace {{ .Release.Namespace }} \
+        {{ .Release.Name }}-{{ template "loServer.secretName" . }} \
+        -o jsonpath="{.data.adminPassword}" | base64 --decode)
+        echo "${LO_ADMIN_PASSWORD}\n"
+
+license_admin:
+
+LO_LICENSE_ADMIN_PASSWORD=$(kubectl get secret \
+        --namespace {{ .Release.Namespace }} \
+        {{ .Release.Name }}-{{ template "loServer.secretName" . }} \
+        -o jsonpath="{.data.license_adminPassword}" | base64 --decode)
+        echo "${LO_LICENSE_ADMIN_PASSWORD}\n"

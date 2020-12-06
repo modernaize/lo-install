@@ -1,0 +1,65 @@
+{{- if .Values.global.configMap }}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Release.Name }}-tls-keys
+  labels:
+    app.kubernetes.io/managed-by: helm
+    app.kubernetes.io/name: {{ .Chart.Name }}
+    app.kubernetes.io/version: {{ .Chart.Version }}
+    app.kubernetes.io/appVersion: {{ .Chart.AppVersion }}
+    app.kubernetes.io/component: secret
+    app.kubernetes.io/helm-application: {{ .Release.Name }}
+    app.kubernetes.io/track: {{ .Values.global.labels.track | quote }}
+data:
+{{ (tpl (.Files.Glob "keys/tls/*").AsConfig . ) | indent 4 }} 
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Release.Name }}-lo-license
+  labels:
+    app.kubernetes.io/managed-by: helm
+    app.kubernetes.io/name: {{ .Chart.Name }}
+    app.kubernetes.io/version: {{ .Chart.Version }}
+    app.kubernetes.io/appVersion: {{ .Chart.AppVersion }}
+    app.kubernetes.io/component: secret
+    app.kubernetes.io/helm-application: {{ .Release.Name }}
+    app.kubernetes.io/track: {{ .Values.global.labels.track | quote }}
+data:
+{{ (tpl (.Files.Glob "license/*").AsConfig . ) | indent 4 }} 
+---    
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Release.Name }}-postgresql-configuration
+  labels:
+    app: {{ .Release.Name }}
+    app.kubernetes.io/name: {{ .Release.Name }}
+    # I cannot reference .Chart.Name, but I can do $.Chart.Name
+    helm.sh/chart: "{{ $.Chart.Name }}-{{ $.Chart.Version }}"
+    app.kubernetes.io/instance: "{{ $.Release.Name }}"
+    # Value from appVersion in Chart.yaml
+    app.kubernetes.io/version: "{{ $.Chart.AppVersion }}"
+    app.kubernetes.io/namespace: {{ .Release.Namespace }}
+
+data:
+    postgresql.conf: |
+        listen_addresses='*'
+        dynamic_shared_memory_type = posix
+    pg_hba.conf: |
+        host    all             postgres        all                     trust
+        local   all             all                                     trust
+        host    all             all             127.0.0.1/32            trust
+        host    all             all             ::1/128                 trust
+        host    all             all             all                     md5
+        local   postgres        postgres                                trust
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Release.Name }}-env
+data:
+{{ (tpl (.Files.Glob ".env").AsConfig . ) | indent 4 }} 
+{{- end }}

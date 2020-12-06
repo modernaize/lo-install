@@ -1,0 +1,1085 @@
+# Default values for liveobjects.
+# This is a YAML-formatted file
+
+# global
+global:
+  image:
+    registry: docker.io
+    repository: liveobjects
+  labels:
+    track: stable
+  frontend:
+    enabled: true
+  backend:
+    enabled: true
+  postrgre:
+    enabled: true
+  learn:
+    enabled: true
+  license:
+    enabled: true
+  wdc:
+    enabled: true
+  scenario:
+    enabled: true
+  businessgrammar:
+    enabled: true
+  dyk:
+    enabled: true
+  dashboards:
+    enabled: true
+  extensions:
+    enabled: true
+  documentaion:
+    enabled: true
+  discoveryautojoin:
+    enabled: true
+  autojoin:
+    enabled: true
+  storytelling:
+    enabled: true
+  jobscheduler:
+    enabled: true
+  workschedule:
+    enabled: true
+  learningcenterautojoin:
+    enabled: true
+
+  configMap: true
+  networkPolicy: false
+  ingress: false
+  resourceQuotas: false
+  dockerSecret: true
+  gcp: null
+  
+# Docker registry 
+secrets:
+  registry:    
+    imagePullSecrets: regcred
+
+  ##
+  ## SSL configuration options:
+  ## [none]         SSL is disabled
+  ## [lets-encrypt] Combined with Live Objects domain name - the Let's Encrypt certificate is generated
+  ## [Self-signed]  OpenSSL self-signed certificates will be installed on Live Objects instance
+  ##
+lo:
+  sslConfiguration: "none"
+
+tls:
+  base64EncodedPrivateKey: null
+  base64EncodedCertificate: null
+
+certManager:
+  tls:
+    secretName: lo-tls
+  ca: 
+    name: letsencrypt
+  letsencrypt:
+    # Env - prod || staging
+    env: prod
+    spec:
+      acme:
+        email: info@liveobjects.education
+        serverProd: https://acme-v02.api.letsencrypt.org/directory
+        serverStaging: https://acme-staging.api.letsencrypt.org/directory
+ 
+    ## Enable creation of NetworkPolicy resources. Only Ingress traffic is filtered for now.
+    ##
+    ##
+  allowExternal: true
+  
+    ## if explicitNamespacesSelector is missing or set to {}, only client Pods that are in the networkPolicy's namespace
+    ## and that match other criteria, the ones that have the good label, can reach the DB.
+    ## But sometimes, we want the DB to be accessible to clients from other namespaces, in this case, we can use this
+    ## LabelSelector to select these namespaces, note that the networkPolicy's namespace should also be explicitly added.
+    ##
+    # explicitNamespacesSelector:
+      # matchLabels:
+        # role: frontend
+      # matchExpressions:
+        # - {key: role, operator: In, values: [frontend]}
+  
+ingress:
+  tls: 
+  #  - secretName: chart-example-tls
+  #    hosts: full domain name ie. e1.exampe.com
+     host: null
+  annotations: {}
+  # kubernetes.io/ingress.class: nginx
+  # kubernetes.io/tls-acme: "true"
+  # nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+  
+  name: frontend-ingress
+  proxyBodySize: 200m
+# Deployment
+deployment:
+
+  postgres:
+    enabled: true
+    metadata:
+      name: postgre-deployment
+    container:
+      registry: liveobjects/postgres
+      tag: "D-develop"
+      # Always IfNotPresent
+      imagePullPolicy: "Always"
+      resources:
+        requests:
+          cpu: 200m
+          memory: 1G
+      ports:
+        containerPort: 5432
+    spec:
+      replicas: 1
+  frontend:
+    enabled: true
+    metadata:
+      name: frontend-ui-deployment
+    container:
+      registry: liveobjects/ui
+      tag: "D-develop"
+      # Always IfNotPresent
+      imagePullPolicy: "Always"
+      resources:
+        requests:
+          cpu: 200m
+          memory: 1G
+      ports:
+        containerPort: 3000
+    spec:
+      replicas: 1
+
+  scenario:
+    enabled: true
+    metadata:
+      name: scenario-ui-deployment
+    container:
+      registry: liveobjects/lo-ui-scenario
+      tag: "D-develop"
+      # Always IfNotPresent
+      imagePullPolicy: "Always"
+      resources:
+        requests:
+          cpu: 200m
+          memory: 1G
+      ports:
+        containerPort: 3000
+    spec:
+      replicas: 1
+  businessgrammar:
+    enabled: true
+    metadata:
+      name: businessgrammar-ui-deployment
+    container:
+      registry: liveobjects/lo-ui-business-grammar
+      tag: "D-develop"
+      # Always IfNotPresent
+      imagePullPolicy: "Always"
+      resources:
+        requests:
+          cpu: 200m
+          memory: 1G
+      ports:
+        containerPort: 3000
+    spec:
+      replicas: 1
+
+  dyk:
+    enabled: true
+    metadata:
+      name: dyk-ui-deployment
+    container:
+      registry: liveobjects/lo-ui-dyk
+      tag: "D-develop"
+      # Always IfNotPresent
+      imagePullPolicy: "Always"
+      resources:
+        requests:
+          cpu: 200m
+          memory: 1G
+      ports:
+        containerPort: 3000
+    spec:
+      replicas: 1
+  wdc:
+    enabled: true
+    metadata:
+      name: wdc-deployment
+    container:
+      registry: liveobjects/lo-tableau-wdc
+      tag: "D-develop"
+      # Always IfNotPresent
+      imagePullPolicy: "Always"
+      resources:
+        requests:
+          cpu: 200m
+          memory: 1G
+      ports:
+        containerPort: 3000
+    spec:
+      replicas: 1
+  discoveryautojoin:
+    enabled: true
+    metadata:
+      name: discoveryautojoin-ui-deployment
+    container:
+      registry: liveobjects/lo-ui-discovery-autojoin
+      tag: "D-develop"
+      # Always IfNotPresent
+      imagePullPolicy: "Always"
+      resources:
+        requests:
+          cpu: 200m
+          memory: 1G
+      ports:
+        containerPort: 3000
+    spec:
+      replicas: 1
+  documentation:
+    enabled: true
+    metadata:
+      name: documentation-ui-deployment
+    container:
+      registry: liveobjects/lo-ui-documentation
+      tag: "D-develop"
+      # Always IfNotPresent
+      imagePullPolicy: "Always"
+      resources:
+        requests:
+          cpu: 200m
+          memory: 1G
+      ports:
+        containerPort: 3000
+    spec:
+      replicas: 1
+      
+
+  extensions:
+    enabled: true
+    metadata:
+      name: extensions-ui-deployment
+    container:
+      registry: liveobjects/lo-ui-extensions
+      tag: "D-develop"
+      # Always IfNotPresent
+      imagePullPolicy: "Always"
+      resources:
+        requests:
+          cpu: 200m
+          memory: 1G
+      ports:
+        containerPort: 3000
+    spec:
+      replicas: 1
+
+  dashboards:
+    enabled: true
+    metadata:
+      name: dashboards-ui-deployment
+    container:
+      registry: liveobjects/lo-ui-dashboards
+      tag: "D-develop"
+      # Always IfNotPresent
+      imagePullPolicy: "Always"
+      resources:
+        requests:
+          cpu: 200m
+          memory: 1G
+      ports:
+        containerPort: 3000
+    spec:
+      replicas: 1
+  storytelling:
+    enabled: true
+    metadata:
+      name: storytelling-ui-deployment
+    container:
+      registry: liveobjects/lo-ui-story-telling
+      tag: "D-develop"
+      # Always IfNotPresent
+      imagePullPolicy: "Always"
+      resources:
+        requests:
+          cpu: 200m
+          memory: 1G
+      ports:
+        containerPort: 3000
+    spec:
+      replicas: 1
+  workschedule:
+    enabled: true
+    metadata:
+      name: workschedule-ui-deployment
+    container:
+      registry: liveobjects/lo-ui-work-schedule
+      tag: "D-develop"
+      # Always IfNotPresent
+      imagePullPolicy: "Always"
+      resources:
+        requests:
+          cpu: 200m
+          memory: 1G
+      ports:
+        containerPort: 3000
+    spec:
+      replicas: 1
+  learningcenterautojoin:
+    enabled: true
+    metadata:
+      name: learningcenter-ui-autojoin-deployment
+    container:
+      registry: liveobjects/lo-ui-learning-center-autojoin
+      tag: "D-develop"
+      # Always IfNotPresent
+      imagePullPolicy: "Always"
+      resources:
+        requests:
+          cpu: 200m
+          memory: 1G
+      ports:
+        containerPort: 3000
+    spec:
+      replicas: 1
+
+
+  jobscheduler:
+    enabled: true
+    metadata:
+      name: jobscheduler-ui-deployment
+    container:
+      registry: liveobjects/lo-ui-job-scheduler
+      tag: "D-develop"
+      # Always IfNotPresent
+      imagePullPolicy: "Always"
+      resources:
+        requests:
+          cpu: 200m
+          memory: 1G
+      ports:
+        containerPort: 3000
+    spec:
+      replicas: 1
+
+  license:
+    enabled: true
+    metadata:
+      name: license-svc-deployment
+    container: 
+      registry: liveobjects/lo-license-service
+      tag: "D-develop"
+          # Always IfNotPresent
+      imagePullPolicy: "Always"
+      resources:
+        requests:
+          cpu: 200m
+          memory: 1G
+      ports:
+        containerPort: 3000
+    spec:
+      replicas: 1
+
+## Allow health checks to be pointed at the https port
+    healthcheckHttps: false
+
+# Pod extra options for liveness and readiness probes
+    livenessProbe:
+      enabled: false
+      path: /live
+      initialDelaySeconds: 120
+      periodSeconds: 10
+      timeoutSeconds: 5
+      failureThreshold: 6
+      successThreshold: 1
+
+    readinessProbe:
+      enabled: false
+      path: /ready
+      initialDelaySeconds: 30
+      periodSeconds: 10
+      timeoutSeconds: 5
+      failureThreshold: 6
+      successThreshold: 1
+
+  backend:
+    enabled: true
+    metadata:
+      name: backend-svc-deployment
+    container:
+      registry: liveobjects/service
+      tag: "D-develop"
+      #tag: "F-lo-1293"
+      # Always IfNotPresent
+      imagePullPolicy: "Always"
+      resources:
+        requests:
+          cpu: 200m
+          memory: 1G
+      ports:
+        containerPort: 8000
+    spec:
+      replicas: 1
+
+  learn:
+    enabled: true
+    metadata:
+      name: learn-svc-deployment
+    container:
+      registry: liveobjects/learn
+      tag: "D-develop"
+      # Always IfNotPresent
+      imagePullPolicy: "Always"
+      resources:
+        requests:
+          cpu: 200m
+          memory: 1G
+      ports:
+        containerPort: 5000
+    loggingLocation: "STDOUT"
+    spec:
+      replicas: 1
+
+  autojoin:
+    enabled: true
+    metadata:
+      name: autojoin-svc-deployment
+    container:
+      registry: liveobjects/autojoin
+      tag: "D-develop"
+      # Always IfNotPresent
+      imagePullPolicy: "Always"
+      resources:
+        requests:
+          cpu: 200m
+          memory: 1G
+      ports:
+        containerPort: 5000
+    loggingLocation: "STDOUT"
+
+    spec:
+      replicas: 1
+
+# Persistence Volumes
+
+persistence:
+  enabled: false
+  persistensDisk: gcePersistentDisk
+      
+  # Live objects persistence
+  postgres:
+    data:
+      enabled: true
+      size: 5Gi
+      accessMode: ReadWriteOnce
+      volumeType: persistentVolumeClaim # hostPath, persistentVolumeClaim 
+      hostPath: /mount-point/postgres/data
+      pv:
+        enabled: true
+        storageClassName: ""
+        metadata:
+          name: postgres-data
+        spec:
+          gcePersistentDisk:
+            pdName: postgres-data
+            fsType: ext4
+          awsElasticBlockStore:
+            volumeID: volumeID
+            fsType: ext4
+          elasticFileSystem:
+              server: server
+              path: path
+          azureDisk:
+              diskName: name
+              diskURI: uri
+          azureFileStorage:
+              secretName: azure-secret
+              shareName: azftest
+              readOnly: false
+              mountOptions:
+                - dir_mode=0777
+                - file_mode=0777
+  license:
+    logs:
+      enabled: true
+      size: 5Gi
+      accessMode: ReadWriteOnce
+      volumeType: persistentVolumeClaim # hostPath, persistentVolumeClaim 
+      hostPath: /mount-point/license/logs
+      pv:
+        enabled: true
+        storageClassName: ""
+        metadata:
+          name: license-logs
+        spec:
+          gcePersistentDisk:
+            pdName: license-logs
+            fsType: ext4
+          awsElasticBlockStore:
+            volumeID: volumeID
+            fsType: ext4
+          elasticFileSystem:
+              server: server
+              path: path
+          azureDisk:
+              diskName: name
+              diskURI: uri
+          azureFileStorage:
+              secretName: azure-secret
+              shareName: azftest
+              readOnly: false
+              mountOptions:
+                - dir_mode=0777
+                - file_mode=0777
+
+  frontend:
+    logs:
+      enabled: true
+      size: 5Gi
+      accessMode: ReadWriteOnce
+      volumeType: persistentVolumeClaim # hostPath, persistentVolumeClaim 
+      hostPath: /mount-point/frontend/logs
+      pv:
+        enabled: true
+        storageClassName: ""
+        metadata:
+          name: frontend-logs
+        spec:
+          gcePersistentDisk:
+            pdName: frontend-logs
+            fsType: ext4
+          awsElasticBlockStore:
+            volumeID: volumeID
+            fsType: ext4
+          elasticFileSystem:
+              server: server
+              path: path
+          azureDisk:
+              diskName: name
+              diskURI: uri
+          azureFileStorage:
+              secretName: azure-secret
+              shareName: azftest
+              readOnly: false
+              mountOptions:
+                - dir_mode=0777
+                - file_mode=0777
+
+  backend:
+    data:
+      enabled: true
+      size: 5Gi
+      accessMode: ReadWriteOnce
+      volumeType: persistentVolumeClaim # hostPath, persistentVolumeClaim 
+      hostPath: /mount-point/backend/data
+      pv:
+        enabled: true
+        storageClassName: ""
+        metadata:
+          name: backend-data
+        spec:
+          gcePersistentDisk:
+            pdName: backend-data
+            fsType: ext4
+          awsElasticBlockStore:
+            volumeID: volumeID
+            fsType: ext4
+          elasticFileSystem:
+              server: server
+              path: path
+          azureDisk:
+              diskName: name
+              diskURI: uri
+          azureFileStorage:
+              secretName: azure-secret
+              shareName: azftest
+              readOnly: false
+              mountOptions:
+                - dir_mode=0777
+                - file_mode=0777
+    logs:
+      enabled: true
+      size: 5Gi
+      accessMode: ReadWriteOnce
+      volumeType: persistentVolumeClaim # hostPath, persistentVolumeClaim 
+      hostPath: /mount-point/backend/logs
+      pv:
+        enabled: true
+        storageClassName: ""
+        metadata:
+          name: backend-logs
+        spec:
+          gcePersistentDisk:
+            pdName: backend-logs
+            fsType: ext4
+          awsElasticBlockStore:
+            volumeID: volumeID
+            fsType: ext4
+          elasticFileSystem:
+              server: server
+              path: path
+          azureDisk:
+              diskName: name
+              diskURI: uri
+          azureFileStorage:
+              secretName: azure-secret
+              shareName: azftest
+              readOnly: false
+              mountOptions:
+                - dir_mode=0777
+                - file_mode=0777
+
+  learn:    
+    logs:
+      enabled: true 
+      size: 5Gi
+      accessMode: ReadWriteOnce
+      volumeType: persistentVolumeClaim # hostPath, persistentVolumeClaim 
+      hostPath: /mount-point/learn/logs
+      pv:
+        enabled: true
+        storageClassName: ""
+        metadata:
+          name: learn-logs
+        spec:
+          gcePersistentDisk:
+            pdName: learn-logs
+            fsType: ext4
+          awsElasticBlockStore:
+            volumeID: volumeID
+            fsType: ext4
+          elasticFileSystem:
+              server: server
+              path: path
+          azureDisk:
+              diskName: name
+              diskURI: uri
+          azureFileStorage:
+              secretName: azure-secret
+              shareName: azftest
+              readOnly: false
+              mountOptions:
+                - dir_mode=0777
+                - file_mode=0777  learn:
+    data:
+      enabled: true
+      size: 10Gi
+      accessMode: ReadWriteOnce
+      volumeType: persistentVolumeClaim # hostPath, persistentVolumeClaim 
+      hostPath: /mount-point/learn/data
+      pv:
+        enabled: false
+        storageClassName: ""
+        metadata:
+          name: pv-learn-data
+        spec:
+          gcePersistentDisk:
+            pdName: learn-data
+            fsType: ext4
+          awsElasticBlockStore:
+            volumeID: volumeID
+            fsType: ext4
+          elasticFileSystem:
+              server: server
+              path: path
+          azureDisk:
+              diskName: name
+              diskURI: uri
+          azureFileStorage:
+              secretName: azure-secret
+              shareName: azftest
+              readOnly: false
+              mountOptions:
+                - dir_mode=0777
+                - file_mode=0777  learn:
+# Services
+services:
+  backend:
+    enabled: true
+    metadata:
+      name: backend-svc
+    spec:
+      selector: 
+        app: backend
+      type: ClusterIP
+      ports:
+        protocol: TCP
+        port: 8000
+        targetPort: 8000
+
+  postgres:
+    enabled: true
+    metadata:
+      name: postgresql-svc
+    spec:
+      selector: 
+        app: postgres
+      type: ClusterIP
+      clusterIP: None
+      ports:
+        protocol: TCP
+        port: 5432
+        targetPort: 5432
+
+  learn:
+    enabled: true
+    metadata:
+      name: learn-svc
+    spec:
+      selector: 
+        app: learn
+      type: ClusterIP
+      ports:
+        protocol: TCP
+        port: 5000
+        targetPort: 5000
+
+  autojoin:
+    enabled: true
+    metadata:
+      name: autojoin-svc
+    spec:
+      selector: 
+        app: autojoin
+      type: ClusterIP
+      ports:
+        protocol: TCP
+        port: 5002
+        targetPort: 5002
+
+
+  frontend:
+    enabled: true
+    metadata:
+      name: frontend-svc
+
+      annotations: {}
+      # alb.ingress.kubernetes.io/scheme: internet-facing, 
+      # alb.ingress.kubernetes.io/tags: 'Environment=dev,Team=test'      
+
+    spec:
+      selector: 
+        app: frontend
+      type: ClusterIP
+      ports:
+        protocol: TCP
+# lo.sslConfiguration = none
+        port: 80
+# lo.sslConfiguration = slef-signed
+        tlsport: 443
+        targetPort: 3000
+  scenario:
+    enabled: true
+    metadata:
+      name: scenario-svc
+
+      annotations: {}
+      # alb.ingress.kubernetes.io/scheme: internet-facing, 
+      # alb.ingress.kubernetes.io/tags: 'Environment=dev,Team=test'      
+
+    spec:
+      selector: 
+        app: scenario
+      type: ClusterIP
+      ports:
+        protocol: TCP
+# lo.sslConfiguration = none
+        port: 80
+# lo.sslConfiguration = slef-signed
+        tlsport: 443
+        targetPort: 3000
+  businessgrammar:
+    enabled: true
+    metadata:
+      name: businessgrammar-svc
+
+      annotations: {}
+      # alb.ingress.kubernetes.io/scheme: internet-facing, 
+      # alb.ingress.kubernetes.io/tags: 'Environment=dev,Team=test'      
+
+    spec:
+      selector: 
+        app: businessgrammar
+      type: ClusterIP
+      ports:
+        protocol: TCP
+# lo.sslConfiguration = none
+        port: 80
+# lo.sslConfiguration = slef-signed
+        tlsport: 443
+        targetPort: 3000
+
+  dyk:
+    enabled: true
+    metadata:
+      name: dyk-svc
+
+      annotations: {}
+      # alb.ingress.kubernetes.io/scheme: internet-facing, 
+      # alb.ingress.kubernetes.io/tags: 'Environment=dev,Team=test'      
+
+    spec:
+      selector: 
+        app: dyk
+      type: ClusterIP
+      ports:
+        protocol: TCP
+# lo.sslConfiguration = none
+        port: 80
+# lo.sslConfiguration = slef-signed
+        tlsport: 443
+        targetPort: 3000
+  wdc:
+    enabled: true
+    metadata:
+      name: wdc-svc
+
+      annotations: {}
+      # alb.ingress.kubernetes.io/scheme: internet-facing, 
+      # alb.ingress.kubernetes.io/tags: 'Environment=dev,Team=test'      
+
+    spec:
+      selector: 
+        app: wdc
+      type: ClusterIP
+      ports:
+        protocol: TCP
+# lo.sslConfiguration = none
+        port: 80
+# lo.sslConfiguration = slef-signed
+        tlsport: 443
+        targetPort: 3000
+  discoveryautojoin:
+    enabled: true
+    metadata:
+      name: discoveryautojoin-svc
+
+      annotations: {}
+      # alb.ingress.kubernetes.io/scheme: internet-facing, 
+      # alb.ingress.kubernetes.io/tags: 'Environment=dev,Team=test'      
+
+    spec:
+      selector: 
+        app: discoveryautojoin
+      type: ClusterIP
+      ports:
+        protocol: TCP
+# lo.sslConfiguration = none
+        port: 80
+# lo.sslConfiguration = slef-signed
+        tlsport: 443
+        targetPort: 3000
+  documentation:
+    enabled: true
+    metadata:
+      name: documentation-svc
+
+      annotations: {}
+      # alb.ingress.kubernetes.io/scheme: internet-facing, 
+      # alb.ingress.kubernetes.io/tags: 'Environment=dev,Team=test'      
+
+    spec:
+      selector: 
+        app: documentation
+      type: ClusterIP
+      ports:
+        protocol: TCP
+# lo.sslConfiguration = none
+        port: 80
+# lo.sslConfiguration = slef-signed
+        tlsport: 443
+        targetPort: 3000
+  extensions:
+    enabled: true
+    metadata:
+      name: extensions-svc
+
+      annotations: {}
+      # alb.ingress.kubernetes.io/scheme: internet-facing, 
+      # alb.ingress.kubernetes.io/tags: 'Environment=dev,Team=test'      
+
+    spec:
+      selector: 
+        app: extensions
+      type: ClusterIP
+      ports:
+        protocol: TCP
+# lo.sslConfiguration = none
+        port: 80
+# lo.sslConfiguration = slef-signed
+        tlsport: 443
+        targetPort: 3000
+
+  dashboards:
+    enabled: true
+    metadata:
+      name: dashboards-svc
+
+      annotations: {}
+      # alb.ingress.kubernetes.io/scheme: internet-facing, 
+      # alb.ingress.kubernetes.io/tags: 'Environment=dev,Team=test'      
+
+    spec:
+      selector: 
+        app: dashboards
+      type: ClusterIP
+      ports:
+        protocol: TCP
+# lo.sslConfiguration = none
+        port: 80
+# lo.sslConfiguration = slef-signed
+        tlsport: 443
+        targetPort: 3000
+
+  storytelling:
+    enabled: true
+    metadata:
+      name: storytelling-svc
+
+      annotations: {}
+      # alb.ingress.kubernetes.io/scheme: internet-facing, 
+      # alb.ingress.kubernetes.io/tags: 'Environment=dev,Team=test'      
+
+    spec:
+      selector: 
+        app: storytelling
+      type: ClusterIP
+      ports:
+        protocol: TCP
+# lo.sslConfiguration = none
+        port: 80
+# lo.sslConfiguration = slef-signed
+        tlsport: 443
+        targetPort: 3000
+  workschedule:
+    enabled: true
+    metadata:
+      name: workschedule-svc
+
+      annotations: {}
+      # alb.ingress.kubernetes.io/scheme: internet-facing, 
+      # alb.ingress.kubernetes.io/tags: 'Environment=dev,Team=test'      
+
+    spec:
+      selector: 
+        app: workschedule
+      type: ClusterIP
+      ports:
+        protocol: TCP
+# lo.sslConfiguration = none
+        port: 80
+# lo.sslConfiguration = slef-signed
+        tlsport: 443
+        targetPort: 3000
+  learningcenterautojoin:
+    enabled: true
+    metadata:
+      name: learningcenterautojoin-svc
+
+      annotations: {}
+      # alb.ingress.kubernetes.io/scheme: internet-facing, 
+      # alb.ingress.kubernetes.io/tags: 'Environment=dev,Team=test'      
+
+    spec:
+      selector: 
+        app: learningcenterautojoin
+      type: ClusterIP
+      ports:
+        protocol: TCP
+# lo.sslConfiguration = none
+        port: 80
+# lo.sslConfiguration = slef-signed
+        tlsport: 443
+        targetPort: 3000
+
+  jobscheduler:
+    enabled: true
+    metadata:
+      name: jobscheduler-svc
+
+      annotations: {}
+      # alb.ingress.kubernetes.io/scheme: internet-facing, 
+      # alb.ingress.kubernetes.io/tags: 'Environment=dev,Team=test'      
+
+    spec:
+      selector: 
+        app: jobscheduler
+      type: ClusterIP
+      ports:
+        protocol: TCP
+# lo.sslConfiguration = none
+        port: 80
+# lo.sslConfiguration = slef-signed
+        tlsport: 443
+        targetPort: 3000
+
+
+  license:
+    enabled: true
+    metadata:
+      name: license-svc
+
+      annotations: {}
+      # alb.ingress.kubernetes.io/scheme: internet-facing, 
+      # alb.ingress.kubernetes.io/tags: 'Environment=dev,Team=test'      
+
+    spec:
+      selector: 
+        app: license
+      type: ClusterIP
+      ports:
+        protocol: TCP
+        port: 3000
+        tlsport: 443
+        targetPort: 3000
+
+loServer:
+  ## Live Objects server passwords using existing secret
+  existingSecret: lologin
+  ## Existing LO password
+  ## set to null to generate a new random password 
+  ## 
+  user:
+    adminPassword: null
+    license_adminPassword: null
+    rootPassword: null
+    system_adminPassword: null
+    
+  password:
+    length: 20
+    
+## Configuration values for the PostgreSQL server.
+postgresql:
+  image: liveobjects/postgres:D-develop
+
+  exporter:
+    image: gcr.io/cloud-marketplace/google/gitlab/postgresql-exporter:12.9
+
+  cpu: 1000m
+  memory: 1Gi
+
+  username: liveobjects
+
+  ## Existing postgreSQL password
+  ## set to null to generate a new random password 
+  ## 
+  postgresqlPassword: null
+  
+  password:
+    length: 20
+
+  ## PostgreSQL password using existing secret
+  existingSecret: postgreslogin
+
+  postgresDatabase: liveobjects
+
+  persistence:
+    size: 8Gi
+
+metrics:
+  image: null
+  exporter:
+    enabled: false
+  
+persistence:
+  storageClass: standard
+  accessMode: ReadWriteOnce

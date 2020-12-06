@@ -1,0 +1,97 @@
+{{- if .Values.persistence.enabled }}
+  {{- if .Values.persistence.backend.logs.pv.enabled }}
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: {{ .Release.Namespace }}-{{ .Values.persistence.backend.logs.pv.metadata.name }}
+  labels:
+    app.kubernetes.io/managed-by: helm
+    app.kubernetes.io/name: {{ .Chart.Name }}
+    app.kubernetes.io/version: {{ .Chart.Version }}
+    app.kubernetes.io/appVersion: {{ .Chart.AppVersion }}
+    app.kubernetes.io/component: pv
+    app.kubernetes.io/helm-application: {{ .Release.Name }}
+    app.kubernetes.io/namespace: {{ .Release.Namespace }}
+    app.kubernetes.io/track: {{ .Values.global.labels.track | quote }}
+spec:
+  storageClassName: ""
+  capacity:
+      storage: 50Gi
+  accessModes:
+    - ReadWriteOnce
+    {{- if eq .Values.persistence.persistensDisk "gcePersistentDisk"}}
+  gcePersistentDisk:
+    pdName: {{ .Release.Namespace }}-{{ .Values.persistence.backend.logs.pv.spec.gcePersistentDisk.pdName}}
+    fsType: {{ .Values.persistence.backend.logs.pv.spec.gcePersistentDisk.fsType}}
+    {{- end }}
+    {{- if eq .Values.persistence.persistensDisk "awsElasticBlockStore"}}
+  awsElasticBlockStore:
+    volumeID: {{ .Values.persistence.backend.logs.pv.spec.awsElasticBlockStore.volumeID}}
+    fsType: {{ .Values.persistence.backend.logs.pv.spec.awsElasticBlockStore.fsType}}
+    {{- end }}
+    {{- if eq .Values.persistence.persistensDisk "elasticFileSystem"}}
+  elasticFileSystem:
+    server: {{ .Values.persistence.backend.logs.pv.spec.elasticFileSystem.server}}
+    path: {{ .Values.persistence.backend.logs.pv.spec.elasticFileSystem.path}}
+    {{- end }}
+    {{- if eq .Values.persistence.persistensDisk "azureDisk"}}
+  azureDisk:
+    diskName: {{ .Values.persistence.backend.logs.pv.spec.azureDisk.diskName}}
+    diskURI: {{ .Values.persistence.backend.logs.pv.spec.azureDisk.diskURI}}
+    {{- end }}
+    {{- if eq .Values.persistence.persistensDisk "azureFileStorage"}}
+  azureFileStorage:
+    secretName: {{ .Values.persistence.backend.logs.pv.spec.azureFileStorage.secretName}}
+    shareName: {{ .Values.persistence.backend.logs.pv.spec.azureFileStorage.shareName}}
+    readOnly: {{ .Values.persistence.backend.logs.pv.spec.azureFileStorage.readOnly}}
+    {{- end }}
+  {{- end }}
+---
+  {{- if .Values.persistence.backend.data.pv.enabled }}
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: {{ .Release.Namespace }}-{{ .Values.persistence.backend.data.pv.metadata.name }}
+  labels:
+    app.kubernetes.io/managed-by: helm
+    app.kubernetes.io/name: {{ .Chart.Name }}
+    app.kubernetes.io/version: {{ .Chart.Version }}
+    app.kubernetes.io/appVersion: {{ .Chart.AppVersion }}
+    app.kubernetes.io/component: secret
+    app.kubernetes.io/helm-application: {{ .Release.Name }}
+    track: "stable"
+spec:
+  storageClassName: ""
+  capacity:
+    storage: 100G
+  accessModes:
+    - ReadWriteOnce
+    {{- if eq .Values.persistence.persistensDisk "gcePersistentDisk"}}
+  gcePersistentDisk:
+    pdName: {{ .Release.Namespace }}-{{ .Values.persistence.backend.data.pv.spec.gcePersistentDisk.pdName}}
+    fsType: {{ .Values.persistence.backend.data.pv.spec.gcePersistentDisk.fsType}}
+    {{- end }}
+    {{- if eq .Values.persistence.persistensDisk "awsElasticBlockStore"}}
+  awsElasticBlockStore:
+    volumeID: {{ .Values.persistence.backend.data.pv.spec.awsElasticBlockStore.volumeID}}
+    fsType: {{ .Values.persistence.backend.data.pv.spec.awsElasticBlockStore.fsType}}
+    {{- end }}
+    {{- if eq .Values.persistence.persistensDisk "elasticFileSystem"}}
+  elasticFileSystem:
+    server: {{ .Values.persistence.backend.data.pv.spec.elasticFileSystem.server}}
+    path: {{ .Values.persistence.backend.data.pv.spec.elasticFileSystem.path}}
+        {{- end }}
+        {{- if eq .Values.persistence.persistensDisk "azureDisk"}}
+      azureDisk:
+        diskName: {{ .Values.persistence.backend.data.pv.spec.azureDisk.diskName}}
+        diskURI: {{ .Values.persistence.backend.data.pv.spec.azureDisk.diskURI}}
+      {{- end }}
+      {{- if eq .Values.persistence.persistensDisk "azureFileStorage"}}
+    azureFileStorage:
+      secretName: {{ .Values.persistence.backend.data.pv.spec.azureFileStorage.secretName}}
+      shareName: {{ .Values.persistence.backend.data.pv.spec.azureFileStorage.shareName}}
+      readOnly: {{ .Values.persistence.backend.data.pv.spec.azureFileStorage.readOnly}}
+    {{- end }}
+  {{- end }}
+{{- end }}

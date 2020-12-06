@@ -1,0 +1,38 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Release.Name }}-postgresql-svc
+  labels: &PostgreSQLLabels
+    app.kubernetes.io/name: {{ .Release.Name }}
+    app.kubernetes.io/component: postgresql-server
+    app.kubernetes.io/managed-by: helm
+    app.kubernetes.io/name: {{ .Chart.Name }}
+    app.kubernetes.io/version: {{ .Chart.Version }}
+    app.kubernetes.io/appVersion: {{ .Chart.AppVersion }}
+    app.kubernetes.io/component: secret
+    app.kubernetes.io/helm-application: {{ .Release.Name }}
+    app.kubernetes.io/namespace: {{ .Release.Namespace }}
+    app.kubernetes.io/track: {{ .Values.global.labels.track | quote }}
+
+spec:
+  ports:
+  - name: postgres
+    port: 5432
+    targetPort: 5432
+  selector: *PostgreSQLLabels
+  type: ClusterIP
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: {{ .Release.Name }}-postgresql-exporter-svc
+  labels: &PostgreSQLLabels
+    app.kubernetes.io/name: {{ .Release.Name }}
+    app.kubernetes.io/component: postgresql-server
+spec:
+  ports:
+  - name: prometheus-exporter
+    port: 9187
+  selector: *PostgreSQLLabels
+  type: ClusterIP

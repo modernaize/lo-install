@@ -1,0 +1,23 @@
+{{- if .Values.services.autojoin.enabled }}
+kind: Service
+apiVersion: v1
+metadata:
+  name: {{ .Release.Name }}-{{ .Values.services.autojoin.metadata.name }}
+  labels:
+    app.kubernetes.io/managed-by: helm
+    app.kubernetes.io/name: {{ .Chart.Name }}
+    app.kubernetes.io/version: {{ .Chart.Version }}
+    app.kubernetes.io/appVersion: {{ .Chart.AppVersion }}
+    app.kubernetes.io/component: secret
+    app.kubernetes.io/helm-application: {{ .Release.Name }}
+    app.kubernetes.io/namespace: {{ .Release.Namespace }}
+    app.kubernetes.io/track: {{ .Values.global.labels.track | quote }}
+spec:
+  selector:
+    app: {{ .Values.services.autojoin.spec.selector.app }}
+  ports:
+  - protocol: {{ .Values.services.autojoin.spec.ports.protocol }}
+    port: {{ .Values.services.autojoin.spec.ports.port }}
+    targetPort: {{ .Values.services.autojoin.spec.ports.targetPort }}
+  type: {{ .Values.services.autojoin.spec.type }}
+{{- end }}

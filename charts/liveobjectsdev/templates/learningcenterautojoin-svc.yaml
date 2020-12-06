@@ -1,0 +1,40 @@
+{{- if .Values.services.learningcenterautojoin.enabled }}
+kind: Service
+apiVersion: v1
+metadata:
+  name: {{ .Release.Name }}-{{ .Values.services.learningcenterautojoin.metadata.name }}
+  annotations:
+    external-dns.alpha.kubernetes.io/hostname: test.liveobjects.online
+  labels:
+    app.kubernetes.io/managed-by: helm
+    app.kubernetes.io/name: {{ .Chart.Name }}
+    app.kubernetes.io/version: {{ .Chart.Version }}
+    app.kubernetes.io/appVersion: {{ .Chart.AppVersion }}
+    app.kubernetes.io/component: secret
+    app.kubernetes.io/helm-application: {{ .Release.Name }}
+    app.kubernetes.io/namespace: {{ .Release.Namespace }}
+    app.kubernetes.io/track: {{ .Values.global.labels.track | quote }}
+spec:
+  selector:
+    app: {{ .Release.Name }}-{{ .Values.services.learningcenterautojoin.spec.selector.app }}
+  ports:
+  - protocol: {{ .Values.services.learningcenterautojoin.spec.ports.protocol }}
+  ## [none] SSL - disabled
+  ## [lets-encrypt] The Let's Encrypt certificate is generated
+  ## [self-signed] Custom self-signed certificates will be installed on Live Objects instance
+    {{- if or (eq (lower .Values.lo.sslConfiguration ) "none") (eq (lower .Values.lo.sslConfiguration ) "lets-encrypt")  }}
+    port: {{ .Values.services.learningcenterautojoin.spec.ports.port }}
+    {{- else }}
+    port: {{ .Values.services.learningcenterautojoin.spec.ports.tlsport }}
+    {{- end }}
+    targetPort: {{ .Values.services.learningcenterautojoin.spec.ports.targetPort }}
+  # If domain name is not set Live Objects instance will be configured with automatically provided external IP.
+  {{- if .Values.ingress.tls.host }}
+  type: {{ .Values.services.learningcenterautojoin.spec.type }}
+  {{- else }}
+  type: LoadBalancer
+  {{- end }}
+
+
+{{- end }}
+

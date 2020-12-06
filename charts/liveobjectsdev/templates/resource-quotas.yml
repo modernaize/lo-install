@@ -1,0 +1,24 @@
+#
+# When you want to ensure that all Kubernetes tenants have fair access to the resources that they need, 
+# Resource Quotas are the solution to use. As the name of this feature implies, it lets you set quotas on 
+# how much CPU, storage, memory, and other resources can be consumed by all pods within a namespace.
+#
+{{- if .Values.global.resourceQuotas }}
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: mem-cpu-demo
+  labels:
+    app.kubernetes.io/managed-by: helm
+    app.kubernetes.io/name: {{ .Chart.Name }}
+    app.kubernetes.io/version: {{ .Chart.Version }}
+    app.kubernetes.io/appVersion: {{ .Chart.AppVersion }}
+    app.kubernetes.io/component: secret
+    app.kubernetes.io/helm-application: {{ .Release.Name }}
+    app.kubernetes.io/namespace: {{ .Release.Namespace }}
+    track: "stable"
+spec:
+  hard:
+    requests.cpu: "1"
+    limits.cpu: "2"
+{{- end }}

@@ -1,0 +1,32 @@
+{{- if eq (lower .Values.lo.sslConfiguration) "lets-encrypt" }}
+apiVersion: cert-manager.io/v1alpha2
+kind: ClusterIssuer
+metadata:
+  name: {{ .Release.Namespace }}-{{ .Values.certManager.ca.name }}-{{ .Values.certManager.letsencrypt.env }}
+  labels:
+    app.kubernetes.io/managed-by: helm
+    app.kubernetes.io/name: {{ .Chart.Name }}
+    app.kubernetes.io/version: {{ .Chart.Version }}
+    app.kubernetes.io/appVersion: {{ .Chart.AppVersion }}
+    app.kubernetes.io/component: secret
+    app.kubernetes.io/helm-application: {{ .Release.Name }}
+    app.kubernetes.io/namespace: {{ .Release.Namespace }}
+    app.kubernetes.io/track: {{ .Values.global.labels.track | quote }}
+spec:
+  acme:
+    {{- if eq .Values.certManager.letsencrypt.env "prod" }}
+    server: {{ .Values.certManager.letsencrypt.spec.acme.serverProd }}
+    {{- else }}
+    server: {{ .Values.certManager.letsencrypt.spec.acme.serverStaging }}
+    {{- end }}
+    # Email address used for ACME registration
+    email: {{ .Values.certManager.letsencrypt.spec.acme.email }}
+    privateKeySecretRef:
+      # Name of a secret used to store the ACME account private key
+      name: {{ .Release.Namespace }}-{{ .Values.certManager.ca.name }}-{{ .Values.certManager.letsencrypt.env }}
+    # Add a single challenge solver, HTTP01 using nginx
+    solvers:
+    - http01:
+        ingress:
+          class:  nginx 
+{{- end }}

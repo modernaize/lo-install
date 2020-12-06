@@ -1,0 +1,125 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-{{ .Values.deployment.backend.metadata.name }}
+  labels:
+    app.kubernetes.io/managed-by: helm
+    app.kubernetes.io/name: {{ .Chart.Name }}
+    app.kubernetes.io/version: {{ .Chart.Version }}
+    app.kubernetes.io/appVersion: {{ .Chart.AppVersion }}
+    app.kubernetes.io/component: secret
+    app.kubernetes.io/helm-application: {{ .Release.Name }}
+    app.kubernetes.io/namespace: {{ .Release.Namespace }}
+    app.kubernetes.io/track: {{ .Values.global.labels.track | quote }}
+spec:
+  replicas: {{ .Values.deployment.backend.spec.replicas }}
+  selector:
+    matchLabels:
+      app: backend
+  template:
+    metadata:
+      labels:
+        app: backend
+    spec:
+      volumes:
+      - name: keys-volume
+        configMap:
+          name: {{ .Release.Name }}-tls-keys
+      {{- if .Values.persistence.enabled }}
+        {{- if .Values.persistence.backend.data.enabled }}
+      - name: backend-data-persistent-storage
+        persistentVolumeClaim:
+          claimName: {{ .Release.Namespace }}-backend-data-volumeclaim
+        {{- end }}
+        {{- if .Values.persistence.backend.logs.enabled }}
+      - name: backend-logs-persistent-storage
+          {{- if eq .Values.persistence.backend.logs.volumeType "hostPath"}}
+        hostPath:
+          path: {{ .Values.persistence.backend.logs.hostPath }}
+          {{- end}}
+          {{- if eq .Values.persistence.backend.logs.volumeType "persistentVolumeClaim"}}
+        persistentVolumeClaim:
+          claimName: {{ .Release.Namespace }}-backend-logs-volumeclaim
+          {{- end }}
+        {{- end }}
+      {{- end }}
+      initContainers:
+      - name: check-db-ready
+        image: {{ .Values.postgresql.image }}
+        command: ['sh', '-c', 
+          'sleep 60']
+      containers:
+      - name: backend
+        image: {{ .Values.deployment.backend.container.registry }}:{{ .Values.deployment.backend.container.tag }}
+        imagePullPolicy: {{ .Values.deployment.backend.container.imagePullPolicy }}
+        resources:
+          requests:
+            cpu: {{ .Values.deployment.backend.container.resources.requests.cpu }}
+            memory: {{ .Values.deployment.backend.container.resources.requests.memory }}
+        ports:
+        - containerPort: {{ .Values.deployment.backend.container.ports.containerPort }}
+        env:
+        - name: DB_HOST
+          value: "{{ .Release.Name }}-{{ .Values.services.postgres.metadata.name }}"
+        - name: LEARN_HOST
+          value: "{{ .Release.Name }}-{{ .Values.services.learn.metadata.name }}"
+        - name: DEPLOYMENT_DOMAIN_NAME
+          value: {{ .Values.ingress.tls.host }}
+        - name: POSTGRES_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: {{ .Release.Name }}-{{ template "postgresql.secretName" . }}
+              key: password
+        - name: ADMIN_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: {{ .Release.Name }}-{{ template "loServer.secretName" . }}
+              key: adminPassword  
+        - name: ROOT_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: {{ .Release.Name }}-{{ template "loServer.secretName" . }}
+              key: rootPassword  
+        - name: SYSTEM_ADMIN_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: {{ .Release.Name }}-{{ template "loServer.secretName" . }}
+              key: system_adminPassword
+        - name: LICENSE_ADMIN_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: {{ .Release.Name }}-{{ template "loServer.secretName" . }}
+              key: license_adminPassword    
+        volumeMounts:
+        - name: keys-volume # configMaps
+          mountPath: /opt/node/keys/tls
+        {{- if .Values.persistence.enabled }}
+          {{- if .Values.persistence.backend.data.enabled }}
+        - name: backend-data-persistent-storage
+          mountPath:/mnt/uploads
+        - name: backend-data-persistent-storage
+          mountPath: /mnt/data
+          {{- end }}
+          {{- if .Values.persistence.backend.logs.enabled }}
+        - name: backend-logs-persistent-storage
+          mountPath: /mnt/logs
+          {{- end }}
+        {{- end }}
+        readinessProbe:
+          httpGet:
+            path: /actuator/health/readiness
+            port: {{ .Values.deployment.backend.container.ports.containerPort }}
+          initialDelaySeconds: 40
+          timeoutSeconds: 2
+          periodSeconds: 3
+          failureThreshold: 2
+        livenessProbe:
+          httpGet:
+              path: /actuator/health/liveness
+              port: {{ .Values.deployment.backend.container.ports.containerPort }}
+          initialDelaySeconds: 100
+          timeoutSeconds: 2
+          periodSeconds: 8
+          failureThreshold: 1
+      imagePullSecrets:
+      - name: {{ .Release.Name }}-{{ .Values.secrets.registry.imagePullSecrets }}
