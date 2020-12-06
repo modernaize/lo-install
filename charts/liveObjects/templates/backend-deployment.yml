@@ -26,11 +26,11 @@ spec:
         configMap:
           name: {{ .Release.Name }}-tls-keys
       {{- if .Values.persistence.enabled }}
-        {{- if .Values.persistence.backend.data.enabled }}
+        #{{- if .Values.persistence.backend.data.enabled }}
       - name: backend-data-persistent-storage
         persistentVolumeClaim:
           claimName: {{ .Release.Namespace }}-backend-data-volumeclaim
-        {{- end }}
+        #{{- end }}
         {{- if .Values.persistence.backend.logs.enabled }}
       - name: backend-logs-persistent-storage
           {{- if eq .Values.persistence.backend.logs.volumeType "hostPath"}}
@@ -94,16 +94,32 @@ spec:
         - name: keys-volume # configMaps
           mountPath: /opt/node/keys/tls
         {{- if .Values.persistence.enabled }}
-          {{- if .Values.persistence.backend.data.enabled }}
+          #{{- if .Values.persistence.backend.data.enabled }}
         - name: backend-data-persistent-storage
           mountPath: /mnt/uploads
         - name: backend-data-persistent-storage
           mountPath: /mnt/data
-          {{- end }}
+          #{{- end }}
           {{- if .Values.persistence.backend.logs.enabled }}
         - name: backend-logs-persistent-storage
           mountPath: /mnt/logs
           {{- end }}
         {{- end }}
+        readinessProbe:
+          httpGet:
+            path: /actuator/health/readiness
+            port: { { .Values.deployment.backend.container.ports.containerPort } }
+          initialDelaySeconds: 40
+          timeoutSeconds: 2
+          periodSeconds: 3
+          failureThreshold: 2
+        livenessProbe:
+          httpGet:
+            path: /actuator/health/liveness
+            port: { { .Values.deployment.backend.container.ports.containerPort } }
+          initialDelaySeconds: 100
+          timeoutSeconds: 2
+          periodSeconds: 8
+          failureThreshold: 1
       imagePullSecrets:
       - name: {{ .Release.Name }}-{{ .Values.secrets.registry.imagePullSecrets }}
