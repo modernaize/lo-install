@@ -462,7 +462,7 @@ deployment:
 # Persistence Volumes
 
 persistence:
-  enabled: false
+  enabled: true
   persistensDisk: gcePersistentDisk
       
   # Live objects persistence
