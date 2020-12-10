@@ -265,6 +265,39 @@ Make sure that you have sudo rights to execute the script without adding sudo to
 
 Switch to your installation directory
 
+### Renew Letsencrypt License
+
+If you didn't choose Cretbot to automatically renew the licenses and you used the Letsencrypt for generating licenses from prior steps, you can take the following steps to renew the licenses:
+
+1. Tear down the running docker containers
+
+```
+docker-compose down
+```
+2. Rename and save the current docker-compose file
+
+```
+ mv docker-compose.yml docker-compose.yml.b4.cert.update. (absolutely necessary)
+```
+3. run below command to retrieve a new set of certificates (this is the same command that was used in **Configure The Platform** section above)
+
+```
+sudo ./getCertificate.sh --domains test1.modernaize.dev --email info@modernaize.dev --data-path ./webserver/certbot --staging 0
+```
+
+4. Select option 2 to remove existing certificates and create new ones, this will create a new docker-compose.yml file (we can make a copy of the certificates as well in case anything unexpected happens)
+5. After new certificates were created rename the prior docker-compose file to the main docker-compose.yml in the directory 
+
+```
+mv docker-compose docker-compose.yml.cert.update
+```
+
+5. Start the containers similar to what we did in **Provision Live Objects** section
+
+```
+$ export TOKEN=eb76b357-cb60-4dae-8d4f-be8f14a7b5ac  && ./start.sh
+```
+
 ### Upgrade the installer]
 
 #### Latest version
