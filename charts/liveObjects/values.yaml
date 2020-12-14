@@ -444,7 +444,7 @@ deployment:
       name: autojoin-svc-deployment
     container:
       registry: liveobjects/autojoin
-      tag: "R-2020.4.0"
+      tag: "F-lo-1322-debug"
       # Always IfNotPresent
       imagePullPolicy: "Always"
       resources:
